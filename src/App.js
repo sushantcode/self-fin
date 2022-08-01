@@ -1,13 +1,31 @@
-import React from 'react';
-import { Container } from 'react-bootstrap';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Titlebar from './titlebar/Titlebar';
+import React from "react";
+import { Container } from "react-bootstrap";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Dashboard from "./components/dashboard/Dashboard";
+import Expense from "./components/pages/expense/Expense";
+import Home from "./components/pages/home/Home";
+import Income from "./components/pages/income/Income";
+import Investments from "./components/pages/investments/Investments";
+import Loan from "./components/pages/loan/Loan";
+import Report from "./components/pages/report/Report";
+import Savings from "./components/pages/savings/Savings";
+import Titlebar from "./components/titlebar/Titlebar";
 
 function App() {
   return (
     <Router>
-      <Container fluid>
-        <Titlebar />
+      <Titlebar />
+      <Container>
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/expense" element={<Expense />} />
+          <Route path="/income" element={<Income />} />
+          <Route path="/loan" element={<Loan />} />
+          <Route path="/savings" element={<Savings />} />
+          <Route path="/investments" element={<Investments />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/report" element={<Report />} />
+        </Routes>
       </Container>
     </Router>
   );
