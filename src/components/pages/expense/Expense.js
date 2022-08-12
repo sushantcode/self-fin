@@ -20,43 +20,43 @@ const Expense = () => {
 
   const loadExpenses = () => {
     // TODO: Remove these two lines
-    setExpenseList(data.expense);
-    setVisibleExpenseList(!visibleExpenseList);
+    // setExpenseList(data.expense);
+    // setVisibleExpenseList(!visibleExpenseList);
 
-    //   if (visibleExpenseList) {
-    //     setVisibleExpenseList(!visibleExpenseList);
-    //     return;
-    //   } else if (
-    //     expenseList &&
-    //     expenseList[0].date.substring(0, 7) === yearMonth.substring(0, 7)
-    //   ) {
-    //     setVisibleExpenseList(!visibleExpenseList);
-    //     return;
-    //   }
-    //   setPollingError("");
-    //   setLoading(true);
-    //   getData(tableNames.EXPENSE, yearMonth)
-    //     .then((response) => {
-    //       handleResponse(response);
-    //       setVisibleExpenseList(!visibleExpenseList);
-    //       setLoading(false);
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //       setPollingError("Error occured while polling data!!!");
-    //       setLoading(false);
-    //     });
+    if (visibleExpenseList) {
+      setVisibleExpenseList(!visibleExpenseList);
+      return;
+    } else if (
+      expenseList &&
+      expenseList[0].date.substring(0, 7) === yearMonth.substring(0, 7)
+    ) {
+      setVisibleExpenseList(!visibleExpenseList);
+      return;
+    }
+    setPollingError("");
+    setLoading(true);
+    getData(tableNames.EXPENSE, yearMonth)
+      .then((response) => {
+        handleResponse(response);
+        setVisibleExpenseList(!visibleExpenseList);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setPollingError("Error occured while polling data!!!");
+        setLoading(false);
+      });
   };
 
-  // const handleResponse = (response) => {
-  //   console.log(response.Count + " items retrieved.");
-  //   if (response.Count > 0) {
-  //     const decryptedData = decrypt(response.Items[0].item, getPassword());
-  //     setExpenseList(decryptedData);
-  //   } else {
-  //     setExpenseList(null);
-  //   }
-  // };
+  const handleResponse = (response) => {
+    console.log(response.Count + " items retrieved.");
+    if (response.Count > 0) {
+      const decryptedData = decrypt(response.Items[0].item, getPassword());
+      setExpenseList(decryptedData);
+    } else {
+      setExpenseList(null);
+    }
+  };
 
   return (
     <Row className="mt-4 mb-4">

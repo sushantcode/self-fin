@@ -12,8 +12,7 @@ const configuration = {
 
 const docClient = new AWS.DynamoDB.DocumentClient(configuration);
 
-export const putData = (tableName, data) => {
-  const hashKey = data[0].date.substring(0, 7);
+export const putData = (tableName, hashKey, data) => {
   const encryptedData = encrypt(data, getPassword());
   const recordToBeAdded = {
     year_month: hashKey,
