@@ -2,7 +2,7 @@ export const data = {
   expense: [
     {
       category: "Grocery",
-      date: "2022-07-01",
+      date: "2022-08-01",
       location: "Walmart",
       amount: "95.00",
       payment_method: "Discover",
@@ -10,7 +10,7 @@ export const data = {
     },
     {
       category: "Grocery",
-      date: "2022-07-01",
+      date: "2022-08-01",
       location: "Walmart",
       amount: "95.00",
       payment_method: "Discover",
@@ -18,39 +18,7 @@ export const data = {
     },
     {
       category: "Grocery",
-      date: "2022-07-01",
-      location: "Walmart",
-      amount: "95.00",
-      payment_method: "Discover",
-      remarks: "weekly grocery",
-    },
-    {
-      category: "Grocery",
-      date: "2022-07-01",
-      location: "Walmart",
-      amount: "95.00",
-      payment_method: "Discover",
-      remarks: "weekly grocery",
-    },
-    {
-      category: "Grocery",
-      date: "2022-07-01",
-      location: "Walmart",
-      amount: "95.00",
-      payment_method: "Discover",
-      remarks: "weekly grocery",
-    },
-    {
-      category: "Grocery",
-      date: "2022-07-01",
-      location: "Walmart",
-      amount: "95.00",
-      payment_method: "Discover",
-      remarks: "weekly grocery",
-    },
-    {
-      category: "Grocery",
-      date: "2022-07-01",
+      date: "2022-08-01",
       location: "Walmart",
       amount: "95.00",
       payment_method: "Discover",

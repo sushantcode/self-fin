@@ -18,6 +18,8 @@ import {
   FormControl,
   InputGroup,
 } from "react-bootstrap";
+import { putData } from "../../../utils/DDBClients";
+import { tableNames } from "../../../utils/Constants";
 
 const AddExpense = (props) => {
   const [expenseList, setExpenseList] = props.expenseState;
@@ -27,6 +29,23 @@ const AddExpense = (props) => {
   const [amount, setAmount] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("Discover");
   const [remarks, setRemarks] = useState("");
+  const [uploading, setUploading] = useState(false);
+  const [error, setError] = useState("");
+
+  const uploadData = async (data) => {
+    await putData(tableNames.EXPENSE, data)
+      .then(() => {
+        console.log("Success");
+        setError("");
+      })
+      .catch((err) => {
+        console.log(err);
+        setError("Error occured!");
+      })
+      .finally(() => {
+        setUploading(false);
+      });
+  };
 
   const resetForm = () => {
     setCategory("");
@@ -39,6 +58,7 @@ const AddExpense = (props) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    setUploading(true);
     const newExpense = {
       category: category,
       date: date,
@@ -50,6 +70,7 @@ const AddExpense = (props) => {
     let currExpenseList = [...expenseList];
     currExpenseList.push(newExpense);
     setExpenseList(currExpenseList);
+    uploadData(currExpenseList);
     resetForm();
   };
 
@@ -185,6 +206,12 @@ const AddExpense = (props) => {
         </Form>
       </Card.Body>
       <Card.Footer className="py-3" style={{ textAlign: "right" }}>
+        {uploading && <div className="me-3 spinner-border" role="status"></div>}
+        {error.length !== 0 && (
+          <Form.Text className="me-4" muted>
+            <span className="text-danger">{error}</span>
+          </Form.Text>
+        )}
         <Button
           className="me-3"
           size="sm"
@@ -194,7 +221,8 @@ const AddExpense = (props) => {
           disabled={
             category.length === 0 ||
             location.length === 0 ||
-            amount.length === 0
+            amount.length === 0 ||
+            uploading
           }
         >
           <FontAwesomeIcon icon={faUpload} /> Submit

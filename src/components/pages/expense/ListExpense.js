@@ -10,7 +10,7 @@ const ListExpense = ({ expenseList }) => {
           <th>Category</th>
           <th>Date</th>
           <th>Location</th>
-          <th>Amount {"($)"}</th>
+          <th>Amount ($) </th>
           <th>Payment Method</th>
           <th>Remarks</th>
         </tr>

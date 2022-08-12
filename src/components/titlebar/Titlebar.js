@@ -1,5 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import {
+  faBank,
+  faCalendar,
+  faCircleInfo,
+  faDollar,
+  faLocation,
+  faRefresh,
+  faUndo,
+  faUpload,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Titlebar = () => {
   const location = useLocation();
@@ -56,6 +67,13 @@ const Titlebar = () => {
         </Link>
         <div className="row d-flex">
           <div className="col justify-content-center text-light">
+            {window.innerWidth < 760 && (
+              <FontAwesomeIcon
+                onClick={() => window.location.reload()}
+                icon={faRefresh}
+                className="me-3 fs-4"
+              />
+            )}
             {currPath}
           </div>
         </div>
