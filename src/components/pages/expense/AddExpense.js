@@ -8,7 +8,7 @@ import {
   faUpload,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Card,
@@ -18,67 +18,41 @@ import {
   FormControl,
   InputGroup,
 } from "react-bootstrap";
-import { getData, putData } from "../../../utils/DDBClients";
 import { tableNames } from "../../../utils/Constants";
-import { decrypt } from "../../../utils/Encryption";
-import { getPassword } from "../../../utils/Authentication";
+import useUploadRecord from "../../commons/useUploadRecord";
 
 const AddExpense = () => {
-  const [currExpenseList, setCurrExpenseList] = useState(null);
   const [category, setCategory] = useState("");
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
   const [location, setLocation] = useState("");
   const [amount, setAmount] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("Discover");
   const [remarks, setRemarks] = useState("");
-  const [uploading, setUploading] = useState(false);
-  const [error, setError] = useState("");
+  const [newExpense, setNewexpense] = useState(null);
+  const [uploadExpense, setUplaodExpense] = useState(false);
 
-  const addData = async (newExpense) => {
-    const yearMonth = newExpense.date.substring(0, 7);
-    await getData(tableNames.EXPENSE, yearMonth)
-      .then((response) => {
-        handleResponse(response, yearMonth, newExpense);
-      })
-      .catch((err) => {
-        console.log(err);
-        setError("Error occured while polling data!!!");
-        setUploading(false);
-      });
-  };
+  const [error, uploading] = useUploadRecord(
+    tableNames.EXPENSE,
+    newExpense,
+    uploadExpense
+  );
 
-  const handleResponse = (response, yearMonth, newExpense) => {
-    console.log(response.Count + " items retrieved.");
-    if (response.Count > 0) {
-      const decryptedData = decrypt(response.Items[0].item, getPassword());
-      decryptedData.push(newExpense);
-      uploadData(yearMonth, decryptedData);
+  useEffect(() => {
+    if (newExpense !== null) {
+      setUplaodExpense(true);
     } else {
-      const expList = new Array(0);
-      expList.push(newExpense);
-      uploadData(yearMonth, expList);
+      setUplaodExpense(false);
     }
-  };
+    return () => {
+      setUplaodExpense(false);
+    };
+  }, [newExpense]);
 
-  const uploadData = async (yearMonth, newExpenseList) => {
-    if (newExpenseList !== null) {
-      await putData(tableNames.EXPENSE, yearMonth, newExpenseList)
-        .then(() => {
-          console.log("Success");
-          setError("");
-        })
-        .catch((err) => {
-          console.log(err);
-          setError("Error occured!");
-        })
-        .finally(() => {
-          setUploading(false);
-        });
-    } else {
-      setError("Error occured!");
-      setUploading(false);
+  useEffect(() => {
+    if (!uploading) {
+      setNewexpense(null);
     }
-  };
+  }, [uploading]);
 
   const resetForm = () => {
     setCategory("");
@@ -91,7 +65,6 @@ const AddExpense = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    setUploading(true);
     const newExpense = {
       category: category,
       date: date,
@@ -100,7 +73,7 @@ const AddExpense = () => {
       payment_method: paymentMethod,
       remarks: remarks,
     };
-    addData(newExpense);
+    setNewexpense(newExpense);
     resetForm();
   };
 
