@@ -8,11 +8,12 @@ import useLoadRecords from "../../commons/useLoadRecords";
 import { data } from "jquery";
 
 const Expense = () => {
-  const [date, setDate] = useState(
-    new Date().toISOString().split("T")[0]
-  );
+  const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
 
-  const [setLoadData, error, loading, tableVisibility, expenseList] = useLoadRecords(tableNames.EXPENSE, date);
+  const [setLoadData, error, loading, tableVisibility, data] = useLoadRecords(
+    tableNames.EXPENSE,
+    date
+  );
 
   const loadExpenses = () => {
     setLoadData(true);
@@ -42,11 +43,7 @@ const Expense = () => {
               </Col>
             </Row>
             <Row>
-              <Col>
-                {tableVisibility && (
-                  <ListExpense expenseList={expenseList} />
-                )}
-              </Col>
+              <Col>{tableVisibility && <ListExpense expenseList={data} />}</Col>
             </Row>
           </Col>
         </Row>

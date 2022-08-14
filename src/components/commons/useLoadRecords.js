@@ -19,28 +19,25 @@ const useLoadRecords = (table, date) => {
         setTableVisibility(false);
         setLoadData(false);
         setLoading(false);
-      } else if (
-        data &&
-        data[0].date.substring(0, 7) === date.substring(0, 7)
-      ) {
+      } else if (data && data.year_month === date.substring(0, 7)) {
         setTableVisibility(true);
         setLoadData(false);
         setLoading(false);
       } else {
         //-------- TODO: Remove these lines-------
-        console.log("Data loaded.")
-        switch (table) {
-          case "expense":
-            setData(mock_data.expense);
-            setTableVisibility(true);
-            setLoading(false);
-            break;
+        // console.log("Data loaded.")
+        // switch (table) {
+        //   case "expense":
+        //     setData(mock_data.expense);
+        //     setTableVisibility(true);
+        //     setLoading(false);
+        //     break;
 
-          default:
-            break;
-        }
+        //   default:
+        //     break;
+        // }
         //----------------------------------------
-        // callGetData(table, date);
+        callGetData(table, date);
         setLoadData(false);
       }
     }
@@ -49,7 +46,7 @@ const useLoadRecords = (table, date) => {
   const callGetData = (tableName, hashKey) => {
     getData(tableName, hashKey)
       .then((response) => {
-        handleResponse(response);
+        handleResponse(response, hashKey);
         setTableVisibility(true);
         setLoading(false);
       })
@@ -60,13 +57,21 @@ const useLoadRecords = (table, date) => {
       });
   };
 
-  const handleResponse = (response) => {
+  const handleResponse = (response, hashKey) => {
     console.log(response.Count + " items retrieved.");
     if (response.Count > 0) {
       const decryptedData = decrypt(response.Items[0].item, getPassword());
-      setData(decryptedData);
+      const result = {
+        year_month: hashKey.substring(0, 7),
+        item: decryptedData,
+      };
+      setData(result);
     } else {
-      setData([]);
+      const result = {
+        year_month: hashKey.substring(0, 7),
+        item: [],
+      };
+      setData(result);
     }
   };
 

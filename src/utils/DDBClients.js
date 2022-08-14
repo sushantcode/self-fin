@@ -3,10 +3,9 @@ import { decrypt, encrypt } from "./Encryption";
 import { getPassword } from "./Authentication";
 
 const configuration = {
-  region: "decrypt(process.env.REACT_APP_AWS_REGION, getPassword())",
-  secretAccessKey:
-    "decrypt(process.env.REACT_APP_AWS_SECRETKEY, getPassword())",
-  accessKeyId: "decrypt(process.env.REACT_APP_AWS_ACCESSKEY, getPassword())",
+  region: decrypt(process.env.REACT_APP_AWS_REGION, getPassword()),
+  secretAccessKey: decrypt(process.env.REACT_APP_AWS_SECRETKEY, getPassword()),
+  accessKeyId: decrypt(process.env.REACT_APP_AWS_ACCESSKEY, getPassword()),
   correctClockSkew: true,
 };
 
@@ -27,7 +26,7 @@ export const putData = (tableName, hashKey, data) => {
 };
 
 export const getData = (tableName, date) => {
-  const hashKey = date.substring(0, 7);;
+  const hashKey = date.substring(0, 7);
   var params = {
     TableName: tableName,
     KeyConditionExpression: "year_month = :hkey",
