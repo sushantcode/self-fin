@@ -30,7 +30,7 @@ const Loan = () => {
                   onClick={loadLoanRecords}
                   disabled={loading}
                 >
-                  {tableVisibility ? "Hide Table" : "Load Expenses"}
+                  {tableVisibility ? "Hide Table" : "Load Records"}
                 </Button>
                 {loading && (
                   <div className="ms-3 spinner-border" role="status"></div>

@@ -166,7 +166,7 @@ const AddExpense = () => {
             <Form.Group as={Col} className="mb-3">
               <InputGroup>
                 <InputGroup.Text>
-                  <FontAwesomeIcon icon={faBank} className="me-2" /> Payed By
+                  <FontAwesomeIcon icon={faBank} className="me-2" /> Paid By
                 </InputGroup.Text>
                 <FormControl
                   required

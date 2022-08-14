@@ -1,9 +1,11 @@
 import {
-  faBank,
+  faAward,
+  faBuilding,
   faCalendar,
+  faChartLine,
   faCircleInfo,
   faDollar,
-  faPerson,
+  faHashtag,
   faUndo,
   faUpload,
 } from "@fortawesome/free-solid-svg-icons";
@@ -21,79 +23,132 @@ import {
 import { tableNames } from "../../../utils/Constants";
 import useUploadRecord from "../../commons/useUploadRecord";
 
-const AddNewLoan = () => {
-  const [person, setPerson] = useState("");
+const AddInvestment = () => {
+  const [broker, setBroker] = useState("Webull");
+  const [stock, setStock] = useState("");
+  const [company, setCompany] = useState("");
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
   const [amount, setAmount] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState("Chase Direct-Deposit");
+  const [units, setUnits] = useState("");
+  const [vested, setVested] = useState("Yes");
   const [remarks, setRemarks] = useState("");
-  const [newLoanRecord, setNewLoanRecord] = useState(null);
+  const [newInvestment, setNewInvestment] = useState(null);
 
   const [setAddData, error, uploading] = useUploadRecord(
-    tableNames.LOANTOFRIEND,
-    newLoanRecord
+    tableNames.INVESTMENTS,
+    newInvestment
   );
 
   useEffect(() => {
-    if (newLoanRecord !== null) {
+    if (newInvestment !== null) {
       setAddData(true);
     } else {
       setAddData(false);
     }
-
-    return () => {
-      setAddData(false);
-    };
-  }, [newLoanRecord]);
+  }, [newInvestment]);
 
   const resetForm = () => {
-    setPerson("");
+    setBroker("Webull");
+    setStock("");
+    setCompany("");
     setDate(new Date().toISOString().split("T")[0]);
     setAmount("");
-    setPaymentMethod("Discover");
+    setUnits("");
+    setVested("Yes");
     setRemarks("");
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
     const newItem = {
-      person: person,
+      broker: broker,
+      stock: stock,
+      company: company,
       date: date,
       amount: amount,
-      payment_method: paymentMethod,
+      units: units,
+      vested: vested,
       remarks: remarks,
     };
-    setNewLoanRecord(newItem);
+    setNewInvestment(newItem);
     resetForm();
   };
+
   return (
     <div>
       <Card>
         <Card.Header className="text-center fs-4">
-          Enter details of the loan?
+          Enter details of the investment?
         </Card.Header>
         <Card.Body>
           <Form className="mt-3">
             <Form.Group as={Col} className="mb-3">
               <InputGroup>
+                <Dropdown>
+                  <Dropdown.Toggle className="dropdown_headers">
+                    Select the broker
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    {["Webull", "Robinhood", "Fidelity", "Others"].map(
+                      (item, index) => {
+                        return (
+                          <Dropdown.Item
+                            key={index}
+                            onClick={() => setBroker(item)}
+                          >
+                            {item}
+                          </Dropdown.Item>
+                        );
+                      }
+                    )}
+                  </Dropdown.Menu>
+                </Dropdown>
+                {broker.length !== 0 ? (
+                  <InputGroup.Text>{broker}</InputGroup.Text>
+                ) : (
+                  <Form.Text className="ms-2" muted>
+                    <span className="text-danger">*Must select a broker</span>
+                  </Form.Text>
+                )}
+              </InputGroup>
+            </Form.Group>
+            <Form.Group as={Col} className="mb-3">
+              <InputGroup>
                 <InputGroup.Text>
-                  <FontAwesomeIcon icon={faPerson} className="me-2" /> Loaned To
+                  <FontAwesomeIcon icon={faChartLine} className="me-2" /> Stock
+                  Name
                 </InputGroup.Text>
                 <FormControl
                   required
                   autoComplete="off"
                   type="text"
-                  name="person"
-                  value={person}
-                  onChange={(e) => setPerson(e.target.value)}
-                  placeholder="Jon Doe"
+                  name="stock"
+                  value={stock}
+                  onChange={(e) => setStock(e.target.value)}
+                  placeholder="AMZN, AAPL, etc."
                 />
               </InputGroup>
-              {person.length === 0 && (
+              {stock.length === 0 && (
                 <Form.Text className="ms-2" muted>
-                  <span className="text-danger">*Must eneter person name</span>
+                  <span className="text-danger">*Must eneter stock name</span>
                 </Form.Text>
               )}
+            </Form.Group>
+            <Form.Group as={Col} className="mb-3">
+              <InputGroup>
+                <InputGroup.Text>
+                  <FontAwesomeIcon icon={faBuilding} className="me-2" /> Company
+                </InputGroup.Text>
+                <FormControl
+                  required
+                  autoComplete="off"
+                  type="text"
+                  name="company"
+                  value={company}
+                  onChange={(e) => setCompany(e.target.value)}
+                  placeholder="Amazon.com, etc."
+                />
+              </InputGroup>
             </Form.Group>
             <Form.Group as={Col} className="mb-3">
               <InputGroup>
@@ -135,16 +190,43 @@ const AddNewLoan = () => {
             <Form.Group as={Col} className="mb-3">
               <InputGroup>
                 <InputGroup.Text>
-                  <FontAwesomeIcon icon={faBank} className="me-2" /> Paid By
+                  <FontAwesomeIcon icon={faHashtag} className="me-2" /> Units
                 </InputGroup.Text>
                 <FormControl
                   required
                   autoComplete="off"
-                  type="text"
-                  name="payment_method"
-                  value={paymentMethod}
-                  onChange={(e) => setPaymentMethod(e.target.value)}
-                  placeholder="Cash, Zelle, etc."
+                  type="number"
+                  name="units"
+                  value={units}
+                  onChange={(e) => setUnits(e.target.value)}
+                  placeholder="Units"
+                />
+              </InputGroup>
+              {units.length === 0 && (
+                <Form.Text className="ms-2" muted>
+                  <span className="text-danger">*Must eneter units</span>
+                </Form.Text>
+              )}
+            </Form.Group>
+            <Form.Group as={Col} className="mb-3">
+              <InputGroup>
+                <Form.Check
+                  inline
+                  label="Vested"
+                  name="vested"
+                  type="radio"
+                  id="inline-radio-yes"
+                  checked={vested === "Yes" ? true : false}
+                  onChange={(e) => setVested(e.target.checked ? "Yes" : "No")}
+                />
+                <Form.Check
+                  inline
+                  label="Not-Vested"
+                  name="vested"
+                  type="radio"
+                  id="inline-radio-no"
+                  checked={vested === "No" ? true : false}
+                  onChange={(e) => setVested(e.target.checked ? "No" : "Yes")}
                 />
               </InputGroup>
             </Form.Group>
@@ -165,6 +247,7 @@ const AddNewLoan = () => {
                 />
               </InputGroup>
             </Form.Group>
+
             <input type="submit" style={{ display: "none" }} disabled />
           </Form>
         </Card.Body>
@@ -178,7 +261,12 @@ const AddNewLoan = () => {
             type="button"
             variant="success"
             onClick={(e) => onSubmit(e)}
-            disabled={person.length === 0 || amount.length === 0 || uploading}
+            disabled={
+              stock.length === 0 ||
+              units.length === 0 ||
+              amount.length === 0 ||
+              uploading
+            }
           >
             <FontAwesomeIcon icon={faUpload} /> Submit
           </Button>
@@ -188,7 +276,11 @@ const AddNewLoan = () => {
             variant="info"
             onClick={() => resetForm()}
             disabled={
-              person.length === 0 && amount.length === 0 && remarks.length === 0
+              stock.length === 0 &&
+              company.length === 0 &&
+              amount.length === 0 &&
+              units.length === 0 &&
+              remarks.length === 0
             }
           >
             <FontAwesomeIcon icon={faUndo} /> Reset
@@ -208,4 +300,4 @@ const AddNewLoan = () => {
   );
 };
 
-export default AddNewLoan;
+export default AddInvestment;

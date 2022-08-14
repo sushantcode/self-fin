@@ -21,19 +21,25 @@ const useLoadRecords = (table, date) => {
         setLoading(false);
       } else {
         //-------- TODO: Remove these lines-------
-        // console.log("Data loaded.")
-        // switch (table) {
-        //   case "expense":
-        //     setData(mock_data.expense);
-        //     setTableVisibility(true);
-        //     setLoading(false);
-        //     break;
+        console.log("Data loaded.");
+        switch (table) {
+          case "expense":
+            setData(mock_data.expense);
+            setTableVisibility(true);
+            setLoading(false);
+            break;
 
-        //   default:
-        //     break;
-        // }
+          case "investments":
+            setData(mock_data.investments);
+            setTableVisibility(true);
+            setLoading(false);
+            break;
+
+          default:
+            break;
+        }
         //----------------------------------------
-        callGetData(table, date);
+        //callGetData(table, date);
         setLoadData(false);
       }
     }

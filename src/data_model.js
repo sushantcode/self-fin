@@ -37,3 +37,32 @@ const loanToFriends = {
     },
   ],
 };
+
+const savings = {
+  year_month: "YYYY-MM",
+  item: [
+    {
+      where: "Bank/individual",
+      date: "yyyy-mm-dd",
+      amount: "amount",
+      interest: "interest",
+      remarks: "remarks",
+    },
+  ],
+};
+
+const investments = {
+  year_month: "YYYY-MM",
+  item: [
+    {
+      broker: "Webull, Robinhood, Fidelity, Others",
+      stock: "AAPL",
+      company: "Apple",
+      date: "yyyy-mm-dd",
+      amount: "amount",
+      units: "units",
+      vested: "Yes/No",
+      remarks: "remarks",
+    },
+  ],
+};

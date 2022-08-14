@@ -1,9 +1,9 @@
 import {
   faBank,
   faCalendar,
+  faChartLine,
   faCircleInfo,
   faDollar,
-  faPerson,
   faUndo,
   faUpload,
 } from "@fortawesome/free-solid-svg-icons";
@@ -13,7 +13,6 @@ import {
   Button,
   Card,
   Col,
-  Dropdown,
   Form,
   FormControl,
   InputGroup,
@@ -21,77 +20,75 @@ import {
 import { tableNames } from "../../../utils/Constants";
 import useUploadRecord from "../../commons/useUploadRecord";
 
-const AddNewLoan = () => {
-  const [person, setPerson] = useState("");
+const AddSavings = () => {
+  const [where, setWhere] = useState("");
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
   const [amount, setAmount] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState("Chase Direct-Deposit");
+  const [interest, setInterest] = useState("Chase Direct-Deposit");
   const [remarks, setRemarks] = useState("");
-  const [newLoanRecord, setNewLoanRecord] = useState(null);
+  const [newSaving, setNewSaving] = useState(null);
 
   const [setAddData, error, uploading] = useUploadRecord(
-    tableNames.LOANTOFRIEND,
-    newLoanRecord
+    tableNames.SAVING,
+    newSaving
   );
 
   useEffect(() => {
-    if (newLoanRecord !== null) {
+    if (newSaving !== null) {
       setAddData(true);
     } else {
       setAddData(false);
     }
-
-    return () => {
-      setAddData(false);
-    };
-  }, [newLoanRecord]);
+  }, [newSaving]);
 
   const resetForm = () => {
-    setPerson("");
+    setWhere("");
     setDate(new Date().toISOString().split("T")[0]);
     setAmount("");
-    setPaymentMethod("Discover");
+    setInterest("Discover");
     setRemarks("");
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
     const newItem = {
-      person: person,
+      where: where,
       date: date,
       amount: amount,
-      payment_method: paymentMethod,
+      interest: interest,
       remarks: remarks,
     };
-    setNewLoanRecord(newItem);
+    setNewSaving(newItem);
     resetForm();
   };
   return (
     <div>
       <Card>
         <Card.Header className="text-center fs-4">
-          Enter details of the loan?
+          Enter details of the saving?
         </Card.Header>
         <Card.Body>
           <Form className="mt-3">
             <Form.Group as={Col} className="mb-3">
               <InputGroup>
                 <InputGroup.Text>
-                  <FontAwesomeIcon icon={faPerson} className="me-2" /> Loaned To
+                  <FontAwesomeIcon icon={faBank} className="me-2" /> Where
                 </InputGroup.Text>
                 <FormControl
                   required
                   autoComplete="off"
                   type="text"
-                  name="person"
-                  value={person}
-                  onChange={(e) => setPerson(e.target.value)}
-                  placeholder="Jon Doe"
+                  name="where"
+                  value={where}
+                  onChange={(e) => setWhere(e.target.value)}
+                  placeholder="Sanima, John Doe, etc."
                 />
               </InputGroup>
-              {person.length === 0 && (
+              {where.length === 0 && (
                 <Form.Text className="ms-2" muted>
-                  <span className="text-danger">*Must eneter person name</span>
+                  <span className="text-danger">
+                    *Must eneter where invested
+                  </span>
                 </Form.Text>
               )}
             </Form.Group>
@@ -135,16 +132,17 @@ const AddNewLoan = () => {
             <Form.Group as={Col} className="mb-3">
               <InputGroup>
                 <InputGroup.Text>
-                  <FontAwesomeIcon icon={faBank} className="me-2" /> Paid By
+                  <FontAwesomeIcon icon={faChartLine} className="me-2" />{" "}
+                  Interest Rate (%)
                 </InputGroup.Text>
                 <FormControl
                   required
                   autoComplete="off"
-                  type="text"
-                  name="payment_method"
-                  value={paymentMethod}
-                  onChange={(e) => setPaymentMethod(e.target.value)}
-                  placeholder="Cash, Zelle, etc."
+                  type="number"
+                  name="interest"
+                  value={interest}
+                  onChange={(e) => setInterest(e.target.value)}
+                  placeholder="0 %"
                 />
               </InputGroup>
             </Form.Group>
@@ -178,7 +176,7 @@ const AddNewLoan = () => {
             type="button"
             variant="success"
             onClick={(e) => onSubmit(e)}
-            disabled={person.length === 0 || amount.length === 0 || uploading}
+            disabled={where.length === 0 || amount.length === 0 || uploading}
           >
             <FontAwesomeIcon icon={faUpload} /> Submit
           </Button>
@@ -188,7 +186,7 @@ const AddNewLoan = () => {
             variant="info"
             onClick={() => resetForm()}
             disabled={
-              person.length === 0 && amount.length === 0 && remarks.length === 0
+              where.length === 0 && amount.length === 0 && remarks.length === 0
             }
           >
             <FontAwesomeIcon icon={faUndo} /> Reset
@@ -208,4 +206,4 @@ const AddNewLoan = () => {
   );
 };
 
-export default AddNewLoan;
+export default AddSavings;
