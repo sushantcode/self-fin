@@ -29,30 +29,19 @@ const AddExpense = () => {
   const [paymentMethod, setPaymentMethod] = useState("Discover");
   const [remarks, setRemarks] = useState("");
   const [newExpense, setNewexpense] = useState(null);
-  const [uploadExpense, setUplaodExpense] = useState(false);
 
-  const [error, uploading] = useUploadRecord(
+  const [setAddData, error, uploading] = useUploadRecord(
     tableNames.EXPENSE,
-    newExpense,
-    uploadExpense
+    newExpense
   );
 
   useEffect(() => {
     if (newExpense !== null) {
-      setUplaodExpense(true);
+      setAddData(true);
     } else {
-      setUplaodExpense(false);
+      setAddData(false);
     }
-    return () => {
-      setUplaodExpense(false);
-    };
   }, [newExpense]);
-
-  useEffect(() => {
-    if (!uploading) {
-      setNewexpense(null);
-    }
-  }, [uploading]);
 
   const resetForm = () => {
     setCategory("");

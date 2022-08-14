@@ -1,4 +1,4 @@
-export const data = {
+export const mock_data = {
   expense: [
     {
       category: "Grocery",

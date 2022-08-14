@@ -2,7 +2,7 @@ import React from "react";
 import { Table } from "react-bootstrap";
 
 const ListExpense = ({ expenseList }) => {
-  return expenseList ? (
+  return expenseList && expenseList.length !== 0 ? (
     <Table striped bordered hover>
       <thead>
         <tr>

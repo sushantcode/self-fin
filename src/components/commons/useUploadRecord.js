@@ -3,19 +3,21 @@ import { getPassword } from "../../utils/Authentication";
 import { getData, putData } from "../../utils/DDBClients";
 import { decrypt } from "../../utils/Encryption";
 
-const useUploadRecord = (table, data, makeCall) => {
+const useUploadRecord = (table, data) => {
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
+  const [addData, setAddData] = useState(false);
 
   useEffect(() => {
-    if (makeCall && data !== null) {
+    if (addData && data !== null) {
       setUploading(true);
       setError("");
-      addData(table, data);
+      loadData(table, data);
     }
-  }, [makeCall]);
+    setAddData(false);
+  }, [addData]);
 
-  const addData = async (tableName, newItem) => {
+  const loadData = async (tableName, newItem) => {
     const yearMonth = newItem.date.substring(0, 7);
     await getData(tableName, yearMonth)
       .then((response) => {
@@ -60,7 +62,7 @@ const useUploadRecord = (table, data, makeCall) => {
       setUploading(false);
     }
   };
-  return [error, uploading, setUploading];
+  return [setAddData, error, uploading];
 };
 
 export default useUploadRecord;
