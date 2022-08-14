@@ -1,13 +1,13 @@
 import React from "react";
 import { Table } from "react-bootstrap";
 
-const ListIncome = ({ incomeList }) => {
-  return incomeList && incomeList.item.length !== 0 ? (
+const ListLoanRecords = ({ loanList }) => {
+  return loanList && loanList.item.length !== 0 ? (
     <Table striped bordered hover>
       <thead>
         <tr>
           <th>S.N.</th>
-          <th>Source</th>
+          <th>Person</th>
           <th>Date</th>
           <th>Amount ($) </th>
           <th>Payment Method</th>
@@ -15,11 +15,11 @@ const ListIncome = ({ incomeList }) => {
         </tr>
       </thead>
       <tbody>
-        {incomeList.item.map((element, index) => {
+        {loanList.item.map((element, index) => {
           return (
             <tr key={index}>
               <td>{index + 1}</td>
-              <td>{element.source}</td>
+              <td>{element.person}</td>
               <td>{element.date}</td>
               <td>{element.amount}</td>
               <td>{element.payment_method}</td>
@@ -34,4 +34,4 @@ const ListIncome = ({ incomeList }) => {
   );
 };
 
-export default ListIncome;
+export default ListLoanRecords;

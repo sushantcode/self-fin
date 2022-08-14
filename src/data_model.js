@@ -24,3 +24,16 @@ const income = {
     },
   ],
 };
+
+const loanToFriends = {
+  year_month: "YYYY-MM",
+  item: [
+    {
+      person: "Person Name",
+      date: "yyyy-mm-dd",
+      amount: "amount",
+      payment_method: "payment_method",
+      remarks: "remarks",
+    },
+  ],
+};

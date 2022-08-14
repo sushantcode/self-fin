@@ -3,6 +3,7 @@ import {
   faCalendar,
   faCircleInfo,
   faDollar,
+  faPerson,
   faUndo,
   faUpload,
 } from "@fortawesome/free-solid-svg-icons";
@@ -20,29 +21,33 @@ import {
 import { tableNames } from "../../../utils/Constants";
 import useUploadRecord from "../../commons/useUploadRecord";
 
-const AddIncome = () => {
-  const [source, setSource] = useState("");
+const AddNewLoan = () => {
+  const [person, setPerson] = useState("");
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
   const [amount, setAmount] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("Chase Direct-Deposit");
   const [remarks, setRemarks] = useState("");
-  const [newIncome, setNewIncome] = useState(null);
+  const [newLoanRecord, setNewLoanRecord] = useState(null);
 
   const [setAddData, error, uploading] = useUploadRecord(
-    tableNames.INCOME,
-    newIncome
+    tableNames.LOANTOFRIEND,
+    newLoanRecord
   );
 
   useEffect(() => {
-    if (newIncome !== null) {
+    if (newLoanRecord !== null) {
       setAddData(true);
     } else {
       setAddData(false);
     }
-  }, [newIncome]);
+
+    return () => {
+      setAddData(false);
+    };
+  }, [newLoanRecord]);
 
   const resetForm = () => {
-    setSource("");
+    setPerson("");
     setDate(new Date().toISOString().split("T")[0]);
     setAmount("");
     setPaymentMethod("Discover");
@@ -52,52 +57,43 @@ const AddIncome = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     const newItem = {
-      source: source,
+      person: person,
       date: date,
       amount: amount,
       payment_method: paymentMethod,
       remarks: remarks,
     };
-    setNewIncome(newItem);
+    setNewLoanRecord(newItem);
     resetForm();
   };
   return (
     <div>
       <Card>
         <Card.Header className="text-center fs-4">
-          Enter details of the income?
+          Enter details of the loan?
         </Card.Header>
         <Card.Body>
           <Form className="mt-3">
             <Form.Group as={Col} className="mb-3">
               <InputGroup>
-                <Dropdown>
-                  <Dropdown.Toggle className="dropdown_headers">
-                    Select Source of Income
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu>
-                    {["Salary", "Saving", "Stock", "Individual", "Others"].map(
-                      (item, index) => {
-                        return (
-                          <Dropdown.Item
-                            key={index}
-                            onClick={() => setSource(item)}
-                          >
-                            {item}
-                          </Dropdown.Item>
-                        );
-                      }
-                    )}
-                  </Dropdown.Menu>
-                </Dropdown>
-                {source.length !== 0 ? (
-                  <InputGroup.Text>{source}</InputGroup.Text>
-                ) : (
-                  <Form.Text className="ms-2" muted>
-                    <span className="text-danger">*Must select a source</span>
-                  </Form.Text>
-                )}
+                <InputGroup.Text>
+                  <FontAwesomeIcon icon={faPerson} className="me-2" /> Loaned To
+                </InputGroup.Text>
+                <FormControl
+                  required
+                  autoComplete="off"
+                  type="text"
+                  name="person"
+                  value={person}
+                  onChange={(e) => setPerson(e.target.value)}
+                  placeholder="Jon Doe"
+                />
               </InputGroup>
+              {person.length === 0 && (
+                <Form.Text className="ms-2" muted>
+                  <span className="text-danger">*Must eneter person name</span>
+                </Form.Text>
+              )}
             </Form.Group>
             <Form.Group as={Col} className="mb-3">
               <InputGroup>
@@ -148,7 +144,7 @@ const AddIncome = () => {
                   name="payment_method"
                   value={paymentMethod}
                   onChange={(e) => setPaymentMethod(e.target.value)}
-                  placeholder="Discover, Amex, etc."
+                  placeholder="Cash, Zelle, etc."
                 />
               </InputGroup>
             </Form.Group>
@@ -176,18 +172,13 @@ const AddIncome = () => {
           {uploading && (
             <div className="me-3 spinner-border" role="status"></div>
           )}
-          {error.length !== 0 && (
-            <Form.Text className="me-4" muted>
-              <span className="text-danger">{error}</span>
-            </Form.Text>
-          )}
           <Button
             className="me-3"
             size="sm"
             type="button"
             variant="success"
             onClick={(e) => onSubmit(e)}
-            disabled={source.length === 0 || amount.length === 0 || uploading}
+            disabled={person.length === 0 || amount.length === 0 || uploading}
           >
             <FontAwesomeIcon icon={faUpload} /> Submit
           </Button>
@@ -197,7 +188,7 @@ const AddIncome = () => {
             variant="info"
             onClick={() => resetForm()}
             disabled={
-              source.length === 0 && amount.length === 0 && remarks.length === 0
+              person.length === 0 && amount.length === 0 && remarks.length === 0
             }
           >
             <FontAwesomeIcon icon={faUndo} /> Reset
@@ -217,4 +208,4 @@ const AddIncome = () => {
   );
 };
 
-export default AddIncome;
+export default AddNewLoan;

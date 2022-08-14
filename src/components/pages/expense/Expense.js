@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import YearMonthPicker from "../../commons/YearMonthPicker";
 import AddExpense from "./AddExpense";
 import ListExpense from "./ListExpense";
 import { tableNames } from "../../../utils/Constants";
 import useLoadRecords from "../../commons/useLoadRecords";
-import { data } from "jquery";
 
 const Expense = () => {
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
@@ -37,13 +36,15 @@ const Expense = () => {
                 {loading && (
                   <div className="ms-3 spinner-border" role="status"></div>
                 )}
-                {error.length !== 0 && (
-                  <span className="text-danger ms-2">{error}</span>
-                )}
               </Col>
             </Row>
             <Row>
-              <Col>{tableVisibility && <ListExpense expenseList={data} />}</Col>
+              <Col>
+                {error.length !== 0 && (
+                  <span className="text-danger ms-2">{error}</span>
+                )}
+                {tableVisibility && <ListExpense expenseList={data} />}
+              </Col>
             </Row>
           </Col>
         </Row>

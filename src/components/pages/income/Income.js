@@ -36,13 +36,15 @@ const Income = () => {
                 {loading && (
                   <div className="ms-3 spinner-border" role="status"></div>
                 )}
-                {error.length !== 0 && (
-                  <span className="text-danger ms-2">{error}</span>
-                )}
               </Col>
             </Row>
             <Row>
-              <Col>{tableVisibility && <ListIncome incomeList={data} />}</Col>
+              <Col>
+                {error.length !== 0 && (
+                  <span className="text-danger ms-2">{error}</span>
+                )}
+                {tableVisibility && <ListIncome incomeList={data} />}
+              </Col>
             </Row>
           </Col>
         </Row>

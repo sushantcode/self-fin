@@ -48,7 +48,7 @@ const useLoadRecords = (table, date) => {
       })
       .catch((err) => {
         console.log(err);
-        setError("Error occured while polling data!!!");
+        setError("Error occured while polling data. Try again!!!");
         setLoading(false);
       });
   };
