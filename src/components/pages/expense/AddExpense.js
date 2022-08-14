@@ -28,7 +28,7 @@ const AddExpense = () => {
   const [amount, setAmount] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("Discover");
   const [remarks, setRemarks] = useState("");
-  const [newExpense, setNewexpense] = useState(null);
+  const [newExpense, setNewExpense] = useState(null);
 
   const [setAddData, error, uploading] = useUploadRecord(
     tableNames.EXPENSE,
@@ -54,7 +54,7 @@ const AddExpense = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    const newExpense = {
+    const newItem = {
       category: category,
       date: date,
       location: location,
@@ -62,7 +62,7 @@ const AddExpense = () => {
       payment_method: paymentMethod,
       remarks: remarks,
     };
-    setNewexpense(newExpense);
+    setNewExpense(newItem);
     resetForm();
   };
 

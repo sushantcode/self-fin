@@ -1,39 +1,45 @@
+import {
+  faBank,
+  faCalendar,
+  faCircleInfo,
+  faDollar,
+  faUndo,
+  faUpload,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Card,
+  Col,
   Dropdown,
   Form,
   FormControl,
   InputGroup,
 } from "react-bootstrap";
 import { tableNames } from "../../../utils/Constants";
+import useUploadRecord from "../../commons/useUploadRecord";
 
 const AddIncome = () => {
-  const [incomeList, setIncomeList] = props.expenseState;
   const [source, setSource] = useState("");
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
   const [amount, setAmount] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState("Discover");
+  const [paymentMethod, setPaymentMethod] = useState("Chase Direct-Deposit");
   const [remarks, setRemarks] = useState("");
-  const [uploading, setUploading] = useState(false);
-  const [error, setError] = useState("");
+  const [newIncome, setNewIncome] = useState(null);
 
-  const uploadData = async (data) => {
-    await putData(tableNames.INCOME, data)
-      .then(() => {
-        console.log("Success");
-        setError("");
-      })
-      .catch((err) => {
-        console.log(err);
-        setError("Error occured!");
-      })
-      .finally(() => {
-        setUploading(false);
-      });
-  };
+  const [setAddData, error, uploading] = useUploadRecord(
+    tableNames.INCOME,
+    newIncome
+  );
+
+  useEffect(() => {
+    if (newIncome !== null) {
+      setAddData(true);
+    } else {
+      setAddData(false);
+    }
+  }, [newIncome]);
 
   const resetForm = () => {
     setSource("");
@@ -45,24 +51,20 @@ const AddIncome = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    setUploading(true);
-    const newIncome = {
-      source: category,
+    const newItem = {
+      source: source,
       date: date,
       amount: amount,
       payment_method: paymentMethod,
       remarks: remarks,
     };
-    let currIncomeList = [...incomeList];
-    currIncomeList.push(newIncome);
-    setExpenseList(currIncomeList);
-    uploadData(currIncomeList);
+    setNewIncome(newItem);
     resetForm();
   };
   return (
     <Card>
       <Card.Header className="text-center fs-4">
-        Enter details of the expense?
+        Enter details of the income?
       </Card.Header>
       <Card.Body>
         <Form className="mt-3">
@@ -70,15 +72,15 @@ const AddIncome = () => {
             <InputGroup>
               <Dropdown>
                 <Dropdown.Toggle className="dropdown_headers">
-                  Select Category of Expense
+                  Select Source of Income
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                  {["Grocery", "Rent", "Utility", "Personal", "Others"].map(
+                  {["Salary", "Saving", "Stock", "Individual", "Others"].map(
                     (item, index) => {
                       return (
                         <Dropdown.Item
                           key={index}
-                          onClick={() => setCategory(item)}
+                          onClick={() => setSource(item)}
                         >
                           {item}
                         </Dropdown.Item>
@@ -87,11 +89,11 @@ const AddIncome = () => {
                   )}
                 </Dropdown.Menu>
               </Dropdown>
-              {category.length !== 0 ? (
-                <InputGroup.Text>{category}</InputGroup.Text>
+              {source.length !== 0 ? (
+                <InputGroup.Text>{source}</InputGroup.Text>
               ) : (
                 <Form.Text className="ms-2" muted>
-                  <span className="text-danger">*Must select a category</span>
+                  <span className="text-danger">*Must select a source</span>
                 </Form.Text>
               )}
             </InputGroup>
@@ -111,27 +113,6 @@ const AddIncome = () => {
                 onChange={(e) => setDate(e.target.value)}
               />
             </InputGroup>
-          </Form.Group>
-          <Form.Group as={Col} className="mb-3">
-            <InputGroup>
-              <InputGroup.Text>
-                <FontAwesomeIcon icon={faLocation} className="me-2" /> Location
-              </InputGroup.Text>
-              <FormControl
-                required
-                autoComplete="off"
-                type="text"
-                name="location"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-                placeholder="Walmart, Amazon, etc."
-              />
-            </InputGroup>
-            {location.length === 0 && (
-              <Form.Text className="ms-2" muted>
-                <span className="text-danger">*Must eneter a location</span>
-              </Form.Text>
-            )}
           </Form.Group>
           <Form.Group as={Col} className="mb-3">
             <InputGroup>
@@ -186,7 +167,6 @@ const AddIncome = () => {
               />
             </InputGroup>
           </Form.Group>
-
           <input type="submit" style={{ display: "none" }} disabled />
         </Form>
       </Card.Body>
@@ -203,12 +183,7 @@ const AddIncome = () => {
           type="button"
           variant="success"
           onClick={(e) => onSubmit(e)}
-          disabled={
-            category.length === 0 ||
-            location.length === 0 ||
-            amount.length === 0 ||
-            uploading
-          }
+          disabled={source.length === 0 || amount.length === 0 || uploading}
         >
           <FontAwesomeIcon icon={faUpload} /> Submit
         </Button>
@@ -218,10 +193,7 @@ const AddIncome = () => {
           variant="info"
           onClick={() => resetForm()}
           disabled={
-            category.length === 0 &&
-            location.length === 0 &&
-            amount.length === 0 &&
-            remarks.length === 0
+            source.length === 0 && amount.length === 0 && remarks.length === 0
           }
         >
           <FontAwesomeIcon icon={faUndo} /> Reset

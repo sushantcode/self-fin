@@ -19,10 +19,6 @@ const useLoadRecords = (table, date) => {
         setTableVisibility(false);
         setLoadData(false);
         setLoading(false);
-      } else if (data && data.year_month === date.substring(0, 7)) {
-        setTableVisibility(true);
-        setLoadData(false);
-        setLoading(false);
       } else {
         //-------- TODO: Remove these lines-------
         // console.log("Data loaded.")
