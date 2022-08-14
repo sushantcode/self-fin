@@ -3,6 +3,11 @@
 
 name: Deploy to Firebase Hosting on PR
 'on': pull_request
+env:
+  REACT_APP_AWS_ACCESSKEY: ${{ secrets.REACT_APP_AWS_ACCESSKEY }}
+  REACT_APP_AWS_REGION: ${{ secrets.REACT_APP_AWS_REGION }}
+  REACT_APP_AWS_SECRETKEY: ${{ secrets.REACT_APP_AWS_SECRETKEY }}
+  REACT_APP_HASHEDPASSWORD: ${{ secrets.REACT_APP_HASHEDPASSWORD }}
 jobs:
   build_and_preview:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
