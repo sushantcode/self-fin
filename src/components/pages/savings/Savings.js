@@ -24,7 +24,11 @@ const Savings = () => {
           <Col>
             <Row className="mb-2">
               <Col className="">
-                <YearMonthPicker dateProps={[date, setDate]} />
+                <YearMonthPicker
+                  dateProps={[date, setDate]}
+                  datePickerLabel="Year and Month"
+                  minDate={new Date("2017-01-01")}
+                />
                 <Button
                   className="ms-3 mt-2"
                   onClick={loadSavings}
@@ -32,16 +36,16 @@ const Savings = () => {
                 >
                   {tableVisibility ? "Hide Table" : "Load Savings"}
                 </Button>
-                {loading && (
-                  <div className="ms-3 spinner-border" role="status"></div>
-                )}
+                {loading &&
+                  <div className="ms-3 spinner-border" role="status" />}
               </Col>
             </Row>
             <Row>
               <Col>
-                {error.length !== 0 && (
-                  <span className="text-danger ms-2">{error}</span>
-                )}
+                {error.length !== 0 &&
+                  <span className="text-danger ms-2">
+                    {error}
+                  </span>}
                 {tableVisibility && <ListSavings savingsList={data} />}
               </Col>
             </Row>

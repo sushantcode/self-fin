@@ -7,7 +7,7 @@ const configuration = {
   secretAccessKey:
     "decrypt(process.env.REACT_APP_AWS_SECRETKEY, getPassword())",
   accessKeyId: "decrypt(process.env.REACT_APP_AWS_ACCESSKEY, getPassword())",
-  correctClockSkew: true,
+  correctClockSkew: true
 };
 
 const docClient = new AWS.DynamoDB.DocumentClient(configuration);
@@ -16,25 +16,24 @@ export const putData = (tableName, hashKey, data) => {
   const encryptedData = encrypt(data, getPassword());
   const recordToBeAdded = {
     year_month: hashKey,
-    item: encryptedData,
+    item: encryptedData
   };
   var params = {
     TableName: tableName,
-    Item: recordToBeAdded,
+    Item: recordToBeAdded
   };
 
   return docClient.put(params).promise();
 };
 
 export const getData = (tableName, date) => {
-  const dateParts = date.split("-");
-  const hashKey = dateParts[0] + "-" + dateParts[1];
+  const hashKey = date.substring(0, 7);
   var params = {
     TableName: tableName,
     KeyConditionExpression: "year_month = :hkey",
     ExpressionAttributeValues: {
-      ":hkey": hashKey,
-    },
+      ":hkey": hashKey
+    }
   };
 
   return docClient.query(params).promise();
