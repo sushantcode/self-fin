@@ -33,16 +33,16 @@ const Expense = () => {
                 >
                   {tableVisibility ? "Hide Table" : "Load Expenses"}
                 </Button>
-                {loading && (
-                  <div className="ms-3 spinner-border" role="status"></div>
-                )}
+                {loading &&
+                  <div className="ms-3 spinner-border" role="status" />}
               </Col>
             </Row>
             <Row>
               <Col>
-                {error.length !== 0 && (
-                  <span className="text-danger ms-2">{error}</span>
-                )}
+                {error.length !== 0 &&
+                  <span className="text-danger ms-2">
+                    {error}
+                  </span>}
                 {tableVisibility && <ListExpense expenseList={data} />}
               </Col>
             </Row>

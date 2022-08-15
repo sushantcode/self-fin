@@ -8,7 +8,7 @@ export const mock_data = {
         location: "Walmart",
         amount: "95.00",
         payment_method: "Discover",
-        remarks: "weekly grocery",
+        remarks: "weekly grocery"
       },
       {
         category: "Grocery",
@@ -16,7 +16,7 @@ export const mock_data = {
         location: "Walmart",
         amount: "95.00",
         payment_method: "Discover",
-        remarks: "weekly grocery",
+        remarks: "weekly grocery"
       },
       {
         category: "Grocery",
@@ -24,9 +24,9 @@ export const mock_data = {
         location: "Walmart",
         amount: "95.00",
         payment_method: "Discover",
-        remarks: "weekly grocery",
-      },
-    ],
+        remarks: "weekly grocery"
+      }
+    ]
   },
   investments: {
     year_month: "2022-08",
@@ -39,8 +39,22 @@ export const mock_data = {
         amount: "amount",
         units: "units",
         vested: "Yes/No",
-        remarks: "remarks",
-      },
-    ],
+        remarks: "remarks"
+      }
+    ]
   },
+  toHome: {
+    year_month: "YYYY-MM",
+    item: [
+      {
+        service: "MoneyGram, WesternUnion, Remitly, Xoom, Others",
+        receiver: "receiver",
+        date: "yyyy-mm-dd",
+        usd: "amount",
+        nrs: "units",
+        payment_method: "payment_method",
+        remarks: "remarks"
+      }
+    ]
+  }
 };

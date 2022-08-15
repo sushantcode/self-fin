@@ -7,9 +7,9 @@ const expense = {
       location: "location",
       amount: "amount",
       payment_method: "payment_method",
-      remarks: "remarks",
-    },
-  ],
+      remarks: "remarks"
+    }
+  ]
 };
 
 const income = {
@@ -20,9 +20,9 @@ const income = {
       date: "yyyy-mm-dd",
       amount: "amount",
       payment_method: "payment_method",
-      remarks: "remarks",
-    },
-  ],
+      remarks: "remarks"
+    }
+  ]
 };
 
 const loanToFriends = {
@@ -33,9 +33,9 @@ const loanToFriends = {
       date: "yyyy-mm-dd",
       amount: "amount",
       payment_method: "payment_method",
-      remarks: "remarks",
-    },
-  ],
+      remarks: "remarks"
+    }
+  ]
 };
 
 const savings = {
@@ -46,9 +46,9 @@ const savings = {
       date: "yyyy-mm-dd",
       amount: "amount",
       interest: "interest",
-      remarks: "remarks",
-    },
-  ],
+      remarks: "remarks"
+    }
+  ]
 };
 
 const investments = {
@@ -62,7 +62,22 @@ const investments = {
       amount: "amount",
       units: "units",
       vested: "Yes/No",
-      remarks: "remarks",
-    },
-  ],
+      remarks: "remarks"
+    }
+  ]
+};
+
+const home = {
+  year_month: "YYYY-MM",
+  item: [
+    {
+      service: "MoneyGram, WesternUnion, Remitly, Xoom, Others",
+      receiver: "receiver",
+      date: "yyyy-mm-dd",
+      usd: "amount",
+      nrs: "units",
+      payment_method: "payment_method",
+      remarks: "remarks"
+    }
+  ]
 };
