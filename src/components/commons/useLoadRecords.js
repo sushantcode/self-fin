@@ -43,6 +43,7 @@ const useLoadRecords = (table, date) => {
               break;
 
             default:
+              setLoading(false);
               break;
           }
           //----------------------------------------

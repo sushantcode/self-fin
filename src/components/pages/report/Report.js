@@ -4,6 +4,7 @@ import YearMonthPicker from "../../commons/YearMonthPicker";
 import { tableNames } from "../../../utils/Constants";
 import useLoadRecords from "../../commons/useLoadRecords";
 import useGenerateReportData from "./useGenerateReportData";
+import ReportTable from "./ReportTable";
 
 const Report = () => {
   const [fromDate, setFromDate] = useState(
@@ -28,15 +29,12 @@ const Report = () => {
     [fromDate, toDate]
   );
 
-  const [
-    setLoadData,
-    error,
-    loading,
-    tableVisibility,
-    data
-  ] = useGenerateReportData(selectedDatesArr);
+  const [setLoadData, error, loading, data] = useGenerateReportData(
+    selectedDatesArr
+  );
 
-  const generateReportData = () => {
+  const generateReportData = e => {
+    e.preventDefault();
     setLoadData(true);
   };
 
@@ -63,8 +61,7 @@ const Report = () => {
                   onClick={generateReportData}
                   // disabled={loading}
                 >
-                  xfxf
-                  {/* {tableVisibility ? "Hide Table" : "Generate reports"} */}
+                  Generate reports
                 </Button>
                 {/* {loading &&
                   <div className="ms-3 spinner-border" role="status" />} */}
@@ -83,7 +80,7 @@ const Report = () => {
         </Row>
         <Row>
           <Col>
-            {/* <AddTransfer /> */}
+            <ReportTable data={data} />
           </Col>
         </Row>
       </Col>

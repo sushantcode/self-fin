@@ -2,9 +2,48 @@ import React, { useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import YearMonthPicker from "../../commons/YearMonthPicker";
 import AddExpense from "./AddExpense";
-import ListExpense from "./ListExpense";
 import { tableNames } from "../../../utils/Constants";
 import useLoadRecords from "../../commons/useLoadRecords";
+import SmartTable from "../../commons/SmartTable";
+
+const headCells = [
+  {
+    id: "category",
+    numeric: false,
+    disablePadding: false,
+    label: "Category"
+  },
+  {
+    id: "date",
+    numeric: false,
+    disablePadding: false,
+    label: "Date"
+  },
+  {
+    id: "location",
+    numeric: false,
+    disablePadding: false,
+    label: "Location"
+  },
+  {
+    id: "amount",
+    numeric: false,
+    disablePadding: false,
+    label: "Amount ($)"
+  },
+  {
+    id: "payment_method",
+    numeric: false,
+    disablePadding: false,
+    label: "Payment Method"
+  },
+  {
+    id: "remarks",
+    numeric: false,
+    disablePadding: false,
+    label: "Remarks"
+  }
+];
 
 const Expense = () => {
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
@@ -47,7 +86,8 @@ const Expense = () => {
                   <span className="text-danger ms-2">
                     {error}
                   </span>}
-                {tableVisibility && <ListExpense expenseList={data} />}
+                {tableVisibility &&
+                  <SmartTable tableHeaders={headCells} data={data.item} />}
               </Col>
             </Row>
           </Col>

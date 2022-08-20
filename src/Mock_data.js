@@ -6,25 +6,25 @@ export const mock_data = {
         category: "Grocery",
         date: "2022-08-01",
         location: "Walmart",
-        amount: "95.00",
+        amount: "75.00",
         payment_method: "Discover",
         remarks: "weekly grocery"
       },
       {
         category: "Grocery",
-        date: "2022-08-01",
+        date: "2022-08-04",
         location: "Walmart",
-        amount: "95.00",
+        amount: "15.00",
         payment_method: "Discover",
-        remarks: "weekly grocery"
+        remarks: "monthly grocery"
       },
       {
         category: "Grocery",
-        date: "2022-08-01",
+        date: "2022-08-02",
         location: "Walmart",
         amount: "95.00",
         payment_method: "Discover",
-        remarks: "weekly grocery"
+        remarks: "yearly grocery"
       }
     ]
   },
@@ -57,4 +57,9 @@ export const mock_data = {
       }
     ]
   }
+};
+
+export const report = {
+  expense: [mock_data.expense],
+  investments: [mock_data.investments]
 };
