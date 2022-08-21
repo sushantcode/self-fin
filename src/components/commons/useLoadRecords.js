@@ -18,7 +18,6 @@ const useLoadRecords = (table, date) => {
         setError("");
         if (tableVisibility) {
           setTableVisibility(false);
-          setLoadData(false);
           setLoading(false);
         } else {
           //-------- TODO: Remove these lines-------
@@ -48,9 +47,9 @@ const useLoadRecords = (table, date) => {
           }
           //----------------------------------------
           //callGetData(table, date);
-          setLoadData(false);
         }
       }
+      setLoadData(false);
     },
     [loadData]
   );

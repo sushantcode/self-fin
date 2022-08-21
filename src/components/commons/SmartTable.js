@@ -80,7 +80,7 @@ function EnhancedTableHead(props) {
 }
 
 const SmartTable = props => {
-  const { tableHeaders, data } = props;
+  const { tableHeaders, data, subject } = props;
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [page, setPage] = React.useState(0);
@@ -135,17 +135,42 @@ const SmartTable = props => {
                 {stableSort(rows, getComparator(order, orderBy))
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row, index) => {
-                    return (
-                      <TableRow hover tabIndex={-1} key={index}>
-                        {tableHeaders.map(item => {
-                          return (
-                            <TableCell key={item.id}>
-                              {row[item.id]}
-                            </TableCell>
-                          );
-                        })}
-                      </TableRow>
-                    );
+                    return subject !== "investments"
+                      ? <TableRow hover tabIndex={-1} key={index}>
+                          {tableHeaders.map(item => {
+                            return (
+                              <TableCell key={item.id}>
+                                {row[item.id]}
+                              </TableCell>
+                            );
+                          })}
+                        </TableRow>
+                      : <TableRow hover tabIndex={-1} key={index}>
+                          <TableCell>
+                            {row.broker}
+                          </TableCell>
+                          <TableCell>
+                            {row.stock +
+                              (row.company.length !== 0
+                                ? " (" + row.company + ")"
+                                : "")}
+                          </TableCell>
+                          <TableCell>
+                            {row.amount}
+                          </TableCell>
+                          <TableCell>
+                            {row.units}
+                          </TableCell>
+                          <TableCell>
+                            {row.date}
+                          </TableCell>
+                          <TableCell>
+                            {row.vested}
+                          </TableCell>
+                          <TableCell>
+                            {row.remarks}
+                          </TableCell>
+                        </TableRow>;
                   })}
                 {emptyRows > 0 &&
                   <TableRow

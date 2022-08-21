@@ -2,10 +2,55 @@ import React, { useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { data } from "../../../Mock_data";
 import { tableNames } from "../../../utils/Constants";
+import SmartTable from "../../commons/SmartTable";
 import useLoadRecords from "../../commons/useLoadRecords";
 import YearMonthPicker from "../../commons/YearMonthPicker";
 import AddInvestment from "./AddInvestment";
-import ListInvestments from "./ListInvestments";
+
+const headCells = [
+  {
+    id: "broker",
+    numeric: false,
+    disablePadding: false,
+    label: "Broker"
+  },
+  {
+    id: "stock",
+    numeric: false,
+    disablePadding: false,
+    label: "Stock"
+  },
+  {
+    id: "amount",
+    numeric: false,
+    disablePadding: false,
+    label: "Amount ($)"
+  },
+  {
+    id: "units",
+    numeric: false,
+    disablePadding: false,
+    label: "Units"
+  },
+  {
+    id: "date",
+    numeric: false,
+    disablePadding: false,
+    label: "Date"
+  },
+  {
+    id: "vested",
+    numeric: false,
+    disablePadding: false,
+    label: "Vested?"
+  },
+  {
+    id: "remarks",
+    numeric: false,
+    disablePadding: false,
+    label: "Remarks"
+  }
+];
 
 const Investments = () => {
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
@@ -47,7 +92,12 @@ const Investments = () => {
                   <span className="text-danger ms-2">
                     {error}
                   </span>}
-                {tableVisibility && <ListInvestments investmentsList={data} />}
+                {tableVisibility &&
+                  <SmartTable
+                    tableHeaders={headCells}
+                    data={data.item}
+                    subject="investments"
+                  />}
               </Col>
             </Row>
           </Col>

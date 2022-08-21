@@ -2,10 +2,43 @@ import React, { useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { data } from "../../../Mock_data";
 import { tableNames } from "../../../utils/Constants";
+import SmartTable from "../../commons/SmartTable";
 import useLoadRecords from "../../commons/useLoadRecords";
 import YearMonthPicker from "../../commons/YearMonthPicker";
 import AddIncome from "./AddIncome";
-import ListIncome from "./ListIncome";
+
+const headCells = [
+  {
+    id: "source",
+    numeric: false,
+    disablePadding: false,
+    label: "Source"
+  },
+  {
+    id: "date",
+    numeric: false,
+    disablePadding: false,
+    label: "Date"
+  },
+  {
+    id: "amount",
+    numeric: false,
+    disablePadding: false,
+    label: "Amount ($)"
+  },
+  {
+    id: "payment_method",
+    numeric: false,
+    disablePadding: false,
+    label: "Payment Method"
+  },
+  {
+    id: "remarks",
+    numeric: false,
+    disablePadding: false,
+    label: "Remarks"
+  }
+];
 
 const Income = () => {
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
@@ -47,7 +80,8 @@ const Income = () => {
                   <span className="text-danger ms-2">
                     {error}
                   </span>}
-                {tableVisibility && <ListIncome incomeList={data} />}
+                {tableVisibility &&
+                  <SmartTable tableHeaders={headCells} data={data.item} />}
               </Col>
             </Row>
           </Col>

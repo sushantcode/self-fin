@@ -3,8 +3,53 @@ import { Button, Col, Row } from "react-bootstrap";
 import YearMonthPicker from "../../commons/YearMonthPicker";
 import { tableNames } from "../../../utils/Constants";
 import useLoadRecords from "../../commons/useLoadRecords";
-import ListTransfer from "./ListTransfer";
 import AddTransfer from "./AddTransfer";
+import SmartTable from "../../commons/SmartTable";
+
+const headCells = [
+  {
+    id: "service",
+    numeric: false,
+    disablePadding: false,
+    label: "Service"
+  },
+  {
+    id: "receiver",
+    numeric: false,
+    disablePadding: false,
+    label: "Receiver"
+  },
+  {
+    id: "date",
+    numeric: false,
+    disablePadding: false,
+    label: "Date"
+  },
+  {
+    id: "usd",
+    numeric: false,
+    disablePadding: false,
+    label: "USD ($)"
+  },
+  {
+    id: "nrs",
+    numeric: false,
+    disablePadding: false,
+    label: "NRS."
+  },
+  {
+    id: "payment_method",
+    numeric: false,
+    disablePadding: false,
+    label: "Payment Method"
+  },
+  {
+    id: "remarks",
+    numeric: false,
+    disablePadding: false,
+    label: "Remarks"
+  }
+];
 
 const Home = () => {
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
@@ -47,7 +92,8 @@ const Home = () => {
                   <span className="text-danger ms-2">
                     {error}
                   </span>}
-                {tableVisibility && <ListTransfer transferList={data} />}
+                {tableVisibility &&
+                  <SmartTable tableHeaders={headCells} data={data.item} />}
               </Col>
             </Row>
           </Col>

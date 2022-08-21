@@ -2,9 +2,42 @@ import React, { useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import YearMonthPicker from "../../commons/YearMonthPicker";
 import AddNewLoan from "./AddNewLoan";
-import ListLoanRecords from "./ListLoanRecords";
 import { tableNames } from "../../../utils/Constants";
 import useLoadRecords from "../../commons/useLoadRecords";
+import SmartTable from "../../commons/SmartTable";
+
+const headCells = [
+  {
+    id: "person",
+    numeric: false,
+    disablePadding: false,
+    label: "Person"
+  },
+  {
+    id: "date",
+    numeric: false,
+    disablePadding: false,
+    label: "Date"
+  },
+  {
+    id: "amount",
+    numeric: false,
+    disablePadding: false,
+    label: "Amount ($)"
+  },
+  {
+    id: "payment_method",
+    numeric: false,
+    disablePadding: false,
+    label: "Payment Method"
+  },
+  {
+    id: "remarks",
+    numeric: false,
+    disablePadding: false,
+    label: "Remarks"
+  }
+];
 
 const Loan = () => {
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
@@ -46,7 +79,8 @@ const Loan = () => {
                   <span className="text-danger ms-2">
                     {error}
                   </span>}
-                {tableVisibility && <ListLoanRecords loanList={data} />}
+                {tableVisibility &&
+                  <SmartTable tableHeaders={headCells} data={data.item} />}
               </Col>
             </Row>
           </Col>

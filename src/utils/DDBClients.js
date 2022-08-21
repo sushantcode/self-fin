@@ -38,3 +38,26 @@ export const getData = (tableName, date) => {
 
   return docClient.query(params).promise();
 };
+
+export const getBatchData = (tableList, keyList) => {
+  const keysObject =
+    keyList && Array.isArray(keyList)
+      ? keyList.map(element => {
+          return {
+            HashKey: element
+          };
+        })
+      : null;
+  const requestItems = {};
+  if (keysObject && tableList && Array.isArray(tableList)) {
+    tableList.forEach(element => {
+      requestItems[element] = {
+        Keys: keysObject
+      };
+    });
+  }
+  const params = {
+    RequestItems: requestItems
+  };
+  return docClient.batchGet(params).promise();
+};
