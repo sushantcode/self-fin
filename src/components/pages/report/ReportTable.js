@@ -56,10 +56,16 @@ const headCells = [
     label: "Date"
   },
   {
-    id: "amount",
+    id: "incoming",
     numeric: false,
     disablePadding: false,
-    label: "Amount ($)"
+    label: "Incoming ($)"
+  },
+  {
+    id: "outgoing",
+    numeric: false,
+    disablePadding: false,
+    label: "Outgoing ($)"
   },
   {
     id: "remarks",
@@ -162,18 +168,13 @@ const ReportTable = ({ data }) => {
                   .map((row, index) => {
                     return (
                       <TableRow hover tabIndex={-1} key={index}>
-                        <TableCell>
-                          {`${row.category} (${row.location})`}
-                        </TableCell>
-                        <TableCell>
-                          {row["date"]}
-                        </TableCell>
-                        <TableCell>
-                          {row.amount}
-                        </TableCell>
-                        <TableCell>
-                          {row.remarks}
-                        </TableCell>
+                        {headCells.map(item => {
+                          return (
+                            <TableCell key={item.id}>
+                              {row[item.id]}
+                            </TableCell>
+                          );
+                        })}
                       </TableRow>
                     );
                   })}

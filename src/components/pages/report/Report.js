@@ -36,6 +36,8 @@ const Report = () => {
     selectedSubjects
   );
 
+  console.log(data);
+
   const generateReportData = e => {
     e.preventDefault();
     setLoadData(true);
@@ -117,15 +119,15 @@ const Report = () => {
                   <FormHelperText className="text-danger">
                     *Must select subject
                   </FormHelperText>}
-                {/* {loading &&
-                  <div className="ms-3 spinner-border" role="status" />} */}
+                {loading &&
+                  <div className="ms-3 spinner-border" role="status" />}
               </Col>
             </Row>
           </Col>
         </Row>
         <Row>
           <Col>
-            <ReportTable data={data} />
+            <ReportTable data={data ? data.expense : data} />
           </Col>
         </Row>
       </Col>
