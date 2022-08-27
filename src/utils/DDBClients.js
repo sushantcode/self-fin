@@ -8,7 +8,7 @@ const accessKey = process.env.REACT_APP_AWS_ACCESSKEY;
 
 const getDdbClient = () => {
   var configuration = {};
-  if (getPassword()) {
+  if (getPassword() !== null) {
     configuration = {
       region: decrypt(awsregion, getPassword()),
       secretAccessKey: decrypt(secretKey, getPassword()),
