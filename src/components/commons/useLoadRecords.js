@@ -53,23 +53,26 @@ const useLoadRecords = (table, date) => {
   }, [loadData]);
 
   const callGetData = (tableName, hashKey) => {
-    const getDataClient = getData(tableName, hashKey);
-    if (getDataClient !== null) {
-      getDataClient
-        .then((response) => {
-          handleResponse(response, hashKey);
-          setTableVisibility(true);
-          setLoading(false);
-        })
-        .catch((err) => {
-          console.log(err);
-          setError("Error occured while polling data. Try again!!!");
-          setLoading(false);
-        });
-    } else {
-      setError(
-        "Couldn't get DDB client. Make sure you have right credentials."
-      );
+    try {
+      const getDataClient = getData(tableName, hashKey);
+      if (getDataClient !== null) {
+        getDataClient
+          .then((response) => {
+            handleResponse(response, hashKey);
+            setTableVisibility(true);
+            setLoading(false);
+          })
+          .catch((err) => {
+            console.log(err);
+            setError("Error occured while polling data. Try again!!!");
+            setLoading(false);
+          });
+      } else {
+        setError("Oops! Couldn't find the credential.");
+        setLoading(false);
+      }
+    } catch (err) {
+      setError("Oops! Your provided credentials is not right.");
       setLoading(false);
     }
   };

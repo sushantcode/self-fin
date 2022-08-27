@@ -19,21 +19,24 @@ const useUploadRecord = (table, data) => {
 
   const loadData = async (tableName, newItem) => {
     const yearMonth = newItem.date.substring(0, 7);
-    const getDataClient = getData(tableName, yearMonth);
-    if (getDataClient !== null) {
-      await getDataClient
-        .then((response) => {
-          handleResponse(response, tableName, yearMonth, newItem);
-        })
-        .catch((err) => {
-          console.log(err);
-          setError("Error occured while polling data. Try again!!!");
-          setUploading(false);
-        });
-    } else {
-      setError(
-        "Couldn't get DDB client. Make sure you have right credentials."
-      );
+    try {
+      const getDataClient = getData(tableName, yearMonth);
+      if (getDataClient !== null) {
+        await getDataClient
+          .then((response) => {
+            handleResponse(response, tableName, yearMonth, newItem);
+          })
+          .catch((err) => {
+            console.log(err);
+            setError("Error occured while polling data. Try again!!!");
+            setUploading(false);
+          });
+      } else {
+        setError("Oops! Couldn't find the credential.");
+        setUploading(false);
+      }
+    } catch (err) {
+      setError("Oops! Your provided credentials is not right.");
       setUploading(false);
     }
   };
