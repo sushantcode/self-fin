@@ -2,10 +2,14 @@ import * as AWS from "aws-sdk";
 import { decrypt, encrypt } from "./Encryption";
 import { getPassword } from "./Authentication";
 
+const awsregion = process.env.REACT_APP_AWS_REGION;
+const secretKey = process.env.REACT_APP_AWS_SECRETKEY;
+const accessKey = process.env.REACT_APP_AWS_ACCESSKEY;
+
 const configuration = {
-  region: decrypt(process.env.REACT_APP_AWS_REGION, getPassword()),
-  secretAccessKey: decrypt(process.env.REACT_APP_AWS_SECRETKEY, getPassword()),
-  accessKeyId: decrypt(process.env.REACT_APP_AWS_ACCESSKEY, getPassword()),
+  region: decrypt(awsregion, getPassword()),
+  secretAccessKey: decrypt(secretKey, getPassword()),
+  accessKeyId: decrypt(accessKey, getPassword()),
   correctClockSkew: true,
 };
 
