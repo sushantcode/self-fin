@@ -6,53 +6,65 @@ import SmartTable from "../../commons/SmartTable";
 import useLoadRecords from "../../commons/useLoadRecords";
 import YearMonthPicker from "../../commons/YearMonthPicker";
 import AddInvestment from "./AddInvestment";
+import { useNavigate } from "react-router-dom";
+import { isAuthenticated } from "../../../utils/Authentication";
 
 const headCells = [
   {
     id: "broker",
     numeric: false,
     disablePadding: false,
-    label: "Broker"
+    label: "Broker",
   },
   {
     id: "stock",
     numeric: false,
     disablePadding: false,
-    label: "Stock"
+    label: "Stock",
   },
   {
     id: "amount",
     numeric: false,
     disablePadding: false,
-    label: "Amount ($)"
+    label: "Amount ($)",
   },
   {
     id: "units",
     numeric: false,
     disablePadding: false,
-    label: "Units"
+    label: "Units",
   },
   {
     id: "date",
     numeric: false,
     disablePadding: false,
-    label: "Date"
+    label: "Date",
   },
   {
     id: "vested",
     numeric: false,
     disablePadding: false,
-    label: "Vested?"
+    label: "Vested?",
   },
   {
     id: "remarks",
     numeric: false,
     disablePadding: false,
-    label: "Remarks"
-  }
+    label: "Remarks",
+  },
 ];
 
 const Investments = () => {
+  let navigate = useNavigate();
+
+  let authenticated = isAuthenticated();
+
+  useEffect(() => {
+    if (!authenticated) {
+      navigate("/login");
+    }
+  }, [authenticated, navigate]);
+
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
 
   const [setLoadData, error, loading, tableVisibility, data] = useLoadRecords(
@@ -82,22 +94,23 @@ const Investments = () => {
                 >
                   {tableVisibility ? "Hide Table" : "Load Investments"}
                 </Button>
-                {loading &&
-                  <div className="ms-3 spinner-border" role="status" />}
+                {loading && (
+                  <div className="ms-3 spinner-border" role="status" />
+                )}
               </Col>
             </Row>
             <Row>
               <Col>
-                {error.length !== 0 &&
-                  <span className="text-danger ms-2">
-                    {error}
-                  </span>}
-                {tableVisibility &&
+                {error.length !== 0 && (
+                  <span className="text-danger ms-2">{error}</span>
+                )}
+                {tableVisibility && (
                   <SmartTable
                     tableHeaders={headCells}
                     data={data.item}
                     subject="investments"
-                  />}
+                  />
+                )}
               </Col>
             </Row>
           </Col>

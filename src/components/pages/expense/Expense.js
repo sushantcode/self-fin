@@ -1,51 +1,63 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import YearMonthPicker from "../../commons/YearMonthPicker";
 import AddExpense from "./AddExpense";
 import { tableNames } from "../../../utils/Constants";
 import useLoadRecords from "../../commons/useLoadRecords";
 import SmartTable from "../../commons/SmartTable";
+import { useNavigate } from "react-router-dom";
+import { isAuthenticated } from "../../../utils/Authentication";
 
 const headCells = [
   {
     id: "category",
     numeric: false,
     disablePadding: false,
-    label: "Category"
+    label: "Category",
   },
   {
     id: "date",
     numeric: false,
     disablePadding: false,
-    label: "Date"
+    label: "Date",
   },
   {
     id: "location",
     numeric: false,
     disablePadding: false,
-    label: "Location"
+    label: "Location",
   },
   {
     id: "amount",
     numeric: false,
     disablePadding: false,
-    label: "Amount ($)"
+    label: "Amount ($)",
   },
   {
     id: "payment_method",
     numeric: false,
     disablePadding: false,
-    label: "Payment Method"
+    label: "Payment Method",
   },
   {
     id: "remarks",
     numeric: false,
     disablePadding: false,
-    label: "Remarks"
-  }
+    label: "Remarks",
+  },
 ];
 
 const Expense = () => {
+  let navigate = useNavigate();
+
+  let authenticated = isAuthenticated();
+
+  useEffect(() => {
+    if (!authenticated) {
+      navigate("/login");
+    }
+  }, [authenticated, navigate]);
+
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
 
   const [setLoadData, error, loading, tableVisibility, data] = useLoadRecords(
@@ -76,18 +88,19 @@ const Expense = () => {
                 >
                   {tableVisibility ? "Hide Table" : "Load Expenses"}
                 </Button>
-                {loading &&
-                  <div className="ms-3 spinner-border" role="status" />}
+                {loading && (
+                  <div className="ms-3 spinner-border" role="status" />
+                )}
               </Col>
             </Row>
             <Row>
               <Col>
-                {error.length !== 0 &&
-                  <span className="text-danger ms-2">
-                    {error}
-                  </span>}
-                {tableVisibility &&
-                  <SmartTable tableHeaders={headCells} data={data.item} />}
+                {error.length !== 0 && (
+                  <span className="text-danger ms-2">{error}</span>
+                )}
+                {tableVisibility && (
+                  <SmartTable tableHeaders={headCells} data={data.item} />
+                )}
               </Col>
             </Row>
           </Col>

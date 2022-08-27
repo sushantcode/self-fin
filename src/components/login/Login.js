@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Row,
   Col,
@@ -9,27 +9,24 @@ import {
   FormControl,
   Button,
   Alert,
-  Container
+  Container,
 } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignInAlt, faLock, faUndo } from "@fortawesome/free-solid-svg-icons";
 import {
   isAuthenticated,
   validatePassword,
-  writePassword
+  writePassword,
 } from "../../utils/Authentication";
 
 const Login = () => {
   let navigate = useNavigate();
 
-  useEffect(
-    () => {
-      if (isAuthenticated()) {
-        navigate("/");
-      }
-    },
-    [navigate]
-  );
+  useEffect(() => {
+    if (isAuthenticated()) {
+      navigate("/");
+    }
+  }, [navigate]);
 
   const [password, setPassword] = useState("");
   const [error, setError] = useState();
@@ -55,11 +52,11 @@ const Login = () => {
     <Container className="mt-4">
       <Row className="justify-content-md-center">
         <Col md={5}>
-          {show &&
-            error &&
+          {show && error && (
             <Alert variant="danger" onClose={() => setShow(false)} dismissible>
               {error}
-            </Alert>}
+            </Alert>
+          )}
           <Card className={"border border-dark"}>
             <Card.Header className="text-center fs-4">
               Provide credential
@@ -77,7 +74,7 @@ const Login = () => {
                       type="password"
                       name="password"
                       value={password}
-                      onChange={e => setPassword(e.target.value)}
+                      onChange={(e) => setPassword(e.target.value)}
                       placeholder="Enter Password"
                     />
                   </InputGroup>

@@ -11,57 +11,54 @@ const useLoadRecords = (table, date) => {
   const [error, setError] = useState("");
   const [data, setData] = useState(null);
 
-  useEffect(
-    () => {
-      if (loadData && date.length !== 0) {
-        setLoading(true);
-        setError("");
-        if (tableVisibility) {
-          setTableVisibility(false);
-          setLoading(false);
-        } else {
-          //-------- TODO: Remove these lines-------
-          console.log("Data loaded.");
-          switch (table) {
-            case "expense":
-              setData(mock_data.expense);
-              setTableVisibility(true);
-              setLoading(false);
-              break;
+  useEffect(() => {
+    if (loadData && date.length !== 0) {
+      setLoading(true);
+      setError("");
+      if (tableVisibility) {
+        setTableVisibility(false);
+        setLoading(false);
+      } else {
+        //-------- TODO: Remove these lines-------
+        // console.log("Data loaded.");
+        // switch (table) {
+        //   case "expense":
+        //     setData(mock_data.expense);
+        //     setTableVisibility(true);
+        //     setLoading(false);
+        //     break;
 
-            case "investments":
-              setData(mock_data.investments);
-              setTableVisibility(true);
-              setLoading(false);
-              break;
+        //   case "investments":
+        //     setData(mock_data.investments);
+        //     setTableVisibility(true);
+        //     setLoading(false);
+        //     break;
 
-            case "toHome":
-              setData(mock_data.toHome);
-              setTableVisibility(true);
-              setLoading(false);
-              break;
+        //   case "toHome":
+        //     setData(mock_data.toHome);
+        //     setTableVisibility(true);
+        //     setLoading(false);
+        //     break;
 
-            default:
-              setLoading(false);
-              break;
-          }
-          //----------------------------------------
-          //callGetData(table, date);
-        }
+        //   default:
+        //     setLoading(false);
+        //     break;
+        // }
+        //----------------------------------------
+        callGetData(table, date);
       }
-      setLoadData(false);
-    },
-    [loadData]
-  );
+    }
+    setLoadData(false);
+  }, [loadData]);
 
   const callGetData = (tableName, hashKey) => {
     getData(tableName, hashKey)
-      .then(response => {
+      .then((response) => {
         handleResponse(response, hashKey);
         setTableVisibility(true);
         setLoading(false);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
         setError("Error occured while polling data. Try again!!!");
         setLoading(false);
@@ -74,13 +71,13 @@ const useLoadRecords = (table, date) => {
       const decryptedData = decrypt(response.Items[0].item, getPassword());
       const result = {
         year_month: hashKey.substring(0, 7),
-        item: decryptedData
+        item: decryptedData,
       };
       setData(result);
     } else {
       const result = {
         year_month: hashKey.substring(0, 7),
-        item: []
+        item: [],
       };
       setData(result);
     }
