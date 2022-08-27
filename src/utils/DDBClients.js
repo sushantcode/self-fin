@@ -7,6 +7,8 @@ const secretKey = process.env.REACT_APP_AWS_SECRETKEY;
 const accessKey = process.env.REACT_APP_AWS_ACCESSKEY;
 
 console.log(awsregion);
+console.log(secretKey);
+console.log(accessKey);
 
 const configuration = {
   region: decrypt(awsregion, getPassword()),
