@@ -1,15 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import {
-  faBank,
-  faCalendar,
-  faCircleInfo,
-  faDollar,
-  faLocation,
-  faRefresh,
-  faUndo,
-  faUpload,
-} from "@fortawesome/free-solid-svg-icons";
+import { faRefresh } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Titlebar = () => {
@@ -21,6 +12,9 @@ const Titlebar = () => {
     switch (path) {
       case "/":
         return "Dashboard";
+
+      case "/login":
+        return "Login";
 
       case "/expense":
         return "Regular Expense";
@@ -48,16 +42,19 @@ const Titlebar = () => {
     }
   }
 
-  useEffect(() => {
-    // eslint-disable-next-line
-    let isMounted = true;
+  useEffect(
+    () => {
+      // eslint-disable-next-line
+      let isMounted = true;
 
-    setCurrPath(getPathName(location.pathname));
+      setCurrPath(getPathName(location.pathname));
 
-    return () => {
-      isMounted = false;
-    };
-  }, [location.pathname]);
+      return () => {
+        isMounted = false;
+      };
+    },
+    [location.pathname]
+  );
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -67,13 +64,12 @@ const Titlebar = () => {
         </Link>
         <div className="row d-flex">
           <div className="col justify-content-center text-light">
-            {window.innerWidth < 760 && (
+            {window.innerWidth < 760 &&
               <FontAwesomeIcon
                 onClick={() => window.location.reload()}
                 icon={faRefresh}
                 className="me-3 fs-4"
-              />
-            )}
+              />}
             {currPath}
           </div>
         </div>

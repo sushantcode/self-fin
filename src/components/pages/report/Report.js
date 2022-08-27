@@ -15,32 +15,33 @@ const Report = () => {
   const [selectedDatesArr, setSelectedDatesArr] = useState([]);
   const [selectedSubjects, setSelectedSubjects] = useState([]);
 
-  useEffect(() => {
-    let dates = [];
-    let from = new Date(fromDate);
-    from.setDate(1);
-    let to = new Date(toDate);
-    to.setDate(1);
-    while (from <= to) {
-      dates.push(from.toISOString().split("T")[0]);
-      from.setMonth(from.getMonth() + 1);
-    }
-    setSelectedDatesArr(dates);
-  }, [fromDate, toDate]);
+  useEffect(
+    () => {
+      let dates = [];
+      let from = new Date(fromDate);
+      from.setDate(1);
+      let to = new Date(toDate);
+      to.setDate(1);
+      while (from <= to) {
+        dates.push(from.toISOString().split("T")[0]);
+        from.setMonth(from.getMonth() + 1);
+      }
+      setSelectedDatesArr(dates);
+    },
+    [fromDate, toDate]
+  );
 
   const [setLoadData, error, loading, data] = useGenerateReportData(
     selectedDatesArr,
     selectedSubjects
   );
 
-  console.log(data);
-
-  const generateReportData = (e) => {
+  const generateReportData = e => {
     e.preventDefault();
     setLoadData(true);
   };
 
-  const handleCheckbox = (event) => {
+  const handleCheckbox = event => {
     let currentSelection = [...selectedSubjects];
     event.target.checked
       ? currentSelection.push(event.target.name)
@@ -113,14 +114,12 @@ const Report = () => {
                 >
                   Generate reports
                 </Button>
-                {selectedSubjects.length === 0 && (
+                {selectedSubjects.length === 0 &&
                   <FormHelperText className="text-danger">
                     *Must select subject
-                  </FormHelperText>
-                )}
-                {loading && (
-                  <div className="ms-3 spinner-border" role="status" />
-                )}
+                  </FormHelperText>}
+                {loading &&
+                  <div className="ms-3 spinner-border" role="status" />}
               </Col>
             </Row>
           </Col>

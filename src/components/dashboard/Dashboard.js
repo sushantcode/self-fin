@@ -5,14 +5,28 @@ import {
   faPiggyBank,
   faArrowTrendUp,
   faChartBar,
-  faMoneyBillTransfer,
+  faMoneyBillTransfer
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { isAuthenticated } from "../../utils/Authentication";
 
 const Dashboard = () => {
+  let navigate = useNavigate();
+
+  let authenticated = isAuthenticated();
+
+  useEffect(
+    () => {
+      if (!authenticated) {
+        navigate("/login");
+      }
+    },
+    [authenticated, navigate]
+  );
+
   return (
     <Container>
       <Row className="mb-4 mt-4">

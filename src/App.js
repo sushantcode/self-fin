@@ -2,6 +2,7 @@ import React from "react";
 import { Container } from "react-bootstrap";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Dashboard from "./components/dashboard/Dashboard";
+import Login from "./components/login/Login";
 import Expense from "./components/pages/expense/Expense";
 import Home from "./components/pages/home/Home";
 import Income from "./components/pages/income/Income";
@@ -18,6 +19,7 @@ function App() {
       <Container>
         <Routes>
           <Route path="/" element={<Dashboard />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/expense" element={<Expense />} />
           <Route path="/income" element={<Income />} />
           <Route path="/loan" element={<Loan />} />
