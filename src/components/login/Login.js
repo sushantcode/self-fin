@@ -33,12 +33,18 @@ const Login = () => {
   const [show, setShow] = useState(true);
 
   const validateCredentials = () => {
-    if (validatePassword(password)) {
-      writePassword(password);
-      resetLoginForm();
-      navigate("/");
-    } else {
-      setError("Invalid credential, try again!!!");
+    try {
+      if (validatePassword(password)) {
+        writePassword(password);
+        resetLoginForm();
+        navigate("/");
+      } else {
+        setError("Invalid credential, try again!!!");
+        setShow(true);
+        resetLoginForm();
+      }
+    } catch (err) {
+      setError(err.message);
       setShow(true);
       resetLoginForm();
     }
