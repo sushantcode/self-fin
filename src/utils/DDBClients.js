@@ -6,18 +6,20 @@ const awsregion = process.env.REACT_APP_AWS_REGION;
 const secretKey = process.env.REACT_APP_AWS_SECRETKEY;
 const accessKey = process.env.REACT_APP_AWS_ACCESSKEY;
 
-console.log(awsregion);
-console.log(secretKey);
-console.log(accessKey);
-
-const configuration = {
-  region: decrypt(awsregion, getPassword()),
-  secretAccessKey: decrypt(secretKey, getPassword()),
-  accessKeyId: decrypt(accessKey, getPassword()),
-  correctClockSkew: true,
+const getDdbClient = () => {
+  var configuration = {};
+  if (getPassword()) {
+    configuration = {
+      region: decrypt(awsregion, getPassword()),
+      secretAccessKey: decrypt(secretKey, getPassword()),
+      accessKeyId: decrypt(accessKey, getPassword()),
+      correctClockSkew: true,
+    };
+    const docClient = new AWS.DynamoDB.DocumentClient(configuration);
+    return docClient;
+  }
+  return null;
 };
-
-const docClient = new AWS.DynamoDB.DocumentClient(configuration);
 
 export const putData = (tableName, hashKey, data) => {
   const encryptedData = encrypt(data, getPassword());
@@ -29,8 +31,8 @@ export const putData = (tableName, hashKey, data) => {
     TableName: tableName,
     Item: recordToBeAdded,
   };
-
-  return docClient.put(params).promise();
+  const docClient = getDdbClient();
+  return docClient ? docClient.put(params).promise() : new Promise();
 };
 
 export const getData = (tableName, date) => {
@@ -42,8 +44,8 @@ export const getData = (tableName, date) => {
       ":hkey": hashKey,
     },
   };
-
-  return docClient.query(params).promise();
+  const docClient = getDdbClient();
+  return docClient ? docClient.query(params).promise() : new Promise();
 };
 
 export const getBatchData = (tableList, keyList) => {
@@ -66,5 +68,6 @@ export const getBatchData = (tableList, keyList) => {
   const params = {
     RequestItems: requestItems,
   };
-  return docClient.batchGet(params).promise();
+  const docClient = getDdbClient();
+  return docClient ? docClient.batchGet(params).promise() : new Promise();
 };
