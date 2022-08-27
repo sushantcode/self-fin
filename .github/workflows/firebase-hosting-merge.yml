@@ -2,7 +2,7 @@
 # https://github.com/firebase/firebase-tools
 
 name: Deploy to Firebase Hosting on merge
-'on':
+"on":
   push:
     branches:
       - main
@@ -10,7 +10,8 @@ env:
   REACT_APP_AWS_ACCESSKEY: ${{ secrets.REACT_APP_AWS_ACCESSKEY }}
   REACT_APP_AWS_REGION: ${{ secrets.REACT_APP_AWS_REGION }}
   REACT_APP_AWS_SECRETKEY: ${{ secrets.REACT_APP_AWS_SECRETKEY }}
-  REACT_APP_HASHEDPASSWORD: ${{ secrets.REACT_APP_HASHEDPASSWORD }}
+  REACT_APP_ENCRYPTION_SALT: ${{ secrets.REACT_APP_ENCRYPTION_SALT }}
+  REACT_APP_PASSWORD_ENCRYPTER: ${{ secrets.REACT_APP_PASSWORD_ENCRYPTER }}
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
@@ -19,7 +20,7 @@ jobs:
       - run: npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_SELF_FIN }}'
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_SELF_FIN }}"
           channelId: live
           projectId: self-fin
