@@ -3,11 +3,14 @@ import CryptoJS from "crypto-js";
 const keySalt = process.env.REACT_APP_ENCRYPTION_SALT;
 
 export const encrypt = (inputText, userKey) => {
-  console.log(JSON.stringify(inputText));
-  const encrypted = CryptoJS.AES.encrypt(
-    JSON.stringify(inputText),
-    userKey + keySalt
-  ).toString();
+  const plainText = JSON.stringify(inputText);
+  const key = userKey + keySalt;
+  console.log(plainText);
+  console.log(userKey);
+  console.log(keySalt);
+  console.log(key);
+  const encrypted = CryptoJS.AES.encrypt(plainText, key).toString();
+  console.log(encrypted);
   const base64Encoded = CryptoJS.enc.Base64.stringify(
     CryptoJS.enc.Utf8.parse(encrypted)
   );
