@@ -45,6 +45,7 @@ const useLoadRecords = (table, date) => {
         //     break;
         // }
         //----------------------------------------
+        setData(null);
         callGetData(table, date);
       }
     }
@@ -52,17 +53,25 @@ const useLoadRecords = (table, date) => {
   }, [loadData]);
 
   const callGetData = (tableName, hashKey) => {
-    getData(tableName, hashKey)
-      .then((response) => {
-        handleResponse(response, hashKey);
-        setTableVisibility(true);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
-        setError("Error occured while polling data. Try again!!!");
-        setLoading(false);
-      });
+    const getDataClient = getData(tableName, hashKey);
+    if (getDataClient !== null) {
+      getDataClient
+        .then((response) => {
+          handleResponse(response, hashKey);
+          setTableVisibility(true);
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          setError("Error occured while polling data. Try again!!!");
+          setLoading(false);
+        });
+    } else {
+      setError(
+        "Couldn't get DDB client. Make sure you have right credentials."
+      );
+      setLoading(false);
+    }
   };
 
   const handleResponse = (response, hashKey) => {

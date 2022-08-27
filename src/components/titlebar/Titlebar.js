@@ -77,7 +77,7 @@ const Titlebar = () => {
               />
             )}
             {currPath}
-            {location.pathname === "/login" && (
+            {location.pathname !== "/login" && (
               <Button
                 className="ms-3"
                 variant="contained"

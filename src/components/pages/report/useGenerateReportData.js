@@ -22,15 +22,23 @@ const useGenerateReportData = (selectedDatesArr, selectedSubjects) => {
       // setLoading(false);
 
       // Call to dynamoDB tables for data
-      getBatchData(selectedSubjects, keys)
-        .then((response) => {
-          handleResponse(response);
-        })
-        .catch((err) => {
-          console.log(err);
-          setError("Error occured while polling data. Try again!!!");
-          setLoading(false);
-        });
+      const getBatchDataDdbClient = getBatchData(selectedSubjects, keys);
+      if (getBatchDataDdbClient !== null) {
+        getBatchDataDdbClient
+          .then((response) => {
+            handleResponse(response);
+          })
+          .catch((err) => {
+            console.log(err);
+            setError("Error occured while polling data. Try again!!!");
+            setLoading(false);
+          });
+      } else {
+        setError(
+          "Couldn't get DDB client. Make sure you have right credentials."
+        );
+        setLoading(false);
+      }
     }
     setLoadData(false);
   }, [loadData]);

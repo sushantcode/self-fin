@@ -1,6 +1,8 @@
 import bcrypt from "bcryptjs";
 import { decrypt, encrypt } from "./Encryption";
 
+const passwordEncrypter = process.env.REACT_APP_PASSWORD_ENCRYPTER;
+
 export const validatePassword = (inputPassword) => {
   const hasMatched = bcrypt.compareSync(
     inputPassword,
@@ -10,7 +12,7 @@ export const validatePassword = (inputPassword) => {
 };
 
 export const writePassword = (password) => {
-  window.sessionStorage.setItem("name", encrypt(password));
+  window.sessionStorage.setItem("name", encrypt(password, passwordEncrypter));
 };
 
 export const isAuthenticated = () => {
@@ -21,7 +23,7 @@ export const isAuthenticated = () => {
 export const getPassword = () => {
   const password = window.sessionStorage.getItem("name");
   // const password = process.env.REACT_APP_PASSWORD;
-  if (password) return decrypt(password);
+  if (password) return decrypt(password, passwordEncrypter);
   return null;
 };
 

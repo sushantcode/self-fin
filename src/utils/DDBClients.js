@@ -32,7 +32,7 @@ export const putData = (tableName, hashKey, data) => {
     Item: recordToBeAdded,
   };
   const docClient = getDdbClient();
-  return docClient ? docClient.put(params).promise() : new Promise();
+  return docClient ? docClient.put(params).promise() : null;
 };
 
 export const getData = (tableName, date) => {
@@ -45,7 +45,7 @@ export const getData = (tableName, date) => {
     },
   };
   const docClient = getDdbClient();
-  return docClient ? docClient.query(params).promise() : new Promise();
+  return docClient ? docClient.query(params).promise() : null;
 };
 
 export const getBatchData = (tableList, keyList) => {
@@ -69,5 +69,5 @@ export const getBatchData = (tableList, keyList) => {
     RequestItems: requestItems,
   };
   const docClient = getDdbClient();
-  return docClient ? docClient.batchGet(params).promise() : new Promise();
+  return docClient ? docClient.batchGet(params).promise() : null;
 };

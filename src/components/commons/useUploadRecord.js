@@ -19,15 +19,23 @@ const useUploadRecord = (table, data) => {
 
   const loadData = async (tableName, newItem) => {
     const yearMonth = newItem.date.substring(0, 7);
-    await getData(tableName, yearMonth)
-      .then((response) => {
-        handleResponse(response, tableName, yearMonth, newItem);
-      })
-      .catch((err) => {
-        console.log(err);
-        setError("Error occured while polling data. Try again!!!");
-        setUploading(false);
-      });
+    const getDataClient = getData(tableName, yearMonth);
+    if (getDataClient !== null) {
+      await getDataClient
+        .then((response) => {
+          handleResponse(response, tableName, yearMonth, newItem);
+        })
+        .catch((err) => {
+          console.log(err);
+          setError("Error occured while polling data. Try again!!!");
+          setUploading(false);
+        });
+    } else {
+      setError(
+        "Couldn't get DDB client. Make sure you have right credentials."
+      );
+      setUploading(false);
+    }
   };
 
   const handleResponse = (response, tableName, yearMonth, newItem) => {
@@ -45,18 +53,26 @@ const useUploadRecord = (table, data) => {
 
   const uploadData = async (tableName, yearMonth, newItemsList) => {
     if (newItemsList !== null) {
-      await putData(tableName, yearMonth, newItemsList)
-        .then(() => {
-          console.log("Success");
-          setError("");
-        })
-        .catch((err) => {
-          console.log(err);
-          setError("Error occured!");
-        })
-        .finally(() => {
-          setUploading(false);
-        });
+      const putDataDDBClient = putData(tableName, yearMonth, newItemsList);
+      if (putDataDDBClient !== null) {
+        await putDataDDBClient
+          .then(() => {
+            console.log("Success");
+            setError("");
+          })
+          .catch((err) => {
+            console.log(err);
+            setError("Error occured!");
+          })
+          .finally(() => {
+            setUploading(false);
+          });
+      } else {
+        setError(
+          "Couldn't put DDB client. Make sure you have right credentials."
+        );
+        setUploading(false);
+      }
     } else {
       setError("Error occured!");
       setUploading(false);
