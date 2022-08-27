@@ -175,7 +175,7 @@ const SmartTable = props => {
                 {emptyRows > 0 &&
                   <TableRow
                     style={{
-                      height: (dense ? 33 : 53) * emptyRows
+                      height: 53 * emptyRows
                     }}
                   >
                     <TableCell colSpan={6} />
