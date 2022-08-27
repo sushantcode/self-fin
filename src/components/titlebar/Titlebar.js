@@ -77,14 +77,16 @@ const Titlebar = () => {
               />
             )}
             {currPath}
-            <Button
-              className="ms-3"
-              variant="contained"
-              color="error"
-              onClick={onLogout}
-            >
-              <FontAwesomeIcon icon={faSignOut} />
-            </Button>
+            {location.pathname === "/login" && (
+              <Button
+                className="ms-3"
+                variant="contained"
+                color="error"
+                onClick={onLogout}
+              >
+                <FontAwesomeIcon icon={faSignOut} />
+              </Button>
+            )}
           </div>
         </div>
       </div>
