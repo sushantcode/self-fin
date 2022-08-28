@@ -11,52 +11,55 @@ const useGenerateReportData = (selectedDatesArr, selectedSubjects) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    if (loadData && selectedSubjects.length > 0) {
-      setLoading(true);
-      setError("");
-      const keys = selectedDatesArr.map((element) => element.substring(0, 7));
-      // For Mock data
-      // setData(report.expense[0].item);
-      // handleResponse(reportData);
-      // setLoading(false);
+  useEffect(
+    () => {
+      if (loadData && selectedSubjects.length > 0) {
+        setLoading(true);
+        setError("");
+        const keys = selectedDatesArr.map(element => element.substring(0, 7));
+        // For Mock data
+        // setData(report.expense[0].item);
+        // handleResponse(reportData);
+        // setLoading(false);
 
-      // Call to dynamoDB tables for data
-      try {
-        const getBatchDataDdbClient = getBatchData(selectedSubjects, keys);
-        if (getBatchDataDdbClient !== null) {
-          getBatchDataDdbClient
-            .then((response) => {
-              handleResponse(response);
-            })
-            .catch((err) => {
-              console.log(err);
-              setError("Error occured while polling data. Try again!!!");
-              setLoading(false);
-            });
-        } else {
-          setError("Oops! Couldn't find the credential.");
+        // Call to dynamoDB tables for data
+        try {
+          const getBatchDataDdbClient = getBatchData(selectedSubjects, keys);
+          if (getBatchDataDdbClient !== null) {
+            getBatchDataDdbClient
+              .then(response => {
+                handleResponse(response);
+              })
+              .catch(err => {
+                console.log(err);
+                setError("Error occured while polling data. Try again!!!");
+                setLoading(false);
+              });
+          } else {
+            setError("Oops! Couldn't find the credential.");
+            setLoading(false);
+          }
+        } catch (err) {
+          setError("Oops! Your provided credentials is not right.");
           setLoading(false);
         }
-      } catch (err) {
-        setError("Oops! Your provided credentials is not right.");
-        setLoading(false);
       }
-    }
-    setLoadData(false);
-  }, [loadData]);
+      setLoadData(false);
+    },
+    [loadData]
+  );
 
-  const handleResponse = (response) => {
+  const handleResponse = response => {
     let resoneData = response.Responses;
     let combinedRecords = [];
     if (resoneData) {
-      Object.keys(resoneData).forEach((element) => {
-        resoneData[element].forEach((record) => {
+      Object.keys(resoneData).forEach(element => {
+        resoneData[element].forEach(record => {
           const decryptedData = decrypt(record.item, getPassword());
           // const decryptedData = record.item; // For mock data
           combinedRecords = [
             ...combinedRecords,
-            ...formatData(decryptedData, element),
+            ...formatData(decryptedData, element)
           ];
         });
       });
@@ -64,7 +67,7 @@ const useGenerateReportData = (selectedDatesArr, selectedSubjects) => {
       setData({
         data: combinedRecords,
         total_incoming: totals[0],
-        total_outgoing: totals[1],
+        total_outgoing: totals[1]
       });
       setLoading(false);
     }
@@ -74,35 +77,35 @@ const useGenerateReportData = (selectedDatesArr, selectedSubjects) => {
     switch (tableName) {
       case tableNames.EXPENSE:
         return rawData && Array.isArray(rawData)
-          ? rawData.map((record) => {
+          ? rawData.map(record => {
               return {
                 subject: "Expense",
                 description: record.category + " (" + record.location + ")",
                 date: record.date,
                 incoming: "-",
                 outgoing: record.amount,
-                remarks: record.remarks,
+                remarks: record.remarks
               };
             })
           : [];
 
       case tableNames.INCOME:
         return rawData && Array.isArray(rawData)
-          ? rawData.map((record) => {
+          ? rawData.map(record => {
               return {
                 subject: "Income",
                 description: record.source,
                 date: record.date,
                 incoming: record.amount,
                 outgoing: "-",
-                remarks: record.remarks,
+                remarks: record.remarks
               };
             })
           : [];
 
       case tableNames.INVESTMENTS:
         return rawData && Array.isArray(rawData)
-          ? rawData.map((record) => {
+          ? rawData.map(record => {
               return {
                 subject: "Investments",
                 description:
@@ -114,49 +117,49 @@ const useGenerateReportData = (selectedDatesArr, selectedSubjects) => {
                 date: record.date,
                 incoming: "-",
                 outgoing: record.amount,
-                remarks: record.remarks,
+                remarks: record.remarks
               };
             })
           : [];
 
       case tableNames.LOANTOFRIEND:
         return rawData && Array.isArray(rawData)
-          ? rawData.map((record) => {
+          ? rawData.map(record => {
               return {
                 subject: "Loans",
                 description: record.person,
                 date: record.date,
                 incoming: "-",
                 outgoing: record.amount,
-                remarks: record.remarks,
+                remarks: record.remarks
               };
             })
           : [];
 
       case tableNames.SAVING:
         return rawData && Array.isArray(rawData)
-          ? rawData.map((record) => {
+          ? rawData.map(record => {
               return {
                 subject: "Savings",
                 description: record.where + " (At " + record.interest + "%)",
                 date: record.date,
                 incoming: "-",
                 outgoing: record.amount,
-                remarks: record.remarks,
+                remarks: record.remarks
               };
             })
           : [];
 
       case tableNames.HOME:
         return rawData && Array.isArray(rawData)
-          ? rawData.map((record) => {
+          ? rawData.map(record => {
               return {
                 subject: "Transfer-Home",
                 description: record.service + " (To: " + record.receiver + ")",
                 date: record.date,
                 incoming: "-",
-                outgoing: record.usd,
-                remarks: record.remarks,
+                outgoing: record.amount,
+                remarks: record.remarks
               };
             })
           : [];
@@ -166,10 +169,10 @@ const useGenerateReportData = (selectedDatesArr, selectedSubjects) => {
     }
   };
 
-  const calculateTotals = (combinedRecords) => {
+  const calculateTotals = combinedRecords => {
     let totalIncoming = 0;
     let totalOutgoing = 0;
-    combinedRecords.forEach((record) => {
+    combinedRecords.forEach(record => {
       if (record.incoming === "-") {
         totalOutgoing += parseFloat(record.outgoing);
       } else {

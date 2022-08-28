@@ -13,44 +13,44 @@ const headCells = [
     id: "service",
     numeric: false,
     disablePadding: false,
-    label: "Service",
+    label: "Service"
   },
   {
     id: "receiver",
     numeric: false,
     disablePadding: false,
-    label: "Receiver",
+    label: "Receiver"
   },
   {
     id: "date",
     numeric: false,
     disablePadding: false,
-    label: "Date",
+    label: "Date"
   },
   {
-    id: "usd",
+    id: "amount",
     numeric: false,
     disablePadding: false,
-    label: "USD ($)",
+    label: "USD ($)"
   },
   {
     id: "nrs",
     numeric: false,
     disablePadding: false,
-    label: "NRS.",
+    label: "NRS."
   },
   {
     id: "payment_method",
     numeric: false,
     disablePadding: false,
-    label: "Payment Method",
+    label: "Payment Method"
   },
   {
     id: "remarks",
     numeric: false,
     disablePadding: false,
-    label: "Remarks",
-  },
+    label: "Remarks"
+  }
 ];
 
 const Home = () => {
@@ -58,11 +58,14 @@ const Home = () => {
 
   let authenticated = isAuthenticated();
 
-  useEffect(() => {
-    if (!authenticated) {
-      navigate("/login");
-    }
-  }, [authenticated, navigate]);
+  useEffect(
+    () => {
+      if (!authenticated) {
+        navigate("/login");
+      }
+    },
+    [authenticated, navigate]
+  );
 
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
 
@@ -94,24 +97,23 @@ const Home = () => {
                 >
                   {tableVisibility ? "Hide Table" : "Load Tranfers"}
                 </Button>
-                {loading && (
-                  <div className="ms-3 spinner-border" role="status" />
-                )}
+                {loading &&
+                  <div className="ms-3 spinner-border" role="status" />}
               </Col>
             </Row>
             <Row>
               <Col>
-                {error.length !== 0 && (
-                  <span className="text-danger ms-2">{error}</span>
-                )}
-                {tableVisibility && (
+                {error.length !== 0 &&
+                  <span className="text-danger ms-2">
+                    {error}
+                  </span>}
+                {tableVisibility &&
                   <SmartTable
                     tableHeaders={headCells}
                     data={data.item}
                     subject={tableNames.HOME}
                     period={date}
-                  />
-                )}
+                  />}
               </Col>
             </Row>
           </Col>
