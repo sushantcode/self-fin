@@ -65,7 +65,7 @@ const AddTransfer = () => {
       service: service,
       receiver: receiver,
       date: date,
-      usd: usd,
+      amount: usd,
       nrs: nrs,
       payment_method: paymentMethod,
       remarks: remarks
