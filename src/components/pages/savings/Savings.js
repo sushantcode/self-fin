@@ -92,7 +92,12 @@ const Savings = () => {
                   <span className="text-danger ms-2">{error}</span>
                 )}
                 {tableVisibility && (
-                  <SmartTable tableHeaders={headCells} data={data.item} />
+                  <SmartTable
+                    tableHeaders={headCells}
+                    data={data.item}
+                    subject={tableNames.SAVING}
+                    period={date}
+                  />
                 )}
               </Col>
             </Row>

@@ -105,7 +105,12 @@ const Home = () => {
                   <span className="text-danger ms-2">{error}</span>
                 )}
                 {tableVisibility && (
-                  <SmartTable tableHeaders={headCells} data={data.item} />
+                  <SmartTable
+                    tableHeaders={headCells}
+                    data={data.item}
+                    subject={tableNames.HOME}
+                    period={date}
+                  />
                 )}
               </Col>
             </Row>

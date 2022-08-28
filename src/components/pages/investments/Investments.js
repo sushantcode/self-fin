@@ -108,7 +108,8 @@ const Investments = () => {
                   <SmartTable
                     tableHeaders={headCells}
                     data={data.item}
-                    subject="investments"
+                    subject={tableNames.INVESTMENTS}
+                    period={date}
                   />
                 )}
               </Col>

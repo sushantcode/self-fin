@@ -92,7 +92,12 @@ const Loan = () => {
                   <span className="text-danger ms-2">{error}</span>
                 )}
                 {tableVisibility && (
-                  <SmartTable tableHeaders={headCells} data={data.item} />
+                  <SmartTable
+                    tableHeaders={headCells}
+                    data={data.item}
+                    subject={tableNames.LOANTOFRIEND}
+                    period={date}
+                  />
                 )}
               </Col>
             </Row>
