@@ -11,11 +11,10 @@ import TableRow from "@mui/material/TableRow";
 import TableSortLabel from "@mui/material/TableSortLabel";
 import Paper from "@mui/material/Paper";
 import { visuallyHidden } from "@mui/utils";
-import "./Style.css";
 import { Checkbox, Toolbar, Tooltip, Typography } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import { Button, Col, Row } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import useDeleteRecord from "./useDeleteRecord";
 
 function descendingComparator(a, b, orderBy) {

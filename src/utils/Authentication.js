@@ -3,7 +3,7 @@ import { decrypt, encrypt } from "./Encryption";
 
 const passwordEncrypter = process.env.REACT_APP_PASSWORD_ENCRYPTER;
 
-export const validatePassword = (inputPassword) => {
+export const validatePassword = inputPassword => {
   const hasMatched = bcrypt.compareSync(
     inputPassword,
     "$2a$10$qw/ZFYix23ftY9YmYI4Sw.AFvWbrTmMk1y5Rpb97.swJLWJr9r7YW"
@@ -11,7 +11,7 @@ export const validatePassword = (inputPassword) => {
   return hasMatched;
 };
 
-export const writePassword = (password) => {
+export const writePassword = password => {
   window.sessionStorage.setItem("name", encrypt(password, passwordEncrypter));
 };
 

@@ -7,44 +7,46 @@ import useLoadRecords from "../../commons/useLoadRecords";
 import SmartTable from "../../commons/SmartTable";
 import { useNavigate } from "react-router-dom";
 import { isAuthenticated } from "../../../utils/Authentication";
+import { FormControlLabel, FormGroup, Switch } from "@mui/material";
+import Graphs from "../../commons/Graphs";
 
 const headCells = [
   {
     id: "category",
     numeric: false,
     disablePadding: false,
-    label: "Category",
+    label: "Category"
   },
   {
     id: "date",
     numeric: false,
     disablePadding: false,
-    label: "Date",
+    label: "Date"
   },
   {
     id: "location",
     numeric: false,
     disablePadding: false,
-    label: "Location",
+    label: "Location"
   },
   {
     id: "amount",
     numeric: false,
     disablePadding: false,
-    label: "Amount ($)",
+    label: "Amount ($)"
   },
   {
     id: "payment_method",
     numeric: false,
     disablePadding: false,
-    label: "Payment Method",
+    label: "Payment Method"
   },
   {
     id: "remarks",
     numeric: false,
     disablePadding: false,
-    label: "Remarks",
-  },
+    label: "Remarks"
+  }
 ];
 
 const Expense = () => {
@@ -52,13 +54,17 @@ const Expense = () => {
 
   let authenticated = isAuthenticated();
 
-  useEffect(() => {
-    if (!authenticated) {
-      navigate("/login");
-    }
-  }, [authenticated, navigate]);
+  useEffect(
+    () => {
+      if (!authenticated) {
+        navigate("/login");
+      }
+    },
+    [authenticated, navigate]
+  );
 
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
+  const [isGraph, setIsGraph] = useState(false);
 
   const [setLoadData, error, loading, tableVisibility, data] = useLoadRecords(
     tableNames.EXPENSE,
@@ -88,24 +94,33 @@ const Expense = () => {
                 >
                   {tableVisibility ? "Hide Table" : "Load Expenses"}
                 </Button>
-                {loading && (
-                  <div className="ms-3 spinner-border" role="status" />
-                )}
+                {loading &&
+                  <div className="ms-3 spinner-border" role="status" />}
+              </Col>
+              <Col className="d-flex justify-content-end">
+                <FormGroup>
+                  <FormControlLabel
+                    control={<Switch onChange={() => setIsGraph(!isGraph)} />}
+                    label="Graph"
+                  />
+                </FormGroup>
               </Col>
             </Row>
             <Row>
               <Col>
-                {error.length !== 0 && (
-                  <span className="text-danger ms-2">{error}</span>
-                )}
-                {tableVisibility && (
-                  <SmartTable
-                    tableHeaders={headCells}
-                    data={data.item}
-                    subject={tableNames.EXPENSE}
-                    period={date}
-                  />
-                )}
+                {error.length !== 0 &&
+                  <span className="text-danger ms-2">
+                    {error}
+                  </span>}
+                {tableVisibility &&
+                  (!isGraph
+                    ? <SmartTable
+                        tableHeaders={headCells}
+                        data={data.item}
+                        subject={tableNames.EXPENSE}
+                        period={date}
+                      />
+                    : <Graphs data={data.item} />)}
               </Col>
             </Row>
           </Col>
