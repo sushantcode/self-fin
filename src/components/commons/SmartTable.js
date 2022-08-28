@@ -45,12 +45,12 @@ function stableSort(array, comparator) {
     }
     return a[1] - b[1];
   });
-  return stabilizedThis.map((el) => el[0]);
+  return stabilizedThis.map(el => el[0]);
 }
 
 function EnhancedTableHead(props) {
   const { update, order, orderBy, onRequestSort, tableHeaders } = props;
-  const createSortHandler = (property) => (event) => {
+  const createSortHandler = property => event => {
     onRequestSort(event, property);
   };
 
@@ -58,7 +58,7 @@ function EnhancedTableHead(props) {
     <TableHead>
       <TableRow>
         {update && <TableCell padding="checkbox" />}
-        {tableHeaders.map((headCell) => (
+        {tableHeaders.map(headCell =>
           <TableCell
             key={headCell.id}
             align={headCell.numeric ? "right" : "left"}
@@ -71,20 +71,22 @@ function EnhancedTableHead(props) {
               onClick={createSortHandler(headCell.id)}
             >
               {headCell.label}
-              {orderBy === headCell.id ? (
-                <Box component="span" sx={visuallyHidden}>
-                  {order === "desc" ? "sorted descending" : "sorted ascending"}
-                </Box>
-              ) : null}
+              {orderBy === headCell.id
+                ? <Box component="span" sx={visuallyHidden}>
+                    {order === "desc"
+                      ? "sorted descending"
+                      : "sorted ascending"}
+                  </Box>
+                : null}
             </TableSortLabel>
           </TableCell>
-        ))}
+        )}
       </TableRow>
     </TableHead>
   );
 }
 
-const EnhancedTableToolbar = (props) => {
+const EnhancedTableToolbar = props => {
   const {
     numSelected,
     onDelete,
@@ -94,6 +96,7 @@ const EnhancedTableToolbar = (props) => {
     setUpdateData,
     error,
     loading,
+    setSelected
   } = props;
 
   return (
@@ -102,12 +105,12 @@ const EnhancedTableToolbar = (props) => {
         pl: { sm: 2 },
         pr: { xs: 1, sm: 1 },
         ...(numSelected > 0 && {
-          bgcolor: (theme) =>
+          bgcolor: theme =>
             alpha(
               theme.palette.primary.main,
               theme.palette.action.activatedOpacity
-            ),
-        }),
+            )
+        })
       }}
     >
       <Typography
@@ -118,12 +121,17 @@ const EnhancedTableToolbar = (props) => {
       >
         <Button
           variant="secondary"
-          onClick={() => setActiveUpdate(!activeUpdate)}
+          onClick={() => {
+            if (activeUpdate) {
+              setSelected([]);
+            }
+            setActiveUpdate(!activeUpdate);
+          }}
           disabled={loading}
         >
           {activeUpdate ? "Cancel" : "Update"}
         </Button>
-        {isDeleted && (
+        {isDeleted &&
           <Button
             variant="secondary"
             className="ms-2"
@@ -131,26 +139,26 @@ const EnhancedTableToolbar = (props) => {
             disabled={loading}
           >
             Save Changes
-          </Button>
-        )}
+          </Button>}
         {loading && <div className="ms-3 spinner-border" role="status" />}
-        {error && error.length === 0 && (
-          <span className="ms-2 text-danger">{"error"}</span>
-        )}
+        {error &&
+          error.length === 0 &&
+          <span className="ms-2 text-danger">
+            {"error"}
+          </span>}
       </Typography>
 
-      {numSelected > 0 && (
+      {numSelected > 0 &&
         <Tooltip title="Delete">
           <Button variant="danger" onClick={onDelete} disabled={loading}>
             <FontAwesomeIcon className="py-1" icon={faTrash} />
           </Button>
-        </Tooltip>
-      )}
+        </Tooltip>}
     </Toolbar>
   );
 };
 
-const SmartTable = (props) => {
+const SmartTable = props => {
   const { tableHeaders, data, subject, period } = props;
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
@@ -161,9 +169,12 @@ const SmartTable = (props) => {
   const [activeUpdate, setActiveUpdate] = React.useState(false);
   const [isDeleted, setIsDeleted] = React.useState(false);
 
-  React.useEffect(() => {
-    setRows(data);
-  }, [data]);
+  React.useEffect(
+    () => {
+      setRows(data);
+    },
+    [data]
+  );
 
   const [setUpdateData, error, loading] = useDeleteRecord(
     rows,
@@ -181,7 +192,7 @@ const SmartTable = (props) => {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (event) => {
+  const handleChangeRowsPerPage = event => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
@@ -206,7 +217,7 @@ const SmartTable = (props) => {
     setSelected(newSelected);
   };
 
-  const isSelected = (name) => selected.indexOf(name) !== -1;
+  const isSelected = name => selected.indexOf(name) !== -1;
 
   const onDelete = () => {
     let currRows = [...rows];
@@ -225,7 +236,7 @@ const SmartTable = (props) => {
 
   return (
     <Box sx={{ width: "100%" }}>
-      {rows && (
+      {rows &&
         <Paper sx={{ width: "100%", mb: 2 }}>
           <EnhancedTableToolbar
             numSelected={selected.length}
@@ -236,6 +247,7 @@ const SmartTable = (props) => {
             setUpdateData={setUpdateData}
             error={error}
             loading={loading}
+            setSelected={setSelected}
           />
           <TableContainer>
             <Table
@@ -258,58 +270,68 @@ const SmartTable = (props) => {
                   .map((row, index) => {
                     const isItemSelected = isSelected(index);
                     const labelId = `enhanced-table-checkbox-${index}`;
-                    return subject !== "investments" ? (
-                      <TableRow
-                        onClick={(event) => handleClick(event, index)}
-                        role="checkbox"
-                        aria-checked={isItemSelected}
-                        hover
-                        tabIndex={-1}
-                        key={index}
-                      >
-                        {activeUpdate && (
-                          <TableCell padding="checkbox">
-                            <Checkbox
-                              color="primary"
-                              checked={isItemSelected}
-                              inputProps={{
-                                "aria-labelledby": labelId,
-                              }}
-                            />
+                    return subject !== "investments"
+                      ? <TableRow
+                          onClick={event => handleClick(event, index)}
+                          role="checkbox"
+                          aria-checked={isItemSelected}
+                          hover
+                          tabIndex={-1}
+                          key={index}
+                        >
+                          {activeUpdate &&
+                            <TableCell padding="checkbox">
+                              <Checkbox
+                                color="primary"
+                                checked={isItemSelected}
+                                inputProps={{
+                                  "aria-labelledby": labelId
+                                }}
+                              />
+                            </TableCell>}
+                          {tableHeaders.map(item => {
+                            return (
+                              <TableCell key={item.id}>
+                                {row[item.id]}
+                              </TableCell>
+                            );
+                          })}
+                        </TableRow>
+                      : <TableRow hover tabIndex={-1} key={index}>
+                          <TableCell>
+                            {row.broker}
                           </TableCell>
-                        )}
-                        {tableHeaders.map((item) => {
-                          return (
-                            <TableCell key={item.id}>{row[item.id]}</TableCell>
-                          );
-                        })}
-                      </TableRow>
-                    ) : (
-                      <TableRow hover tabIndex={-1} key={index}>
-                        <TableCell>{row.broker}</TableCell>
-                        <TableCell>
-                          {row.stock +
-                            (row.company.length !== 0
-                              ? " (" + row.company + ")"
-                              : "")}
-                        </TableCell>
-                        <TableCell>{row.amount}</TableCell>
-                        <TableCell>{row.units}</TableCell>
-                        <TableCell>{row.date}</TableCell>
-                        <TableCell>{row.vested}</TableCell>
-                        <TableCell>{row.remarks}</TableCell>
-                      </TableRow>
-                    );
+                          <TableCell>
+                            {row.stock +
+                              (row.company.length !== 0
+                                ? " (" + row.company + ")"
+                                : "")}
+                          </TableCell>
+                          <TableCell>
+                            {row.amount}
+                          </TableCell>
+                          <TableCell>
+                            {row.units}
+                          </TableCell>
+                          <TableCell>
+                            {row.date}
+                          </TableCell>
+                          <TableCell>
+                            {row.vested}
+                          </TableCell>
+                          <TableCell>
+                            {row.remarks}
+                          </TableCell>
+                        </TableRow>;
                   })}
-                {emptyRows > 0 && (
+                {emptyRows > 0 &&
                   <TableRow
                     style={{
-                      height: 53 * emptyRows,
+                      height: 53 * emptyRows
                     }}
                   >
                     <TableCell colSpan={6} />
-                  </TableRow>
-                )}
+                  </TableRow>}
               </TableBody>
             </Table>
           </TableContainer>
@@ -322,8 +344,7 @@ const SmartTable = (props) => {
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
           />
-        </Paper>
-      )}
+        </Paper>}
     </Box>
   );
 };
