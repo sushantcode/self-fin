@@ -13,38 +13,38 @@ const headCells = [
     id: "category",
     numeric: false,
     disablePadding: false,
-    label: "Category",
+    label: "Category"
   },
   {
     id: "date",
     numeric: false,
     disablePadding: false,
-    label: "Date",
+    label: "Date"
   },
   {
     id: "location",
     numeric: false,
     disablePadding: false,
-    label: "Location",
+    label: "Location"
   },
   {
     id: "amount",
     numeric: false,
     disablePadding: false,
-    label: "Amount ($)",
+    label: "Amount ($)"
   },
   {
     id: "payment_method",
     numeric: false,
     disablePadding: false,
-    label: "Payment Method",
+    label: "Payment Method"
   },
   {
     id: "remarks",
     numeric: false,
     disablePadding: false,
-    label: "Remarks",
-  },
+    label: "Remarks"
+  }
 ];
 
 const Expense = () => {
@@ -52,13 +52,17 @@ const Expense = () => {
 
   let authenticated = isAuthenticated();
 
-  useEffect(() => {
-    if (!authenticated) {
-      navigate("/login");
-    }
-  }, [authenticated, navigate]);
+  useEffect(
+    () => {
+      if (!authenticated) {
+        navigate("/login");
+      }
+    },
+    [authenticated, navigate]
+  );
 
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
+  const [updateTable, setUpdateTable] = useState(false);
 
   const [setLoadData, error, loading, tableVisibility, data] = useLoadRecords(
     tableNames.EXPENSE,
@@ -75,7 +79,7 @@ const Expense = () => {
         <Row className="mb-3">
           <Col>
             <Row className="mb-2">
-              <Col className="">
+              <Col>
                 <YearMonthPicker
                   dateProps={[date, setDate]}
                   datePickerLabel="Year and Month"
@@ -88,19 +92,33 @@ const Expense = () => {
                 >
                   {tableVisibility ? "Hide Table" : "Load Expenses"}
                 </Button>
-                {loading && (
-                  <div className="ms-3 spinner-border" role="status" />
-                )}
+                {loading &&
+                  <div className="ms-3 spinner-border" role="status" />}
               </Col>
+              {tableVisibility &&
+                <Col className="text-end">
+                  <Button
+                    variant="secondary"
+                    className="ms-3 mt-2"
+                    onClick={() => setUpdateTable(!updateTable)}
+                    disabled={loading}
+                  >
+                    {updateTable ? "Save Changes" : "Update Table"}
+                  </Button>
+                </Col>}
             </Row>
             <Row>
               <Col>
-                {error.length !== 0 && (
-                  <span className="text-danger ms-2">{error}</span>
-                )}
-                {tableVisibility && (
-                  <SmartTable tableHeaders={headCells} data={data.item} />
-                )}
+                {error.length !== 0 &&
+                  <span className="text-danger ms-2">
+                    {error}
+                  </span>}
+                {tableVisibility &&
+                  <SmartTable
+                    tableHeaders={headCells}
+                    data={data.item}
+                    update={updateTable}
+                  />}
               </Col>
             </Row>
           </Col>
