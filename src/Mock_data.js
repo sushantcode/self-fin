@@ -12,6 +12,22 @@ export const mock_data = {
       },
       {
         category: "Grocery",
+        date: "2022-08-01",
+        location: "Walmart",
+        amount: "75.00",
+        payment_method: "Discover",
+        remarks: "weekly grocery"
+      },
+      {
+        category: "Grocery",
+        date: "2022-08-01",
+        location: "Walmart",
+        amount: "75.00",
+        payment_method: "Discover",
+        remarks: "weekly grocery"
+      },
+      {
+        category: "Grocery",
         date: "2022-08-04",
         location: "Walmart",
         amount: "15.00",
