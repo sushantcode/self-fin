@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import YearMonthPicker from "../../commons/YearMonthPicker";
 import AddSavings from "./AddSavings";
@@ -13,32 +13,32 @@ const headCells = [
     id: "where",
     numeric: false,
     disablePadding: false,
-    label: "Where",
+    label: "Where"
   },
   {
     id: "date",
     numeric: false,
     disablePadding: false,
-    label: "Date",
+    label: "Date"
   },
   {
     id: "amount",
     numeric: false,
     disablePadding: false,
-    label: "Amount ($)",
+    label: "Amount ($)"
   },
   {
     id: "interest",
     numeric: false,
     disablePadding: false,
-    label: "Inerest (%)",
+    label: "Inerest (%)"
   },
   {
     id: "remarks",
     numeric: false,
     disablePadding: false,
-    label: "Remarks",
-  },
+    label: "Remarks"
+  }
 ];
 
 const Savings = () => {
@@ -46,11 +46,14 @@ const Savings = () => {
 
   let authenticated = isAuthenticated();
 
-  useEffect(() => {
-    if (!authenticated) {
-      navigate("/login");
-    }
-  }, [authenticated, navigate]);
+  useEffect(
+    () => {
+      if (!authenticated) {
+        navigate("/login");
+      }
+    },
+    [authenticated, navigate]
+  );
 
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
 
@@ -81,24 +84,23 @@ const Savings = () => {
                 >
                   {tableVisibility ? "Hide Table" : "Load Savings"}
                 </Button>
-                {loading && (
-                  <div className="ms-3 spinner-border" role="status" />
-                )}
+                {loading &&
+                  <div className="ms-3 spinner-border" role="status" />}
               </Col>
             </Row>
             <Row>
               <Col>
-                {error.length !== 0 && (
-                  <span className="text-danger ms-2">{error}</span>
-                )}
-                {tableVisibility && (
+                {error.length !== 0 &&
+                  <span className="text-danger ms-2">
+                    {error}
+                  </span>}
+                {tableVisibility &&
                   <SmartTable
                     tableHeaders={headCells}
                     data={data.item}
                     subject={tableNames.SAVING}
                     period={date}
-                  />
-                )}
+                  />}
               </Col>
             </Row>
           </Col>
