@@ -31,7 +31,6 @@ const Graphs = props => {
   };
 
   const mappedData = mapDataByDate(data);
-  console.log(mappedData);
 
   function compareFn(a, b) {
     if (a.date > b.date) return 1;

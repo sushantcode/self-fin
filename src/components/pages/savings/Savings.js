@@ -7,6 +7,8 @@ import useLoadRecords from "../../commons/useLoadRecords";
 import SmartTable from "../../commons/SmartTable";
 import { useNavigate } from "react-router-dom";
 import { isAuthenticated } from "../../../utils/Authentication";
+import { FormControlLabel, FormGroup, Switch } from "@mui/material";
+import Graphs from "../../commons/Graphs";
 
 const headCells = [
   {
@@ -87,6 +89,22 @@ const Savings = () => {
                 {loading &&
                   <div className="ms-3 spinner-border" role="status" />}
               </Col>
+              <Col className="d-flex justify-content-end">
+                <FormGroup>
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        disabled={
+                          !tableVisibility ||
+                          !(data && data.item && data.item.length)
+                        }
+                        onChange={() => setIsGraph(!isGraph)}
+                      />
+                    }
+                    label="Graph"
+                  />
+                </FormGroup>
+              </Col>
             </Row>
             <Row>
               <Col>
@@ -95,12 +113,18 @@ const Savings = () => {
                     {error}
                   </span>}
                 {tableVisibility &&
-                  <SmartTable
-                    tableHeaders={headCells}
-                    data={data.item}
-                    subject={tableNames.SAVING}
-                    period={date}
-                  />}
+                  ((data && data.item && data.item.length) > 0
+                    ? !isGraph
+                      ? <SmartTable
+                          tableHeaders={headCells}
+                          data={data.item}
+                          subject={tableNames.EXPENSE}
+                          period={date}
+                        />
+                      : <Graphs data={data.item} />
+                    : <span className="text-danger ms-2">
+                        No records found for this month!!!
+                      </span>)}
               </Col>
             </Row>
           </Col>

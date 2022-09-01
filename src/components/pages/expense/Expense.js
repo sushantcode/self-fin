@@ -100,7 +100,15 @@ const Expense = () => {
               <Col className="d-flex justify-content-end">
                 <FormGroup>
                   <FormControlLabel
-                    control={<Switch onChange={() => setIsGraph(!isGraph)} />}
+                    control={
+                      <Switch
+                        disabled={
+                          !tableVisibility ||
+                          !(data && data.item && data.item.length)
+                        }
+                        onChange={() => setIsGraph(!isGraph)}
+                      />
+                    }
                     label="Graph"
                   />
                 </FormGroup>
@@ -113,14 +121,18 @@ const Expense = () => {
                     {error}
                   </span>}
                 {tableVisibility &&
-                  (!isGraph
-                    ? <SmartTable
-                        tableHeaders={headCells}
-                        data={data.item}
-                        subject={tableNames.EXPENSE}
-                        period={date}
-                      />
-                    : <Graphs data={data.item} />)}
+                  ((data && data.item && data.item.length) > 0
+                    ? !isGraph
+                      ? <SmartTable
+                          tableHeaders={headCells}
+                          data={data.item}
+                          subject={tableNames.EXPENSE}
+                          period={date}
+                        />
+                      : <Graphs data={data.item} />
+                    : <span className="text-danger ms-2">
+                        No records found for this month!!!
+                      </span>)}
               </Col>
             </Row>
           </Col>
