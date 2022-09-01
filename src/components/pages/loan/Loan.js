@@ -7,38 +7,40 @@ import useLoadRecords from "../../commons/useLoadRecords";
 import SmartTable from "../../commons/SmartTable";
 import { useNavigate } from "react-router-dom";
 import { isAuthenticated } from "../../../utils/Authentication";
+import { FormControlLabel, FormGroup, Switch } from "@mui/material";
+import Graphs from "../../commons/Graphs";
 
 const headCells = [
   {
     id: "person",
     numeric: false,
     disablePadding: false,
-    label: "Person",
+    label: "Person"
   },
   {
     id: "date",
     numeric: false,
     disablePadding: false,
-    label: "Date",
+    label: "Date"
   },
   {
     id: "amount",
     numeric: false,
     disablePadding: false,
-    label: "Amount ($)",
+    label: "Amount ($)"
   },
   {
     id: "payment_method",
     numeric: false,
     disablePadding: false,
-    label: "Payment Method",
+    label: "Payment Method"
   },
   {
     id: "remarks",
     numeric: false,
     disablePadding: false,
-    label: "Remarks",
-  },
+    label: "Remarks"
+  }
 ];
 
 const Loan = () => {
@@ -46,11 +48,14 @@ const Loan = () => {
 
   let authenticated = isAuthenticated();
 
-  useEffect(() => {
-    if (!authenticated) {
-      navigate("/login");
-    }
-  }, [authenticated, navigate]);
+  useEffect(
+    () => {
+      if (!authenticated) {
+        navigate("/login");
+      }
+    },
+    [authenticated, navigate]
+  );
 
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
 
@@ -81,24 +86,45 @@ const Loan = () => {
                 >
                   {tableVisibility ? "Hide Table" : "Load Records"}
                 </Button>
-                {loading && (
-                  <div className="ms-3 spinner-border" role="status" />
-                )}
+                {loading &&
+                  <div className="ms-3 spinner-border" role="status" />}
+              </Col>
+              <Col className="d-flex justify-content-end">
+                <FormGroup>
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        disabled={
+                          !tableVisibility ||
+                          !(data && data.item && data.item.length)
+                        }
+                        onChange={() => setIsGraph(!isGraph)}
+                      />
+                    }
+                    label="Graph"
+                  />
+                </FormGroup>
               </Col>
             </Row>
             <Row>
               <Col>
-                {error.length !== 0 && (
-                  <span className="text-danger ms-2">{error}</span>
-                )}
-                {tableVisibility && (
-                  <SmartTable
-                    tableHeaders={headCells}
-                    data={data.item}
-                    subject={tableNames.LOANTOFRIEND}
-                    period={date}
-                  />
-                )}
+                {error.length !== 0 &&
+                  <span className="text-danger ms-2">
+                    {error}
+                  </span>}
+                {tableVisibility &&
+                  ((data && data.item && data.item.length) > 0
+                    ? !isGraph
+                      ? <SmartTable
+                          tableHeaders={headCells}
+                          data={data.item}
+                          subject={tableNames.EXPENSE}
+                          period={date}
+                        />
+                      : <Graphs data={data.item} />
+                    : <span className="text-danger ms-2">
+                        No records found for this month!!!
+                      </span>)}
               </Col>
             </Row>
           </Col>

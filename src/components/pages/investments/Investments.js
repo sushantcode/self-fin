@@ -8,50 +8,52 @@ import YearMonthPicker from "../../commons/YearMonthPicker";
 import AddInvestment from "./AddInvestment";
 import { useNavigate } from "react-router-dom";
 import { isAuthenticated } from "../../../utils/Authentication";
+import { FormControlLabel, FormGroup, Switch } from "@mui/material";
+import Graphs from "../../commons/Graphs";
 
 const headCells = [
   {
     id: "broker",
     numeric: false,
     disablePadding: false,
-    label: "Broker",
+    label: "Broker"
   },
   {
     id: "stock",
     numeric: false,
     disablePadding: false,
-    label: "Stock",
+    label: "Stock"
   },
   {
     id: "amount",
     numeric: false,
     disablePadding: false,
-    label: "Amount ($)",
+    label: "Amount ($)"
   },
   {
     id: "units",
     numeric: false,
     disablePadding: false,
-    label: "Units",
+    label: "Units"
   },
   {
     id: "date",
     numeric: false,
     disablePadding: false,
-    label: "Date",
+    label: "Date"
   },
   {
     id: "vested",
     numeric: false,
     disablePadding: false,
-    label: "Vested?",
+    label: "Vested?"
   },
   {
     id: "remarks",
     numeric: false,
     disablePadding: false,
-    label: "Remarks",
-  },
+    label: "Remarks"
+  }
 ];
 
 const Investments = () => {
@@ -59,11 +61,14 @@ const Investments = () => {
 
   let authenticated = isAuthenticated();
 
-  useEffect(() => {
-    if (!authenticated) {
-      navigate("/login");
-    }
-  }, [authenticated, navigate]);
+  useEffect(
+    () => {
+      if (!authenticated) {
+        navigate("/login");
+      }
+    },
+    [authenticated, navigate]
+  );
 
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
 
@@ -94,24 +99,45 @@ const Investments = () => {
                 >
                   {tableVisibility ? "Hide Table" : "Load Investments"}
                 </Button>
-                {loading && (
-                  <div className="ms-3 spinner-border" role="status" />
-                )}
+                {loading &&
+                  <div className="ms-3 spinner-border" role="status" />}
+              </Col>
+              <Col className="d-flex justify-content-end">
+                <FormGroup>
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        disabled={
+                          !tableVisibility ||
+                          !(data && data.item && data.item.length)
+                        }
+                        onChange={() => setIsGraph(!isGraph)}
+                      />
+                    }
+                    label="Graph"
+                  />
+                </FormGroup>
               </Col>
             </Row>
             <Row>
               <Col>
-                {error.length !== 0 && (
-                  <span className="text-danger ms-2">{error}</span>
-                )}
-                {tableVisibility && (
-                  <SmartTable
-                    tableHeaders={headCells}
-                    data={data.item}
-                    subject={tableNames.INVESTMENTS}
-                    period={date}
-                  />
-                )}
+                {error.length !== 0 &&
+                  <span className="text-danger ms-2">
+                    {error}
+                  </span>}
+                {tableVisibility &&
+                  ((data && data.item && data.item.length) > 0
+                    ? !isGraph
+                      ? <SmartTable
+                          tableHeaders={headCells}
+                          data={data.item}
+                          subject={tableNames.EXPENSE}
+                          period={date}
+                        />
+                      : <Graphs data={data.item} />
+                    : <span className="text-danger ms-2">
+                        No records found for this month!!!
+                      </span>)}
               </Col>
             </Row>
           </Col>
