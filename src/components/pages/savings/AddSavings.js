@@ -5,7 +5,7 @@ import {
   faCircleInfo,
   faDollar,
   faUndo,
-  faUpload,
+  faUpload
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
@@ -15,7 +15,7 @@ import {
   Col,
   Form,
   FormControl,
-  InputGroup,
+  InputGroup
 } from "react-bootstrap";
 import { tableNames } from "../../../utils/Constants";
 import useUploadRecord from "../../commons/useUploadRecord";
@@ -33,13 +33,16 @@ const AddSavings = () => {
     newSaving
   );
 
-  useEffect(() => {
-    if (newSaving !== null) {
-      setAddData(true);
-    } else {
-      setAddData(false);
-    }
-  }, [newSaving]);
+  useEffect(
+    () => {
+      if (newSaving !== null) {
+        setAddData(true);
+      } else {
+        setAddData(false);
+      }
+    },
+    [newSaving]
+  );
 
   const resetForm = () => {
     setWhere("");
@@ -49,14 +52,14 @@ const AddSavings = () => {
     setRemarks("");
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = e => {
     e.preventDefault();
     const newItem = {
       where: where,
       date: date,
       amount: amount,
       interest: interest,
-      remarks: remarks,
+      remarks: remarks
     };
     setNewSaving(newItem);
     resetForm();
@@ -80,17 +83,16 @@ const AddSavings = () => {
                   type="text"
                   name="where"
                   value={where}
-                  onChange={(e) => setWhere(e.target.value)}
+                  onChange={e => setWhere(e.target.value)}
                   placeholder="Sanima, John Doe, etc."
                 />
               </InputGroup>
-              {where.length === 0 && (
+              {where.length === 0 &&
                 <Form.Text className="ms-2" muted>
                   <span className="text-danger">
                     *Must eneter where invested
                   </span>
-                </Form.Text>
-              )}
+                </Form.Text>}
             </Form.Group>
             <Form.Group as={Col} className="mb-3">
               <InputGroup>
@@ -104,7 +106,7 @@ const AddSavings = () => {
                   type="date"
                   name="date"
                   value={date}
-                  onChange={(e) => setDate(e.target.value)}
+                  onChange={e => setDate(e.target.value)}
                 />
               </InputGroup>
             </Form.Group>
@@ -119,15 +121,14 @@ const AddSavings = () => {
                   type="number"
                   name="amount"
                   value={amount}
-                  onChange={(e) => setAmount(e.target.value)}
+                  onChange={e => setAmount(e.target.value)}
                   placeholder="Amount"
                 />
               </InputGroup>
-              {amount.length === 0 && (
+              {amount.length === 0 &&
                 <Form.Text className="ms-2" muted>
                   <span className="text-danger">*Must eneter amount</span>
-                </Form.Text>
-              )}
+                </Form.Text>}
             </Form.Group>
             <Form.Group as={Col} className="mb-3">
               <InputGroup>
@@ -141,7 +142,7 @@ const AddSavings = () => {
                   type="number"
                   name="interest"
                   value={interest}
-                  onChange={(e) => setInterest(e.target.value)}
+                  onChange={e => setInterest(e.target.value)}
                   placeholder="0 %"
                 />
               </InputGroup>
@@ -158,7 +159,7 @@ const AddSavings = () => {
                   type="text"
                   name="remarks"
                   value={remarks}
-                  onChange={(e) => setRemarks(e.target.value)}
+                  onChange={e => setRemarks(e.target.value)}
                   placeholder="Remarks"
                 />
               </InputGroup>
@@ -167,15 +168,13 @@ const AddSavings = () => {
           </Form>
         </Card.Body>
         <Card.Footer className="py-3" style={{ textAlign: "right" }}>
-          {uploading && (
-            <div className="me-3 spinner-border" role="status"></div>
-          )}
+          {uploading && <div className="me-3 spinner-border" role="status" />}
           <Button
             className="me-3"
             size="sm"
             type="button"
             variant="success"
-            onClick={(e) => onSubmit(e)}
+            onClick={e => onSubmit(e)}
             disabled={where.length === 0 || amount.length === 0 || uploading}
           >
             <FontAwesomeIcon icon={faUpload} /> Submit
@@ -193,15 +192,16 @@ const AddSavings = () => {
           </Button>
         </Card.Footer>
       </Card>
-      {error.length !== 0 && (
+      {error.length !== 0 &&
         <div className="row text-center">
           <div className="col">
             <Form.Text className="mt-4" muted>
-              <span className="text-danger">{error}</span>
+              <span className="text-danger">
+                {error}
+              </span>
             </Form.Text>
           </div>
-        </div>
-      )}
+        </div>}
     </div>
   );
 };
