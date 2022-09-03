@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import YearMonthPicker from "../../commons/YearMonthPicker";
 import AddNewLoan from "./AddNewLoan";
