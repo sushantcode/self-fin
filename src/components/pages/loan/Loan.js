@@ -118,7 +118,7 @@ const Loan = () => {
                       ? <SmartTable
                           tableHeaders={headCells}
                           data={data.item}
-                          subject={tableNames.EXPENSE}
+                          subject={tableNames.LOANTOFRIEND}
                           period={date}
                         />
                       : <Graphs data={data.item} />

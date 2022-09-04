@@ -118,7 +118,7 @@ const Savings = () => {
                       ? <SmartTable
                           tableHeaders={headCells}
                           data={data.item}
-                          subject={tableNames.EXPENSE}
+                          subject={tableNames.SAVING}
                           period={date}
                         />
                       : <Graphs data={data.item} />

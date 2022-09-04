@@ -31,6 +31,7 @@ export const putData = (tableName, hashKey, data) => {
     TableName: tableName,
     Item: recordToBeAdded
   };
+  console.log(params);
   const docClient = getDdbClient();
   return docClient ? docClient.put(params).promise() : null;
 };

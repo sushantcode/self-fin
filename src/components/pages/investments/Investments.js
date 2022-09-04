@@ -131,7 +131,7 @@ const Investments = () => {
                       ? <SmartTable
                           tableHeaders={headCells}
                           data={data.item}
-                          subject={tableNames.EXPENSE}
+                          subject={tableNames.INVESTMENTS}
                           period={date}
                         />
                       : <Graphs data={data.item} />

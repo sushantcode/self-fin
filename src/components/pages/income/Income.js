@@ -119,7 +119,7 @@ const Income = () => {
                       ? <SmartTable
                           tableHeaders={headCells}
                           data={data.item}
-                          subject={tableNames.EXPENSE}
+                          subject={tableNames.INCOME}
                           period={date}
                         />
                       : <Graphs data={data.item} />

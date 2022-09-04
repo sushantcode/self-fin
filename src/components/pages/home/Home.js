@@ -70,6 +70,7 @@ const Home = () => {
   );
 
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
+  const [isGraph, setIsGraph] = useState(false);
 
   const [setLoadData, error, loading, tableVisibility, data] = useLoadRecords(
     tableNames.HOME,
@@ -131,7 +132,7 @@ const Home = () => {
                       ? <SmartTable
                           tableHeaders={headCells}
                           data={data.item}
-                          subject={tableNames.EXPENSE}
+                          subject={tableNames.HOME}
                           period={date}
                         />
                       : <Graphs data={data.item} />
