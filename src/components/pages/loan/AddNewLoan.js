@@ -5,7 +5,7 @@ import {
   faDollar,
   faPerson,
   faUndo,
-  faUpload,
+  faUpload
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
@@ -16,7 +16,7 @@ import {
   Dropdown,
   Form,
   FormControl,
-  InputGroup,
+  InputGroup
 } from "react-bootstrap";
 import { tableNames } from "../../../utils/Constants";
 import useUploadRecord from "../../commons/useUploadRecord";
@@ -25,7 +25,7 @@ const AddNewLoan = () => {
   const [person, setPerson] = useState("");
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
   const [amount, setAmount] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState("Chase Direct-Deposit");
+  const [paymentMethod, setPaymentMethod] = useState("Zelle Chase Bank");
   const [remarks, setRemarks] = useState("");
   const [newLoanRecord, setNewLoanRecord] = useState(null);
 
@@ -34,17 +34,20 @@ const AddNewLoan = () => {
     newLoanRecord
   );
 
-  useEffect(() => {
-    if (newLoanRecord !== null) {
-      setAddData(true);
-    } else {
-      setAddData(false);
-    }
+  useEffect(
+    () => {
+      if (newLoanRecord !== null) {
+        setAddData(true);
+      } else {
+        setAddData(false);
+      }
 
-    return () => {
-      setAddData(false);
-    };
-  }, [newLoanRecord]);
+      return () => {
+        setAddData(false);
+      };
+    },
+    [newLoanRecord]
+  );
 
   const resetForm = () => {
     setPerson("");
@@ -54,14 +57,14 @@ const AddNewLoan = () => {
     setRemarks("");
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = e => {
     e.preventDefault();
     const newItem = {
       person: person,
       date: date,
       amount: amount,
       payment_method: paymentMethod,
-      remarks: remarks,
+      remarks: remarks
     };
     setNewLoanRecord(newItem);
     resetForm();
@@ -85,15 +88,14 @@ const AddNewLoan = () => {
                   type="text"
                   name="person"
                   value={person}
-                  onChange={(e) => setPerson(e.target.value)}
+                  onChange={e => setPerson(e.target.value)}
                   placeholder="Jon Doe"
                 />
               </InputGroup>
-              {person.length === 0 && (
+              {person.length === 0 &&
                 <Form.Text className="ms-2" muted>
                   <span className="text-danger">*Must eneter person name</span>
-                </Form.Text>
-              )}
+                </Form.Text>}
             </Form.Group>
             <Form.Group as={Col} className="mb-3">
               <InputGroup>
@@ -107,7 +109,7 @@ const AddNewLoan = () => {
                   type="date"
                   name="date"
                   value={date}
-                  onChange={(e) => setDate(e.target.value)}
+                  onChange={e => setDate(e.target.value)}
                 />
               </InputGroup>
             </Form.Group>
@@ -122,15 +124,14 @@ const AddNewLoan = () => {
                   type="number"
                   name="amount"
                   value={amount}
-                  onChange={(e) => setAmount(e.target.value)}
+                  onChange={e => setAmount(e.target.value)}
                   placeholder="Amount"
                 />
               </InputGroup>
-              {amount.length === 0 && (
+              {amount.length === 0 &&
                 <Form.Text className="ms-2" muted>
                   <span className="text-danger">*Must eneter amount</span>
-                </Form.Text>
-              )}
+                </Form.Text>}
             </Form.Group>
             <Form.Group as={Col} className="mb-3">
               <InputGroup>
@@ -143,7 +144,7 @@ const AddNewLoan = () => {
                   type="text"
                   name="payment_method"
                   value={paymentMethod}
-                  onChange={(e) => setPaymentMethod(e.target.value)}
+                  onChange={e => setPaymentMethod(e.target.value)}
                   placeholder="Cash, Zelle, etc."
                 />
               </InputGroup>
@@ -160,7 +161,7 @@ const AddNewLoan = () => {
                   type="text"
                   name="remarks"
                   value={remarks}
-                  onChange={(e) => setRemarks(e.target.value)}
+                  onChange={e => setRemarks(e.target.value)}
                   placeholder="Remarks"
                 />
               </InputGroup>
@@ -169,15 +170,13 @@ const AddNewLoan = () => {
           </Form>
         </Card.Body>
         <Card.Footer className="py-3" style={{ textAlign: "right" }}>
-          {uploading && (
-            <div className="me-3 spinner-border" role="status"></div>
-          )}
+          {uploading && <div className="me-3 spinner-border" role="status" />}
           <Button
             className="me-3"
             size="sm"
             type="button"
             variant="success"
-            onClick={(e) => onSubmit(e)}
+            onClick={e => onSubmit(e)}
             disabled={person.length === 0 || amount.length === 0 || uploading}
           >
             <FontAwesomeIcon icon={faUpload} /> Submit
@@ -195,15 +194,16 @@ const AddNewLoan = () => {
           </Button>
         </Card.Footer>
       </Card>
-      {error.length !== 0 && (
+      {error.length !== 0 &&
         <div className="row text-center">
           <div className="col">
             <Form.Text className="mt-4" muted>
-              <span className="text-danger">{error}</span>
+              <span className="text-danger">
+                {error}
+              </span>
             </Form.Text>
           </div>
-        </div>
-      )}
+        </div>}
     </div>
   );
 };
