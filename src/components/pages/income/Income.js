@@ -59,6 +59,7 @@ const Income = () => {
   );
 
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
+  const [isGraph, setIsGraph] = useState(false);
 
   const [setLoadData, error, loading, tableVisibility, data] = useLoadRecords(
     tableNames.INCOME,
