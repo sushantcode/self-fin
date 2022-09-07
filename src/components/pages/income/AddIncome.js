@@ -4,7 +4,7 @@ import {
   faCircleInfo,
   faDollar,
   faUndo,
-  faUpload,
+  faUpload
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
@@ -15,7 +15,7 @@ import {
   Dropdown,
   Form,
   FormControl,
-  InputGroup,
+  InputGroup
 } from "react-bootstrap";
 import { tableNames } from "../../../utils/Constants";
 import useUploadRecord from "../../commons/useUploadRecord";
@@ -33,30 +33,33 @@ const AddIncome = () => {
     newIncome
   );
 
-  useEffect(() => {
-    if (newIncome !== null) {
-      setAddData(true);
-    } else {
-      setAddData(false);
-    }
-  }, [newIncome]);
+  useEffect(
+    () => {
+      if (newIncome !== null) {
+        setAddData(true);
+      } else {
+        setAddData(false);
+      }
+    },
+    [newIncome]
+  );
 
   const resetForm = () => {
     setSource("");
     setDate(new Date().toISOString().split("T")[0]);
     setAmount("");
-    setPaymentMethod("Discover");
+    setPaymentMethod("Chase Direct-Deposit");
     setRemarks("");
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = e => {
     e.preventDefault();
     const newItem = {
       source: source,
       date: date,
       amount: amount,
       payment_method: paymentMethod,
-      remarks: remarks,
+      remarks: remarks
     };
     setNewIncome(newItem);
     resetForm();
@@ -76,27 +79,31 @@ const AddIncome = () => {
                     Select Source of Income
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
-                    {["Salary", "Saving", "Stock", "Individual", "Others"].map(
-                      (item, index) => {
-                        return (
-                          <Dropdown.Item
-                            key={index}
-                            onClick={() => setSource(item)}
-                          >
-                            {item}
-                          </Dropdown.Item>
-                        );
-                      }
-                    )}
+                    {[
+                      "Salary",
+                      "Saving",
+                      "Stock",
+                      "Individual",
+                      "Others"
+                    ].map((item, index) => {
+                      return (
+                        <Dropdown.Item
+                          key={index}
+                          onClick={() => setSource(item)}
+                        >
+                          {item}
+                        </Dropdown.Item>
+                      );
+                    })}
                   </Dropdown.Menu>
                 </Dropdown>
-                {source.length !== 0 ? (
-                  <InputGroup.Text>{source}</InputGroup.Text>
-                ) : (
-                  <Form.Text className="ms-2" muted>
-                    <span className="text-danger">*Must select a source</span>
-                  </Form.Text>
-                )}
+                {source.length !== 0
+                  ? <InputGroup.Text>
+                      {source}
+                    </InputGroup.Text>
+                  : <Form.Text className="ms-2" muted>
+                      <span className="text-danger">*Must select a source</span>
+                    </Form.Text>}
               </InputGroup>
             </Form.Group>
             <Form.Group as={Col} className="mb-3">
@@ -111,7 +118,7 @@ const AddIncome = () => {
                   type="date"
                   name="date"
                   value={date}
-                  onChange={(e) => setDate(e.target.value)}
+                  onChange={e => setDate(e.target.value)}
                 />
               </InputGroup>
             </Form.Group>
@@ -126,15 +133,14 @@ const AddIncome = () => {
                   type="number"
                   name="amount"
                   value={amount}
-                  onChange={(e) => setAmount(e.target.value)}
+                  onChange={e => setAmount(e.target.value)}
                   placeholder="Amount"
                 />
               </InputGroup>
-              {amount.length === 0 && (
+              {amount.length === 0 &&
                 <Form.Text className="ms-2" muted>
                   <span className="text-danger">*Must eneter amount</span>
-                </Form.Text>
-              )}
+                </Form.Text>}
             </Form.Group>
             <Form.Group as={Col} className="mb-3">
               <InputGroup>
@@ -147,7 +153,7 @@ const AddIncome = () => {
                   type="text"
                   name="payment_method"
                   value={paymentMethod}
-                  onChange={(e) => setPaymentMethod(e.target.value)}
+                  onChange={e => setPaymentMethod(e.target.value)}
                   placeholder="Discover, Amex, etc."
                 />
               </InputGroup>
@@ -164,7 +170,7 @@ const AddIncome = () => {
                   type="text"
                   name="remarks"
                   value={remarks}
-                  onChange={(e) => setRemarks(e.target.value)}
+                  onChange={e => setRemarks(e.target.value)}
                   placeholder="Remarks"
                 />
               </InputGroup>
@@ -173,20 +179,19 @@ const AddIncome = () => {
           </Form>
         </Card.Body>
         <Card.Footer className="py-3" style={{ textAlign: "right" }}>
-          {uploading && (
-            <div className="me-3 spinner-border" role="status"></div>
-          )}
-          {error.length !== 0 && (
+          {uploading && <div className="me-3 spinner-border" role="status" />}
+          {error.length !== 0 &&
             <Form.Text className="me-4" muted>
-              <span className="text-danger">{error}</span>
-            </Form.Text>
-          )}
+              <span className="text-danger">
+                {error}
+              </span>
+            </Form.Text>}
           <Button
             className="me-3"
             size="sm"
             type="button"
             variant="success"
-            onClick={(e) => onSubmit(e)}
+            onClick={e => onSubmit(e)}
             disabled={source.length === 0 || amount.length === 0 || uploading}
           >
             <FontAwesomeIcon icon={faUpload} /> Submit
@@ -204,15 +209,16 @@ const AddIncome = () => {
           </Button>
         </Card.Footer>
       </Card>
-      {error.length !== 0 && (
+      {error.length !== 0 &&
         <div className="row text-center">
           <div className="col">
             <Form.Text className="mt-4" muted>
-              <span className="text-danger">{error}</span>
+              <span className="text-danger">
+                {error}
+              </span>
             </Form.Text>
           </div>
-        </div>
-      )}
+        </div>}
     </div>
   );
 };
