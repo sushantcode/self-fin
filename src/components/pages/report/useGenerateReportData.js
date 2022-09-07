@@ -179,7 +179,7 @@ const useGenerateReportData = (selectedDatesArr, selectedSubjects) => {
         totalIncoming += parseFloat(record.incoming);
       }
     });
-    return [totalIncoming, totalOutgoing];
+    return [totalIncoming.toFixed(2), totalOutgoing.toFixed(2)];
   };
 
   return [setLoadData, error, loading, data];
