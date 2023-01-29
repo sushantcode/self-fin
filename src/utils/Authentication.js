@@ -6,7 +6,7 @@ const passwordEncrypter = process.env.REACT_APP_PASSWORD_ENCRYPTER;
 export const validatePassword = inputPassword => {
   const hasMatched = bcrypt.compareSync(
     inputPassword,
-    process.env.REACT_APP_AUTH_PASSWORD
+    "$2a$10$qw/ZFYix23ftY9YmYI4Sw.AFvWbrTmMk1y5Rpb97.swJLWJr9r7YW"
   );
   return hasMatched;
 };
