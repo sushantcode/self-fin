@@ -93,9 +93,7 @@ const Investments = () => {
                 <YearMonthPicker
                   dateProps={[date, setDate]}
                   datePickerLabel="Year and Month"
-                  minDate={DateUtil.getLocalDateInISOFormat(
-                    new Date("2017-01-01").toLocaleDateString()
-                  )}
+                  minDate={new Date("2017-01-01")}
                 />
                 <Button
                   className="ms-3 mt-2"

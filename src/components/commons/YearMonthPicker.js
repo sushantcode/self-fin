@@ -3,6 +3,7 @@ import TextField from "@mui/material/TextField";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { DateUtil } from "../../utils/DateUtil";
 
 const YearMonthPicker = props => {
   const [yearMonth, setYearMonth] = props.dateProps;
@@ -16,7 +17,10 @@ const YearMonthPicker = props => {
         minDate={props.minDate}
         maxDate={new Date()}
         value={new Date(yearMonth)}
-        onChange={date => setYearMonth(date.toISOString().split("T")[0])}
+        onChange={date =>
+          setYearMonth(
+            DateUtil.getLocalDateInISOFormat(date.toLocaleDateString())
+          )}
         renderInput={params => <TextField {...params} helperText={null} />}
       />
     </LocalizationProvider>
