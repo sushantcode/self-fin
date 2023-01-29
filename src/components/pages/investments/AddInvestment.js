@@ -7,7 +7,7 @@ import {
   faDollar,
   faHashtag,
   faUndo,
-  faUpload,
+  faUpload
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
@@ -18,16 +18,19 @@ import {
   Dropdown,
   Form,
   FormControl,
-  InputGroup,
+  InputGroup
 } from "react-bootstrap";
 import { tableNames } from "../../../utils/Constants";
+import { DateUtil } from "../../../utils/DateUtil";
 import useUploadRecord from "../../commons/useUploadRecord";
 
 const AddInvestment = () => {
   const [broker, setBroker] = useState("Webull");
   const [stock, setStock] = useState("");
   const [company, setCompany] = useState("");
-  const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
+  const [date, setDate] = useState(
+    DateUtil.getLocalDateInISOFormat(new Date().toLocaleDateString())
+  );
   const [amount, setAmount] = useState("");
   const [units, setUnits] = useState("");
   const [vested, setVested] = useState("Yes");
@@ -39,26 +42,29 @@ const AddInvestment = () => {
     newInvestment
   );
 
-  useEffect(() => {
-    if (newInvestment !== null) {
-      setAddData(true);
-    } else {
-      setAddData(false);
-    }
-  }, [newInvestment]);
+  useEffect(
+    () => {
+      if (newInvestment !== null) {
+        setAddData(true);
+      } else {
+        setAddData(false);
+      }
+    },
+    [newInvestment]
+  );
 
   const resetForm = () => {
     setBroker("Webull");
     setStock("");
     setCompany("");
-    setDate(new Date().toISOString().split("T")[0]);
+    setDate(DateUtil.getLocalDateInISOFormat(new Date().toLocaleDateString()));
     setAmount("");
     setUnits("");
     setVested("Yes");
     setRemarks("");
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = e => {
     e.preventDefault();
     const newItem = {
       broker: broker,
@@ -68,7 +74,7 @@ const AddInvestment = () => {
       amount: amount,
       units: units,
       vested: vested,
-      remarks: remarks,
+      remarks: remarks
     };
     setNewInvestment(newItem);
     resetForm();
@@ -89,27 +95,30 @@ const AddInvestment = () => {
                     Select the broker
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
-                    {["Webull", "Robinhood", "Fidelity", "Others"].map(
-                      (item, index) => {
-                        return (
-                          <Dropdown.Item
-                            key={index}
-                            onClick={() => setBroker(item)}
-                          >
-                            {item}
-                          </Dropdown.Item>
-                        );
-                      }
-                    )}
+                    {[
+                      "Webull",
+                      "Robinhood",
+                      "Fidelity",
+                      "Others"
+                    ].map((item, index) => {
+                      return (
+                        <Dropdown.Item
+                          key={index}
+                          onClick={() => setBroker(item)}
+                        >
+                          {item}
+                        </Dropdown.Item>
+                      );
+                    })}
                   </Dropdown.Menu>
                 </Dropdown>
-                {broker.length !== 0 ? (
-                  <InputGroup.Text>{broker}</InputGroup.Text>
-                ) : (
-                  <Form.Text className="ms-2" muted>
-                    <span className="text-danger">*Must select a broker</span>
-                  </Form.Text>
-                )}
+                {broker.length !== 0
+                  ? <InputGroup.Text>
+                      {broker}
+                    </InputGroup.Text>
+                  : <Form.Text className="ms-2" muted>
+                      <span className="text-danger">*Must select a broker</span>
+                    </Form.Text>}
               </InputGroup>
             </Form.Group>
             <Form.Group as={Col} className="mb-3">
@@ -124,15 +133,14 @@ const AddInvestment = () => {
                   type="text"
                   name="stock"
                   value={stock}
-                  onChange={(e) => setStock(e.target.value)}
+                  onChange={e => setStock(e.target.value)}
                   placeholder="AMZN, AAPL, etc."
                 />
               </InputGroup>
-              {stock.length === 0 && (
+              {stock.length === 0 &&
                 <Form.Text className="ms-2" muted>
                   <span className="text-danger">*Must eneter stock name</span>
-                </Form.Text>
-              )}
+                </Form.Text>}
             </Form.Group>
             <Form.Group as={Col} className="mb-3">
               <InputGroup>
@@ -145,7 +153,7 @@ const AddInvestment = () => {
                   type="text"
                   name="company"
                   value={company}
-                  onChange={(e) => setCompany(e.target.value)}
+                  onChange={e => setCompany(e.target.value)}
                   placeholder="Amazon.com, etc."
                 />
               </InputGroup>
@@ -162,7 +170,7 @@ const AddInvestment = () => {
                   type="date"
                   name="date"
                   value={date}
-                  onChange={(e) => setDate(e.target.value)}
+                  onChange={e => setDate(e.target.value)}
                 />
               </InputGroup>
             </Form.Group>
@@ -177,15 +185,14 @@ const AddInvestment = () => {
                   type="number"
                   name="amount"
                   value={amount}
-                  onChange={(e) => setAmount(e.target.value)}
+                  onChange={e => setAmount(e.target.value)}
                   placeholder="Amount"
                 />
               </InputGroup>
-              {amount.length === 0 && (
+              {amount.length === 0 &&
                 <Form.Text className="ms-2" muted>
                   <span className="text-danger">*Must eneter amount</span>
-                </Form.Text>
-              )}
+                </Form.Text>}
             </Form.Group>
             <Form.Group as={Col} className="mb-3">
               <InputGroup>
@@ -198,15 +205,14 @@ const AddInvestment = () => {
                   type="number"
                   name="units"
                   value={units}
-                  onChange={(e) => setUnits(e.target.value)}
+                  onChange={e => setUnits(e.target.value)}
                   placeholder="Units"
                 />
               </InputGroup>
-              {units.length === 0 && (
+              {units.length === 0 &&
                 <Form.Text className="ms-2" muted>
                   <span className="text-danger">*Must eneter units</span>
-                </Form.Text>
-              )}
+                </Form.Text>}
             </Form.Group>
             <Form.Group as={Col} className="mb-3">
               <InputGroup>
@@ -217,7 +223,7 @@ const AddInvestment = () => {
                   type="radio"
                   id="inline-radio-yes"
                   checked={vested === "Yes" ? true : false}
-                  onChange={(e) => setVested(e.target.checked ? "Yes" : "No")}
+                  onChange={e => setVested(e.target.checked ? "Yes" : "No")}
                 />
                 <Form.Check
                   inline
@@ -226,7 +232,7 @@ const AddInvestment = () => {
                   type="radio"
                   id="inline-radio-no"
                   checked={vested === "No" ? true : false}
-                  onChange={(e) => setVested(e.target.checked ? "No" : "Yes")}
+                  onChange={e => setVested(e.target.checked ? "No" : "Yes")}
                 />
               </InputGroup>
             </Form.Group>
@@ -242,7 +248,7 @@ const AddInvestment = () => {
                   type="text"
                   name="remarks"
                   value={remarks}
-                  onChange={(e) => setRemarks(e.target.value)}
+                  onChange={e => setRemarks(e.target.value)}
                   placeholder="Remarks"
                 />
               </InputGroup>
@@ -252,15 +258,13 @@ const AddInvestment = () => {
           </Form>
         </Card.Body>
         <Card.Footer className="py-3" style={{ textAlign: "right" }}>
-          {uploading && (
-            <div className="me-3 spinner-border" role="status"></div>
-          )}
+          {uploading && <div className="me-3 spinner-border" role="status" />}
           <Button
             className="me-3"
             size="sm"
             type="button"
             variant="success"
-            onClick={(e) => onSubmit(e)}
+            onClick={e => onSubmit(e)}
             disabled={
               stock.length === 0 ||
               units.length === 0 ||
@@ -287,15 +291,16 @@ const AddInvestment = () => {
           </Button>
         </Card.Footer>
       </Card>
-      {error.length !== 0 && (
+      {error.length !== 0 &&
         <div className="row text-center">
           <div className="col">
             <Form.Text className="mt-4" muted>
-              <span className="text-danger">{error}</span>
+              <span className="text-danger">
+                {error}
+              </span>
             </Form.Text>
           </div>
-        </div>
-      )}
+        </div>}
     </div>
   );
 };

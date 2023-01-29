@@ -22,7 +22,9 @@ import useUploadRecord from "../../commons/useUploadRecord";
 
 const AddSavings = () => {
   const [where, setWhere] = useState("");
-  const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
+  const [date, setDate] = useState(
+    DateUtil.getLocalDateInISOFormat(new Date().toLocaleDateString)
+  );
   const [amount, setAmount] = useState("");
   const [interest, setInterest] = useState("Chase Direct-Deposit");
   const [remarks, setRemarks] = useState("");
@@ -46,7 +48,7 @@ const AddSavings = () => {
 
   const resetForm = () => {
     setWhere("");
-    setDate(new Date().toISOString().split("T")[0]);
+    setDate(DateUtil.getLocalDateInISOFormat(new Date().toLocaleDateString));
     setAmount("");
     setInterest("Discover");
     setRemarks("");

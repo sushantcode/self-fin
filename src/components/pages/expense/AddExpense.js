@@ -5,7 +5,7 @@ import {
   faDollar,
   faLocation,
   faUndo,
-  faUpload,
+  faUpload
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
@@ -16,14 +16,17 @@ import {
   Dropdown,
   Form,
   FormControl,
-  InputGroup,
+  InputGroup
 } from "react-bootstrap";
 import { tableNames } from "../../../utils/Constants";
+import { DateUtil } from "../../../utils/DateUtil";
 import useUploadRecord from "../../commons/useUploadRecord";
 
 const AddExpense = () => {
   const [category, setCategory] = useState("");
-  const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
+  const [date, setDate] = useState(
+    DateUtil.getLocalDateInISOFormat(new Date().toLocaleDateString())
+  );
   const [location, setLocation] = useState("");
   const [amount, setAmount] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("Discover");
@@ -35,24 +38,27 @@ const AddExpense = () => {
     newExpense
   );
 
-  useEffect(() => {
-    if (newExpense !== null) {
-      setAddData(true);
-    } else {
-      setAddData(false);
-    }
-  }, [newExpense]);
+  useEffect(
+    () => {
+      if (newExpense !== null) {
+        setAddData(true);
+      } else {
+        setAddData(false);
+      }
+    },
+    [newExpense]
+  );
 
   const resetForm = () => {
     setCategory("");
-    setDate(new Date().toISOString().split("T")[0]);
+    setDate(DateUtil.getLocalDateInISOFormat(new Date().toLocaleDateString()));
     setLocation("");
     setAmount("");
     setPaymentMethod("Discover");
     setRemarks("");
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = e => {
     e.preventDefault();
     const newItem = {
       category: category,
@@ -60,7 +66,7 @@ const AddExpense = () => {
       location: location,
       amount: amount,
       payment_method: paymentMethod,
-      remarks: remarks,
+      remarks: remarks
     };
     setNewExpense(newItem);
     resetForm();
@@ -81,27 +87,33 @@ const AddExpense = () => {
                     Select Category of Expense
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
-                    {["Grocery", "Rent", "Utility", "Personal", "Others"].map(
-                      (item, index) => {
-                        return (
-                          <Dropdown.Item
-                            key={index}
-                            onClick={() => setCategory(item)}
-                          >
-                            {item}
-                          </Dropdown.Item>
-                        );
-                      }
-                    )}
+                    {[
+                      "Grocery",
+                      "Rent",
+                      "Utility",
+                      "Personal",
+                      "Others"
+                    ].map((item, index) => {
+                      return (
+                        <Dropdown.Item
+                          key={index}
+                          onClick={() => setCategory(item)}
+                        >
+                          {item}
+                        </Dropdown.Item>
+                      );
+                    })}
                   </Dropdown.Menu>
                 </Dropdown>
-                {category.length !== 0 ? (
-                  <InputGroup.Text>{category}</InputGroup.Text>
-                ) : (
-                  <Form.Text className="ms-2" muted>
-                    <span className="text-danger">*Must select a category</span>
-                  </Form.Text>
-                )}
+                {category.length !== 0
+                  ? <InputGroup.Text>
+                      {category}
+                    </InputGroup.Text>
+                  : <Form.Text className="ms-2" muted>
+                      <span className="text-danger">
+                        *Must select a category
+                      </span>
+                    </Form.Text>}
               </InputGroup>
             </Form.Group>
             <Form.Group as={Col} className="mb-3">
@@ -116,7 +128,7 @@ const AddExpense = () => {
                   type="date"
                   name="date"
                   value={date}
-                  onChange={(e) => setDate(e.target.value)}
+                  onChange={e => setDate(e.target.value)}
                 />
               </InputGroup>
             </Form.Group>
@@ -132,15 +144,14 @@ const AddExpense = () => {
                   type="text"
                   name="location"
                   value={location}
-                  onChange={(e) => setLocation(e.target.value)}
+                  onChange={e => setLocation(e.target.value)}
                   placeholder="Walmart, Amazon, etc."
                 />
               </InputGroup>
-              {location.length === 0 && (
+              {location.length === 0 &&
                 <Form.Text className="ms-2" muted>
                   <span className="text-danger">*Must eneter a location</span>
-                </Form.Text>
-              )}
+                </Form.Text>}
             </Form.Group>
             <Form.Group as={Col} className="mb-3">
               <InputGroup>
@@ -153,15 +164,14 @@ const AddExpense = () => {
                   type="number"
                   name="amount"
                   value={amount}
-                  onChange={(e) => setAmount(e.target.value)}
+                  onChange={e => setAmount(e.target.value)}
                   placeholder="Amount"
                 />
               </InputGroup>
-              {amount.length === 0 && (
+              {amount.length === 0 &&
                 <Form.Text className="ms-2" muted>
                   <span className="text-danger">*Must eneter amount</span>
-                </Form.Text>
-              )}
+                </Form.Text>}
             </Form.Group>
             <Form.Group as={Col} className="mb-3">
               <InputGroup>
@@ -174,7 +184,7 @@ const AddExpense = () => {
                   type="text"
                   name="payment_method"
                   value={paymentMethod}
-                  onChange={(e) => setPaymentMethod(e.target.value)}
+                  onChange={e => setPaymentMethod(e.target.value)}
                   placeholder="Discover, Amex, etc."
                 />
               </InputGroup>
@@ -191,7 +201,7 @@ const AddExpense = () => {
                   type="text"
                   name="remarks"
                   value={remarks}
-                  onChange={(e) => setRemarks(e.target.value)}
+                  onChange={e => setRemarks(e.target.value)}
                   placeholder="Remarks"
                 />
               </InputGroup>
@@ -201,15 +211,13 @@ const AddExpense = () => {
           </Form>
         </Card.Body>
         <Card.Footer className="py-3" style={{ textAlign: "right" }}>
-          {uploading && (
-            <div className="me-3 spinner-border" role="status"></div>
-          )}
+          {uploading && <div className="me-3 spinner-border" role="status" />}
           <Button
             className="me-3"
             size="sm"
             type="button"
             variant="success"
-            onClick={(e) => onSubmit(e)}
+            onClick={e => onSubmit(e)}
             disabled={
               category.length === 0 ||
               location.length === 0 ||
@@ -235,15 +243,16 @@ const AddExpense = () => {
           </Button>
         </Card.Footer>
       </Card>
-      {error.length !== 0 && (
+      {error.length !== 0 &&
         <div className="row text-center">
           <div className="col">
             <Form.Text className="mt-4" muted>
-              <span className="text-danger">{error}</span>
+              <span className="text-danger">
+                {error}
+              </span>
             </Form.Text>
           </div>
-        </div>
-      )}
+        </div>}
     </div>
   );
 };

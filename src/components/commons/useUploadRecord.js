@@ -8,14 +8,17 @@ const useUploadRecord = (table, data) => {
   const [error, setError] = useState("");
   const [addData, setAddData] = useState(false);
 
-  useEffect(() => {
-    if (addData && data !== null) {
-      setUploading(true);
-      setError("");
-      loadData(table, data);
-    }
-    setAddData(false);
-  }, [addData]);
+  useEffect(
+    () => {
+      if (addData && data !== null) {
+        setUploading(true);
+        setError("");
+        loadData(table, data);
+      }
+      setAddData(false);
+    },
+    [addData]
+  );
 
   const loadData = async (tableName, newItem) => {
     const yearMonth = newItem.date.substring(0, 7);
@@ -23,10 +26,10 @@ const useUploadRecord = (table, data) => {
       const getDataClient = getData(tableName, yearMonth);
       if (getDataClient !== null) {
         await getDataClient
-          .then((response) => {
+          .then(response => {
             handleResponse(response, tableName, yearMonth, newItem);
           })
-          .catch((err) => {
+          .catch(err => {
             console.log(err);
             setError("Error occured while polling data. Try again!!!");
             setUploading(false);
@@ -42,7 +45,6 @@ const useUploadRecord = (table, data) => {
   };
 
   const handleResponse = (response, tableName, yearMonth, newItem) => {
-    console.log(response.Count + " items retrieved.");
     if (response.Count > 0) {
       const decryptedData = decrypt(response.Items[0].item, getPassword());
       decryptedData.push(newItem);
@@ -60,10 +62,9 @@ const useUploadRecord = (table, data) => {
       if (putDataDDBClient !== null) {
         await putDataDDBClient
           .then(() => {
-            console.log("Success");
             setError("");
           })
-          .catch((err) => {
+          .catch(err => {
             console.log(err);
             setError("Error occured!");
           })

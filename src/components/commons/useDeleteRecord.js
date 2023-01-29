@@ -6,15 +6,18 @@ const useDeleteRecord = (data, table, date) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    if (updateData && date.length !== 0) {
-      setLoading(true);
-      setError("");
-      const hashKey = date.substring(0, 7);
-      callUpdateData(data, table, hashKey);
-    }
-    setUpdateData(false);
-  }, [updateData]);
+  useEffect(
+    () => {
+      if (updateData && date.length !== 0) {
+        setLoading(true);
+        setError("");
+        const hashKey = date.substring(0, 7);
+        callUpdateData(data, table, hashKey);
+      }
+      setUpdateData(false);
+    },
+    [updateData]
+  );
 
   const callUpdateData = async (data, tableName, hashKey) => {
     try {
@@ -22,10 +25,9 @@ const useDeleteRecord = (data, table, date) => {
       if (putDataDdbClient !== null) {
         await putDataDdbClient
           .then(() => {
-            console.log("Success");
             setError("");
           })
-          .catch((err) => {
+          .catch(err => {
             console.log(err);
             setError("Error occured!");
           })

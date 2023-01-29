@@ -21,11 +21,14 @@ import {
   InputGroup
 } from "react-bootstrap";
 import { tableNames } from "../../../utils/Constants";
+import { DateUtil } from "../../../utils/DateUtil";
 import useUploadRecord from "../../commons/useUploadRecord";
 
 const AddTransfer = () => {
   const [service, setService] = useState("MoneyGram");
-  const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
+  const [date, setDate] = useState(
+    DateUtil.getLocalDateInISOFormat(new Date().toLocaleDateString())
+  );
   const [receiver, setReceiver] = useState("");
   const [usd, setUsd] = useState("");
   const [nrs, setNrs] = useState("");
@@ -51,7 +54,7 @@ const AddTransfer = () => {
 
   const resetForm = () => {
     setService("MoneyGram");
-    setDate(new Date().toISOString().split("T")[0]);
+    setDate(DateUtil.getLocalDateInISOFormat(new Date().toLocaleDateString()));
     setReceiver("");
     setUsd("");
     setNrs("");

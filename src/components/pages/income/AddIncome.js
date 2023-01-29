@@ -18,11 +18,14 @@ import {
   InputGroup
 } from "react-bootstrap";
 import { tableNames } from "../../../utils/Constants";
+import { DateUtil } from "../../../utils/DateUtil";
 import useUploadRecord from "../../commons/useUploadRecord";
 
 const AddIncome = () => {
   const [source, setSource] = useState("");
-  const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
+  const [date, setDate] = useState(
+    DateUtil.getLocalDateInISOFormat(new Date().toLocaleDateString())
+  );
   const [amount, setAmount] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("Chase Direct-Deposit");
   const [remarks, setRemarks] = useState("");
@@ -46,7 +49,7 @@ const AddIncome = () => {
 
   const resetForm = () => {
     setSource("");
-    setDate(new Date().toISOString().split("T")[0]);
+    setDate(DateUtil.getLocalDateInISOFormat(new Date().toLocaleDateString()));
     setAmount("");
     setPaymentMethod("Chase Direct-Deposit");
     setRemarks("");

@@ -81,7 +81,6 @@ const useLoadRecords = (table, date) => {
   };
 
   const handleResponse = (response, hashKey) => {
-    console.log(response.Count + " items retrieved.");
     if (response.Count > 0) {
       const decryptedData = decrypt(response.Items[0].item, getPassword());
       const result = {
