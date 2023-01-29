@@ -10,6 +10,7 @@ import AddIncome from "./AddIncome";
 import { useNavigate } from "react-router-dom";
 import { FormControlLabel, FormGroup, Switch } from "@mui/material";
 import Graphs from "../../commons/Graphs";
+import { DateUtil } from "../../../utils/DateUtil";
 
 const headCells = [
   {
@@ -58,7 +59,9 @@ const Income = () => {
     [authenticated, navigate]
   );
 
-  const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
+  const [date, setDate] = useState(
+    DateUtil.getLocalDateInISOFormat(new Date().toLocaleDateString())
+  );
   const [isGraph, setIsGraph] = useState(false);
 
   const [setLoadData, error, loading, tableVisibility, data] = useLoadRecords(
@@ -79,7 +82,9 @@ const Income = () => {
                 <YearMonthPicker
                   dateProps={[date, setDate]}
                   datePickerLabel="Year and Month"
-                  minDate={new Date("2017-01-01")}
+                  minDate={DateUtil.getLocalDateInISOFormat(
+                    new Date("2017-01-01").toLocaleDateString()
+                  )}
                 />
                 <Button
                   className="ms-3 mt-2"

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import YearMonthPicker from "../../commons/YearMonthPicker";
-import { tableNames } from "../../../utils/Constants";
 import useGenerateReportData from "./useGenerateReportData";
 import ReportTable from "./ReportTable";
 import Checkbox from "@mui/material/Checkbox";

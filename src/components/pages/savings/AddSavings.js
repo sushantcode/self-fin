@@ -19,11 +19,12 @@ import {
 } from "react-bootstrap";
 import { tableNames } from "../../../utils/Constants";
 import useUploadRecord from "../../commons/useUploadRecord";
+import { DateUtil } from "../../../utils/DateUtil";
 
 const AddSavings = () => {
   const [where, setWhere] = useState("");
   const [date, setDate] = useState(
-    DateUtil.getLocalDateInISOFormat(new Date().toLocaleDateString)
+    DateUtil.getLocalDateInISOFormat(new Date().toLocaleDateString())
   );
   const [amount, setAmount] = useState("");
   const [interest, setInterest] = useState("Chase Direct-Deposit");
@@ -48,7 +49,7 @@ const AddSavings = () => {
 
   const resetForm = () => {
     setWhere("");
-    setDate(DateUtil.getLocalDateInISOFormat(new Date().toLocaleDateString));
+    setDate(DateUtil.getLocalDateInISOFormat(new Date().toLocaleDateString()));
     setAmount("");
     setInterest("Discover");
     setRemarks("");
