@@ -1,10 +1,25 @@
 import { Button } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Editor from "@monaco-editor/react";
 import { Form, FormControl, InputGroup } from "react-bootstrap";
 import { DataPublisher } from "../../../utils/DataPublisher";
+import { useNavigate } from "react-router-dom";
+import { isAuthenticated } from "../../../utils/Authentication";
 
 const BatchProcessor = () => {
+  let navigate = useNavigate();
+
+  let authenticated = isAuthenticated();
+
+  useEffect(
+    () => {
+      if (!authenticated) {
+        navigate("/login");
+      }
+    },
+    [authenticated, navigate]
+  );
+
   const [data, setData] = useState(null);
   const [editorValidationErrors, setEditorValidationErrors] = useState([]);
   const [schemaValidationErrors, setSchemaValidationErrors] = useState([]);
