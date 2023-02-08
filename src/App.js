@@ -11,6 +11,7 @@ import Loan from "./components/pages/loan/Loan";
 import Report from "./components/pages/report/Report";
 import Savings from "./components/pages/savings/Savings";
 import Titlebar from "./components/titlebar/Titlebar";
+import BatchProcessor from "./components/pages/batch_processor/BatchProcessor";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/investments" element={<Investments />} />
           <Route path="/home" element={<Home />} />
           <Route path="/report" element={<Report />} />
+          <Route path="/batchProcessor" element={<BatchProcessor />} />
         </Routes>
       </Container>
     </Router>

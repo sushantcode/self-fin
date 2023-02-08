@@ -40,21 +40,27 @@ const Titlebar = () => {
       case "/report":
         return "Custom Report";
 
+      case "/batchProcessor":
+        return "Batch Processor";
+
       default:
         return "Unknown Path";
     }
   }
 
-  useEffect(() => {
-    // eslint-disable-next-line
-    let isMounted = true;
+  useEffect(
+    () => {
+      // eslint-disable-next-line
+      let isMounted = true;
 
-    setCurrPath(getPathName(location.pathname));
+      setCurrPath(getPathName(location.pathname));
 
-    return () => {
-      isMounted = false;
-    };
-  }, [location.pathname]);
+      return () => {
+        isMounted = false;
+      };
+    },
+    [location.pathname]
+  );
 
   const onLogout = () => {
     logout();
@@ -69,15 +75,14 @@ const Titlebar = () => {
         </Link>
         <div className="row d-flex">
           <div className="col justify-content-center text-light">
-            {window.innerWidth < 760 && (
+            {window.innerWidth < 760 &&
               <FontAwesomeIcon
                 onClick={() => window.location.reload()}
                 icon={faRefresh}
                 className="me-3 fs-4"
-              />
-            )}
+              />}
             {currPath}
-            {location.pathname !== "/login" && (
+            {location.pathname !== "/login" &&
               <Button
                 className="ms-3"
                 variant="contained"
@@ -85,8 +90,7 @@ const Titlebar = () => {
                 onClick={onLogout}
               >
                 <FontAwesomeIcon icon={faSignOut} />
-              </Button>
-            )}
+              </Button>}
           </div>
         </div>
       </div>
