@@ -13,6 +13,9 @@ A responsive web app to track and manage daily financial activities like expense
 - User can also generate single report for their choices of categories for certain period of time and evalutes the trend in their financial activities like how much they spent and how much was the income at that period of time.
 - Now user can use the python script to parse their credit/debit cards statement which can be easily uploaded to the cloud after encryption. This will save time to upload indivial expense one by one.
 
+## Author
+* **Gupta, Sushant** - *Core Team Member* - [Profile](https://github.com/sushantcode)
+
 ## Available Scripts
 
 ### `npm start`
