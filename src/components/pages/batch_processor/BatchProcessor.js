@@ -138,16 +138,21 @@ const BatchProcessor = () => {
         setUploadingError('');
         const tableName = data['table'];
         const dataItems = data['items'];
-        // if (dataItems !== null && dataItems.length !== 0) {
-        //     for (let i = 0; i < dataItems.length; i++) {
-        //         try {
-        //             DataPublisher.publishData(tableName, dataItems[i]);
-        //         } catch (err) {
-        //             setUploadingError(err.message);
-        //             break;
-        //         }
-        //     }
-        // }
+        const itemKeys = Object.keys(dataItems);
+        if (dataItems !== null && itemKeys.length !== 0) {
+            for (let i = 0; i < itemKeys.length; i++) {
+                try {
+                    DataPublisher.publishData(
+                        tableName,
+                        dataItems[itemKeys[i]],
+                        itemKeys[i]
+                    );
+                } catch (err) {
+                    setUploadingError(err.message);
+                    break;
+                }
+            }
+        }
         if (uploadingError.length === 0) {
             setData({});
         }
@@ -208,6 +213,7 @@ const BatchProcessor = () => {
                                                 0 ||
                                             schemaValidationErrors.length !==
                                                 0 ||
+                                            uploadingError.length !== 0 ||
                                             emptyEditor ||
                                             uploading ||
                                             !isValidSchema

@@ -39,25 +39,24 @@ export class DataPublisher {
         return errors;
     }
 
-    static async publishData(tableName, newItem) {
+    static async publishData(tableName, newItem, newItemKey) {
         try {
-            await this.loadData(tableName, newItem);
+            await this.loadData(tableName, newItem, newItemKey);
         } catch (error) {
             throw error;
         }
     }
 
-    static async loadData(tableName, newItem) {
-        const yearMonth = newItem.date.substring(0, 7);
+    static async loadData(tableName, newItem, newItemKey) {
         try {
-            const getDataClient = getData(tableName, yearMonth);
+            const getDataClient = getData(tableName, newItemKey);
             if (getDataClient !== null) {
                 await getDataClient
                     .then((response) => {
                         this.handleResponse(
                             response,
                             tableName,
-                            yearMonth,
+                            newItemKey,
                             newItem
                         );
                     })
@@ -75,40 +74,35 @@ export class DataPublisher {
         }
     }
 
-    static async handleResponse(response, tableName, yearMonth, newItem) {
+    static async handleResponse(response, tableName, newItemKey, newItem) {
         try {
             if (response.Count > 0) {
                 const decryptedData = decrypt(
                     response.Items[0].item,
                     getPassword()
                 );
-                decryptedData.push(newItem);
-                await this.uploadData(tableName, yearMonth, decryptedData);
+                decryptedData.push(...newItem);
+                await this.uploadData(tableName, newItemKey, decryptedData);
             } else {
-                const newItemsList = new Array(0);
-                newItemsList.push(newItem);
-                await this.uploadData(tableName, yearMonth, newItemsList);
+                await this.uploadData(tableName, newItemKey, newItem);
             }
         } catch (error) {
             throw error;
         }
     }
 
-    static async uploadData(tableName, yearMonth, newItemsList) {
-        if (newItemsList !== null) {
-            const putDataDDBClient = putData(
-                tableName,
-                yearMonth,
-                newItemsList
-            );
+    static async uploadData(tableName, newItemKey, newItem) {
+        if (newItem !== null) {
+            const putDataDDBClient = putData(tableName, newItemKey, newItem);
             if (putDataDDBClient !== null) {
                 await putDataDDBClient
-                    .then(() => {})
+                    .then(() => {
+                        console.log('Uploaded successfully!');
+                    })
                     .catch((err) => {
                         console.log(err);
                         throw new Error('Error occured!');
-                    })
-                    .finally(() => {});
+                    });
             } else {
                 throw new Error(
                     "Couldn't put DDB client. Make sure you have right credentials."
