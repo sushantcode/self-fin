@@ -19,7 +19,7 @@ const BatchProcessor = () => {
 
     const itemKeyRegex = /([0-9]{4,4}-[0-9]{2,2})/g;
 
-    const [data, setData] = useState(null);
+    const [data, setData] = useState({});
     const [editorValidationErrors, setEditorValidationErrors] = useState([]);
     const [schemaValidationErrors, setSchemaValidationErrors] = useState([]);
     const [file, setFile] = useState(null);
@@ -87,7 +87,9 @@ const BatchProcessor = () => {
             const items = data['items'];
             const itemKeys = Object.keys(items);
             const inValidKeys = itemKeys.filter((element) => !itemKeyRegex.test(element));
-            if (inValidKeys.length !== 0) {
+            if (itemKeys.length === 0) {
+                errors.push("Missing: Data has 0 item");
+            } else if (inValidKeys.length !== 0) {
                 errors.push("Following items' keys are invalid: " + inValidKeys.join(', '));
             } else {
                 for (let i = 0; i < itemKeys.length; i++) {
@@ -141,7 +143,7 @@ const BatchProcessor = () => {
         //     }
         // }
         if (uploadingError.length === 0) {
-            setData(null);
+            setData({});
         }
         setUploading(false);
     };
@@ -183,7 +185,6 @@ const BatchProcessor = () => {
                                     variant="contained"
                                     color="primary"
                                     disabled={
-                                        data == null ||
                                         editorValidationErrors.length !== 0 ||
                                         emptyEditor
                                     }
@@ -199,7 +200,6 @@ const BatchProcessor = () => {
                                         disabled={
                                             editorValidationErrors.length !== 0 ||
                                             schemaValidationErrors.length !== 0 ||
-                                            data == null ||
                                             emptyEditor ||
                                             uploading ||
                                             !isValidSchema
