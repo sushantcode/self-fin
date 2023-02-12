@@ -25,6 +25,6 @@ A responsive web app to track and manage daily financial activities like expense
 - Eslint and Prettier (Formatting)
 
 ## Want to have it for yourself?
-* Contact **Gupta, Sushant** - [Portfolio]([https://github.com/sushantcode](https://sushantcode.com/))
+* Contact **Gupta, Sushant** - [Portfolio]([https://sushantcode.com])
 
 
