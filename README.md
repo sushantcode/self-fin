@@ -1,6 +1,6 @@
 # Self-fin
 
-A responsive web app to track and manage daily financial activities like expenses, income and investments in a highly secured manner.
+A responsive stand-alone web app to track and manage daily financial activities like expenses, income and investments in a highly secured manner.
 
 ## Features
 
@@ -21,7 +21,9 @@ A responsive web app to track and manage daily financial activities like expense
 - Python (Statement Parser)
 - AWS (Database)
 - Firebase (For deployment)
+- Github (Version Control)
 - Github Action (For CI/CD)
+- Github Secrets (Store encrypted credentials)
 - Eslint and Prettier (Formatting)
 
 ## Want to have it for yourself?
