@@ -1,15 +1,15 @@
 {
-  "short_name": "Self-Fin",
-  "name": "Self-Fin Web App",
-  "icons": [
-    {
-      "src": "assets/logo.png",
-      "sizes": "200x200",
-      "type": "image/png"
-    }
-  ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+    "short_name": "Self-Fin",
+    "name": "Self-Fin Web App",
+    "icons": [
+        {
+            "src": "assets/logo.png",
+            "sizes": "200x200",
+            "type": "image/png"
+        }
+    ],
+    "start_url": ".",
+    "display": "standalone",
+    "theme_color": "#000000",
+    "background_color": "#ffffff"
 }

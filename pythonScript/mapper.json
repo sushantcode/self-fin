@@ -1,75 +1,75 @@
 {
-  "category": {
-    "Gasoline": "Gasoline",
-    "Travel/ Entertainment": "Travel",
-    "Restaurants": "Food",
-    "Merchandise": "Food",
-    "Supermarkets": "Food"
-  },
-  "description": {
-    "CHEVRON 0099269 BELLEVUE": {
-      "location": "Chevron Bellevue",
-      "remarks": "sm"
+    "category": {
+        "Gasoline": "Gasoline",
+        "Travel/ Entertainment": "Travel",
+        "Restaurants": "Food",
+        "Merchandise": "Food",
+        "Supermarkets": "Food"
     },
-    "PRICELN*RED LION HOTEL": {
-      "location": "Priceline",
-      "remarks": "Stay at RED LION HOTEL Bellevue"
-    },
-    "LINQ FRONT DSK LAS VEGAS NV": {
-      "location": "Linq in Las Vegas",
-      "remarks": "Stay at Linq Las Vegas"
-    },
-    "LYFT *RIDE": {
-      "location": "Lyft",
-      "remarks": "Lyft Ride"
-    },
-    "PANDA EXPRESS #833 LAS VEGAS": {
-      "location": "Panda Express in Las Vegas",
-      "remarks": "Food from Panda express"
-    },
-    "2078-CLT MARKETPLACE B CHARLOTTE NC": {
-      "location": "Charlotte Airport",
-      "remarks": "Snacks"
-    },
-    "LINQ WINE & SPIRITS": {
-      "location": "Las Vegas Linq store",
-      "remarks": "sm and light"
-    },
-    "WAWA 919 BORDENTOWN": {
-      "location": "Wawa in BordenTown",
-      "remarks": "Snack"
-    },
-    "EXXONMOBIL WASHINGTON DC": {
-      "location": "Exxon Mobil in DC",
-      "remarks": "Gas"
-    },
-    "LORD BALTIMORE HOTEL": {
-      "location": "Baltimore",
-      "remarks": "Stay at Lord Baltimore Hotel"
-    },
-    "WAWA 223 WOODLYN": {
-      "location": "Wawa in Woodlyn",
-      "remarks": "Snacks"
-    },
-    "ETT*MARKELINSURANCE 866-249-1066": {
-      "location": "Progressive Insurance",
-      "remarks": "Car Insurance adjustment after address change"
-    },
-    "EXXONMOBIL QUEENS VILLAGNYAPPLE": {
-      "location": "Exxon Mobil in New York",
-      "remarks": "Gas"
-    },
-    "APNA BAZAR CASH & CARRY": {
-      "location": "Apna Bazar in New York",
-      "remarks": "Grocery"
-    },
-    "HOUSE OF BIRYANI'S NORRISTOWN": {
-      "location": "House of Briyani's in Philedelphia",
-      "remarks": "Dinner"
-    },
-    "WAWA 8061 NORRISTOWN": {
-      "location": "Wawa in Philedelphia",
-      "remarks": "Food"
+    "description": {
+        "CHEVRON 0099269 BELLEVUE": {
+            "location": "Chevron Bellevue",
+            "remarks": "sm"
+        },
+        "PRICELN*RED LION HOTEL": {
+            "location": "Priceline",
+            "remarks": "Stay at RED LION HOTEL Bellevue"
+        },
+        "LINQ FRONT DSK LAS VEGAS NV": {
+            "location": "Linq in Las Vegas",
+            "remarks": "Stay at Linq Las Vegas"
+        },
+        "LYFT *RIDE": {
+            "location": "Lyft",
+            "remarks": "Lyft Ride"
+        },
+        "PANDA EXPRESS #833 LAS VEGAS": {
+            "location": "Panda Express in Las Vegas",
+            "remarks": "Food from Panda express"
+        },
+        "2078-CLT MARKETPLACE B CHARLOTTE NC": {
+            "location": "Charlotte Airport",
+            "remarks": "Snacks"
+        },
+        "LINQ WINE & SPIRITS": {
+            "location": "Las Vegas Linq store",
+            "remarks": "sm and light"
+        },
+        "WAWA 919 BORDENTOWN": {
+            "location": "Wawa in BordenTown",
+            "remarks": "Snack"
+        },
+        "EXXONMOBIL WASHINGTON DC": {
+            "location": "Exxon Mobil in DC",
+            "remarks": "Gas"
+        },
+        "LORD BALTIMORE HOTEL": {
+            "location": "Baltimore",
+            "remarks": "Stay at Lord Baltimore Hotel"
+        },
+        "WAWA 223 WOODLYN": {
+            "location": "Wawa in Woodlyn",
+            "remarks": "Snacks"
+        },
+        "ETT*MARKELINSURANCE 866-249-1066": {
+            "location": "Progressive Insurance",
+            "remarks": "Car Insurance adjustment after address change"
+        },
+        "EXXONMOBIL QUEENS VILLAGNYAPPLE": {
+            "location": "Exxon Mobil in New York",
+            "remarks": "Gas"
+        },
+        "APNA BAZAR CASH & CARRY": {
+            "location": "Apna Bazar in New York",
+            "remarks": "Grocery"
+        },
+        "HOUSE OF BIRYANI'S NORRISTOWN": {
+            "location": "House of Briyani's in Philedelphia",
+            "remarks": "Dinner"
+        },
+        "WAWA 8061 NORRISTOWN": {
+            "location": "Wawa in Philedelphia",
+            "remarks": "Food"
+        }
     }
-  }
 }

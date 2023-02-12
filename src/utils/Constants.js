@@ -1,8 +1,8 @@
 export const tableNames = {
-  EXPENSE: "expense",
-  INCOME: "income",
-  INVESTMENTS: "investments",
-  LOANTOFRIEND: "loanToFriends",
-  SAVING: "savings",
-  HOME: "toHome",
+    EXPENSE: 'expense',
+    INCOME: 'income',
+    INVESTMENTS: 'investments',
+    LOANTOFRIEND: 'loanToFriends',
+    SAVING: 'savings',
+    HOME: 'toHome'
 };

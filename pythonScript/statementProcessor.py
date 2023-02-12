@@ -56,8 +56,21 @@ class StatementProcessor:
                 return self.mapper["description"][key]["location"], self.mapper["description"][key]["remarks"]
         return description, ""
 
+    def add_item(self, data, item):
+        existing_keys = list(data["items"].keys())
+        item_key = item["date"][:7]
+        if item_key in existing_keys:
+            data["items"][item_key].append(item)
+        else:
+            data["items"][item_key] = []
+            data["items"][item_key].append(item)
+        return data
+
     def process_records(self):
-        processed_data = []
+        processed_data = {
+            "table": self.table,
+            "items": {}
+        }
         for record in self.records:
             try:
                 trans_date = self.format_date(record[0])
@@ -67,8 +80,10 @@ class StatementProcessor:
 
                 if self.is_valid_record(amount):
                     location, remarks = self.map_description(description)
-                    processed_data.append(self.format_record(
-                        category, trans_date, location, amount, remarks))
+                    formatted_item = self.format_record(
+                        category, trans_date, location, amount, remarks)
+                    processed_data = self.add_item(
+                        processed_data, formatted_item)
             except Exception as e:
                 raise e
 
@@ -80,12 +95,9 @@ class StatementProcessor:
         curr_date = str(date.today())
         filename = f'{curr_date}.json'
         full_path = os.path.join(output_path, filename)
-        formated_data = {
-            "table": self.table,
-            "items": data
-        }
+
         with open(full_path, 'w') as output_file:
-            json.dump(formated_data, output_file)
+            json.dump(data, output_file)
 
 
 if __name__ == '__main__':
