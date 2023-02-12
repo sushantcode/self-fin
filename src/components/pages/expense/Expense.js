@@ -16,38 +16,38 @@ const headCells = [
         id: 'category',
         numeric: false,
         disablePadding: false,
-        label: 'Category'
+        label: 'Category',
     },
     {
         id: 'date',
         numeric: false,
         disablePadding: false,
-        label: 'Date'
+        label: 'Date',
     },
     {
         id: 'location',
         numeric: false,
         disablePadding: false,
-        label: 'Location'
+        label: 'Location',
     },
     {
         id: 'amount',
         numeric: false,
         disablePadding: false,
-        label: 'Amount ($)'
+        label: 'Amount ($)',
     },
     {
         id: 'payment_method',
         numeric: false,
         disablePadding: false,
-        label: 'Payment Method'
+        label: 'Payment Method',
     },
     {
         id: 'remarks',
         numeric: false,
         disablePadding: false,
-        label: 'Remarks'
-    }
+        label: 'Remarks',
+    },
 ];
 
 const Expense = () => {
@@ -92,9 +92,16 @@ const Expense = () => {
                                     onClick={loadExpenses}
                                     disabled={loading}
                                 >
-                                    {tableVisibility ? 'Hide Table' : 'Load Expenses'}
+                                    {tableVisibility
+                                        ? 'Hide Table'
+                                        : 'Load Expenses'}
                                 </Button>
-                                {loading && <div className="ms-3 spinner-border" role="status" />}
+                                {loading && (
+                                    <div
+                                        className="ms-3 spinner-border"
+                                        role="status"
+                                    />
+                                )}
                             </Col>
                             <Col className="d-flex justify-content-end">
                                 <FormGroup>
@@ -103,9 +110,15 @@ const Expense = () => {
                                             <Switch
                                                 disabled={
                                                     !tableVisibility ||
-                                                    !(data && data.item && data.item.length)
+                                                    !(
+                                                        data &&
+                                                        data.item &&
+                                                        data.item.length
+                                                    )
                                                 }
-                                                onChange={() => setIsGraph(!isGraph)}
+                                                onChange={() =>
+                                                    setIsGraph(!isGraph)
+                                                }
                                             />
                                         }
                                         label="Graph"
@@ -116,10 +129,13 @@ const Expense = () => {
                         <Row>
                             <Col>
                                 {error.length !== 0 && (
-                                    <span className="text-danger ms-2">{error}</span>
+                                    <span className="text-danger ms-2">
+                                        {error}
+                                    </span>
                                 )}
                                 {tableVisibility &&
-                                    ((data && data.item && data.item.length) > 0 ? (
+                                    ((data && data.item && data.item.length) >
+                                    0 ? (
                                         !isGraph ? (
                                             <SmartTable
                                                 tableHeaders={headCells}

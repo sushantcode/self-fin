@@ -4,7 +4,11 @@
         "es2021": true,
         "node": true
     },
-    "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:prettier/recommended"],
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:prettier/recommended"
+    ],
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
@@ -12,10 +16,14 @@
         "ecmaVersion": 12,
         "sourceType": "module"
     },
-    "plugins": ["react"],
+    "plugins": [
+        "react"
+    ],
     "rules": {
         "no-unused-vars": 0,
         "quotes": 0,
-        "react/prop-types": 0
+        "react/prop-types": 0,
+        "no-undef": 0,
+        "no-useless-catch": 0
     }
 }

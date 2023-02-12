@@ -5,11 +5,19 @@ import {
     faDollar,
     faLocation,
     faUndo,
-    faUpload
+    faUpload,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
-import { Button, Card, Col, Dropdown, Form, FormControl, InputGroup } from 'react-bootstrap';
+import {
+    Button,
+    Card,
+    Col,
+    Dropdown,
+    Form,
+    FormControl,
+    InputGroup,
+} from 'react-bootstrap';
 import { tableNames } from '../../../utils/Constants';
 import { DateUtil } from '../../../utils/DateUtil';
 import useUploadRecord from '../../commons/useUploadRecord';
@@ -25,7 +33,10 @@ const AddExpense = () => {
     const [remarks, setRemarks] = useState('');
     const [newExpense, setNewExpense] = useState(null);
 
-    const [setAddData, error, uploading] = useUploadRecord(tableNames.EXPENSE, newExpense);
+    const [setAddData, error, uploading] = useUploadRecord(
+        tableNames.EXPENSE,
+        newExpense
+    );
 
     useEffect(() => {
         if (newExpense !== null) {
@@ -37,7 +48,9 @@ const AddExpense = () => {
 
     const resetForm = () => {
         setCategory('');
-        setDate(DateUtil.getLocalDateInISOFormat(new Date().toLocaleDateString()));
+        setDate(
+            DateUtil.getLocalDateInISOFormat(new Date().toLocaleDateString())
+        );
         setLocation('');
         setAmount('');
         setPaymentMethod('Discover');
@@ -52,7 +65,7 @@ const AddExpense = () => {
             location: location,
             amount: amount,
             payment_method: paymentMethod,
-            remarks: remarks
+            remarks: remarks,
         };
         setNewExpense(newItem);
         resetForm();
@@ -80,12 +93,14 @@ const AddExpense = () => {
                                             'Personal',
                                             'Travel',
                                             'Gasoline',
-                                            'Others'
+                                            'Others',
                                         ].map((item, index) => {
                                             return (
                                                 <Dropdown.Item
                                                     key={index}
-                                                    onClick={() => setCategory(item)}
+                                                    onClick={() =>
+                                                        setCategory(item)
+                                                    }
                                                 >
                                                     {item}
                                                 </Dropdown.Item>
@@ -94,10 +109,14 @@ const AddExpense = () => {
                                     </Dropdown.Menu>
                                 </Dropdown>
                                 {category.length !== 0 ? (
-                                    <InputGroup.Text>{category}</InputGroup.Text>
+                                    <InputGroup.Text>
+                                        {category}
+                                    </InputGroup.Text>
                                 ) : (
                                     <Form.Text className="ms-2" muted>
-                                        <span className="text-danger">*Must select a category</span>
+                                        <span className="text-danger">
+                                            *Must select a category
+                                        </span>
                                     </Form.Text>
                                 )}
                             </InputGroup>
@@ -105,7 +124,11 @@ const AddExpense = () => {
                         <Form.Group as={Col} className="mb-3">
                             <InputGroup>
                                 <InputGroup.Text>
-                                    <FontAwesomeIcon icon={faCalendar} className="me-2" /> Date
+                                    <FontAwesomeIcon
+                                        icon={faCalendar}
+                                        className="me-2"
+                                    />{' '}
+                                    Date
                                 </InputGroup.Text>
                                 <FormControl
                                     required
@@ -121,7 +144,11 @@ const AddExpense = () => {
                         <Form.Group as={Col} className="mb-3">
                             <InputGroup>
                                 <InputGroup.Text>
-                                    <FontAwesomeIcon icon={faLocation} className="me-2" /> Location
+                                    <FontAwesomeIcon
+                                        icon={faLocation}
+                                        className="me-2"
+                                    />{' '}
+                                    Location
                                 </InputGroup.Text>
                                 <FormControl
                                     required
@@ -129,20 +156,28 @@ const AddExpense = () => {
                                     type="text"
                                     name="location"
                                     value={location}
-                                    onChange={(e) => setLocation(e.target.value)}
+                                    onChange={(e) =>
+                                        setLocation(e.target.value)
+                                    }
                                     placeholder="Walmart, Amazon, etc."
                                 />
                             </InputGroup>
                             {location.length === 0 && (
                                 <Form.Text className="ms-2" muted>
-                                    <span className="text-danger">*Must eneter a location</span>
+                                    <span className="text-danger">
+                                        *Must eneter a location
+                                    </span>
                                 </Form.Text>
                             )}
                         </Form.Group>
                         <Form.Group as={Col} className="mb-3">
                             <InputGroup>
                                 <InputGroup.Text>
-                                    <FontAwesomeIcon icon={faDollar} className="me-2" /> Amount
+                                    <FontAwesomeIcon
+                                        icon={faDollar}
+                                        className="me-2"
+                                    />{' '}
+                                    Amount
                                 </InputGroup.Text>
                                 <FormControl
                                     required
@@ -156,14 +191,20 @@ const AddExpense = () => {
                             </InputGroup>
                             {amount.length === 0 && (
                                 <Form.Text className="ms-2" muted>
-                                    <span className="text-danger">*Must eneter amount</span>
+                                    <span className="text-danger">
+                                        *Must eneter amount
+                                    </span>
                                 </Form.Text>
                             )}
                         </Form.Group>
                         <Form.Group as={Col} className="mb-3">
                             <InputGroup>
                                 <InputGroup.Text>
-                                    <FontAwesomeIcon icon={faBank} className="me-2" /> Paid By
+                                    <FontAwesomeIcon
+                                        icon={faBank}
+                                        className="me-2"
+                                    />{' '}
+                                    Paid By
                                 </InputGroup.Text>
                                 <FormControl
                                     required
@@ -171,7 +212,9 @@ const AddExpense = () => {
                                     type="text"
                                     name="payment_method"
                                     value={paymentMethod}
-                                    onChange={(e) => setPaymentMethod(e.target.value)}
+                                    onChange={(e) =>
+                                        setPaymentMethod(e.target.value)
+                                    }
                                     placeholder="Discover, Amex, etc."
                                 />
                             </InputGroup>
@@ -179,7 +222,11 @@ const AddExpense = () => {
                         <Form.Group as={Col} className="mb-3">
                             <InputGroup>
                                 <InputGroup.Text>
-                                    <FontAwesomeIcon icon={faCircleInfo} className="me-2" /> Remarks
+                                    <FontAwesomeIcon
+                                        icon={faCircleInfo}
+                                        className="me-2"
+                                    />{' '}
+                                    Remarks
                                 </InputGroup.Text>
                                 <FormControl
                                     required
@@ -193,11 +240,17 @@ const AddExpense = () => {
                             </InputGroup>
                         </Form.Group>
 
-                        <input type="submit" style={{ display: 'none' }} disabled />
+                        <input
+                            type="submit"
+                            style={{ display: 'none' }}
+                            disabled
+                        />
                     </Form>
                 </Card.Body>
                 <Card.Footer className="py-3" style={{ textAlign: 'right' }}>
-                    {uploading && <div className="me-3 spinner-border" role="status" />}
+                    {uploading && (
+                        <div className="me-3 spinner-border" role="status" />
+                    )}
                     <Button
                         className="me-3"
                         size="sm"

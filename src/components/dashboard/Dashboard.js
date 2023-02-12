@@ -5,7 +5,7 @@ import {
     faPiggyBank,
     faArrowTrendUp,
     faChartBar,
-    faMoneyBillTransfer
+    faMoneyBillTransfer,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect } from 'react';
@@ -29,8 +29,15 @@ const Dashboard = () => {
             <Row className="mb-4 mt-4">
                 <Col className="border text-center">
                     <Link to={'expense'}>
-                        <Button variant="outline-secondary" className="fw-bold fs-2 my-4">
-                            <FontAwesomeIcon icon={faCartPlus} className="pe-1" /> <br />
+                        <Button
+                            variant="outline-secondary"
+                            className="fw-bold fs-2 my-4"
+                        >
+                            <FontAwesomeIcon
+                                icon={faCartPlus}
+                                className="pe-1"
+                            />{' '}
+                            <br />
                             Regular Expense
                         </Button>
                     </Link>
@@ -41,7 +48,10 @@ const Dashboard = () => {
                     <Row>
                         <Col className="text-center mt-5">
                             <Link to={'income'}>
-                                <Button variant="outline-secondary" className="fw-bold fs-4 py-3">
+                                <Button
+                                    variant="outline-secondary"
+                                    className="fw-bold fs-4 py-3"
+                                >
                                     <div className="fs-1">
                                         <FontAwesomeIcon icon={faSackDollar} />
                                     </div>
@@ -51,11 +61,16 @@ const Dashboard = () => {
                         </Col>
                         <Col className="text-center mt-5">
                             <Link to={'loan'}>
-                                <Button variant="outline-secondary" className="fw-bold fs-4 py-3">
+                                <Button
+                                    variant="outline-secondary"
+                                    className="fw-bold fs-4 py-3"
+                                >
                                     <div className="fs-1">
                                         <FontAwesomeIcon icon={faUserGroup} />
                                     </div>
-                                    <span className="fs-5">Loan to Friends</span>
+                                    <span className="fs-5">
+                                        Loan to Friends
+                                    </span>
                                 </Button>
                             </Link>
                         </Col>
@@ -63,7 +78,10 @@ const Dashboard = () => {
                     <Row className="mb-5">
                         <Col className="text-center mt-5">
                             <Link to={'savings'}>
-                                <Button variant="outline-secondary" className="fw-bold fs-4 py-3">
+                                <Button
+                                    variant="outline-secondary"
+                                    className="fw-bold fs-4 py-3"
+                                >
                                     <div className="fs-1">
                                         <FontAwesomeIcon icon={faPiggyBank} />
                                     </div>
@@ -73,9 +91,14 @@ const Dashboard = () => {
                         </Col>
                         <Col className="text-center mt-5">
                             <Link to={'investments'}>
-                                <Button variant="outline-secondary" className="fw-bold fs-4 py-3">
+                                <Button
+                                    variant="outline-secondary"
+                                    className="fw-bold fs-4 py-3"
+                                >
                                     <div className="fs-1">
-                                        <FontAwesomeIcon icon={faArrowTrendUp} />
+                                        <FontAwesomeIcon
+                                            icon={faArrowTrendUp}
+                                        />
                                     </div>
                                     <span className="fs-5">Investments</span>
                                 </Button>
@@ -85,9 +108,14 @@ const Dashboard = () => {
                     <Row className="mb-5">
                         <Col className="text-center">
                             <Link to={'home'}>
-                                <Button variant="outline-secondary" className="fw-bold fs-4 py-3">
+                                <Button
+                                    variant="outline-secondary"
+                                    className="fw-bold fs-4 py-3"
+                                >
                                     <div className="fs-1">
-                                        <FontAwesomeIcon icon={faMoneyBillTransfer} />
+                                        <FontAwesomeIcon
+                                            icon={faMoneyBillTransfer}
+                                        />
                                     </div>
                                     <span className="fs-5">Transfer Home</span>
                                 </Button>
@@ -95,7 +123,10 @@ const Dashboard = () => {
                         </Col>
                         <Col className="text-center">
                             <Link to={'report'}>
-                                <Button variant="outline-secondary" className="fw-bold fs-4 py-3">
+                                <Button
+                                    variant="outline-secondary"
+                                    className="fw-bold fs-4 py-3"
+                                >
                                     <div className="fs-1">
                                         <FontAwesomeIcon icon={faChartBar} />
                                     </div>

@@ -13,7 +13,10 @@ export class DataPublisher {
             const schemaAttributes = new Set(Object.keys(schema.item));
             const dataAttributes = new Set(Object.keys(data));
 
-            const schemaCompareResult = this.compareSets(schemaAttributes, dataAttributes);
+            const schemaCompareResult = this.compareSets(
+                schemaAttributes,
+                dataAttributes
+            );
             errors.push(...schemaCompareResult);
         }
 
@@ -51,11 +54,18 @@ export class DataPublisher {
             if (getDataClient !== null) {
                 await getDataClient
                     .then((response) => {
-                        this.handleResponse(response, tableName, yearMonth, newItem);
+                        this.handleResponse(
+                            response,
+                            tableName,
+                            yearMonth,
+                            newItem
+                        );
                     })
                     .catch((err) => {
                         console.log(err);
-                        throw new Error('Error occured while polling data. Try again!!!');
+                        throw new Error(
+                            'Error occured while polling data. Try again!!!'
+                        );
                     });
             } else {
                 throw new Error("Oops! Couldn't find the credential.");
@@ -68,7 +78,10 @@ export class DataPublisher {
     static async handleResponse(response, tableName, yearMonth, newItem) {
         try {
             if (response.Count > 0) {
-                const decryptedData = decrypt(response.Items[0].item, getPassword());
+                const decryptedData = decrypt(
+                    response.Items[0].item,
+                    getPassword()
+                );
                 decryptedData.push(newItem);
                 await this.uploadData(tableName, yearMonth, decryptedData);
             } else {
@@ -83,7 +96,11 @@ export class DataPublisher {
 
     static async uploadData(tableName, yearMonth, newItemsList) {
         if (newItemsList !== null) {
-            const putDataDDBClient = putData(tableName, yearMonth, newItemsList);
+            const putDataDDBClient = putData(
+                tableName,
+                yearMonth,
+                newItemsList
+            );
             if (putDataDDBClient !== null) {
                 await putDataDDBClient
                     .then(() => {})
@@ -93,7 +110,9 @@ export class DataPublisher {
                     })
                     .finally(() => {});
             } else {
-                throw new Error("Couldn't put DDB client. Make sure you have right credentials.");
+                throw new Error(
+                    "Couldn't put DDB client. Make sure you have right credentials."
+                );
             }
         } else {
             throw new Error('Error occured!');

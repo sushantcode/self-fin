@@ -64,7 +64,9 @@ const useLoadRecords = (table, date) => {
                     })
                     .catch((err) => {
                         console.log(err);
-                        setError('Error occured while polling data. Try again!!!');
+                        setError(
+                            'Error occured while polling data. Try again!!!'
+                        );
                         setLoading(false);
                     });
             } else {
@@ -79,16 +81,19 @@ const useLoadRecords = (table, date) => {
 
     const handleResponse = (response, hashKey) => {
         if (response.Count > 0) {
-            const decryptedData = decrypt(response.Items[0].item, getPassword());
+            const decryptedData = decrypt(
+                response.Items[0].item,
+                getPassword()
+            );
             const result = {
                 year_month: hashKey.substring(0, 7),
-                item: decryptedData
+                item: decryptedData,
             };
             setData(result);
         } else {
             const result = {
                 year_month: hashKey.substring(0, 7),
-                item: []
+                item: [],
             };
             setData(result);
         }

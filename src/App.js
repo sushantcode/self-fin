@@ -28,7 +28,10 @@ function App() {
                     <Route path="/investments" element={<Investments />} />
                     <Route path="/home" element={<Home />} />
                     <Route path="/report" element={<Report />} />
-                    <Route path="/batchProcessor" element={<BatchProcessor />} />
+                    <Route
+                        path="/batchProcessor"
+                        element={<BatchProcessor />}
+                    />
                 </Routes>
             </Container>
         </Router>

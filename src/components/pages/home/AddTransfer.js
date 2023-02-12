@@ -7,11 +7,19 @@ import {
     faPerson,
     faRupeeSign,
     faUndo,
-    faUpload
+    faUpload,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
-import { Button, Card, Col, Dropdown, Form, FormControl, InputGroup } from 'react-bootstrap';
+import {
+    Button,
+    Card,
+    Col,
+    Dropdown,
+    Form,
+    FormControl,
+    InputGroup,
+} from 'react-bootstrap';
 import { tableNames } from '../../../utils/Constants';
 import { DateUtil } from '../../../utils/DateUtil';
 import useUploadRecord from '../../commons/useUploadRecord';
@@ -28,7 +36,10 @@ const AddTransfer = () => {
     const [remarks, setRemarks] = useState('');
     const [newTransfer, setNewTransfer] = useState(null);
 
-    const [setAddData, error, uploading] = useUploadRecord(tableNames.HOME, newTransfer);
+    const [setAddData, error, uploading] = useUploadRecord(
+        tableNames.HOME,
+        newTransfer
+    );
 
     useEffect(() => {
         if (newTransfer !== null) {
@@ -40,7 +51,9 @@ const AddTransfer = () => {
 
     const resetForm = () => {
         setService('MoneyGram');
-        setDate(DateUtil.getLocalDateInISOFormat(new Date().toLocaleDateString()));
+        setDate(
+            DateUtil.getLocalDateInISOFormat(new Date().toLocaleDateString())
+        );
         setReceiver('');
         setUsd('');
         setNrs('');
@@ -57,7 +70,7 @@ const AddTransfer = () => {
             amount: usd,
             nrs: nrs,
             payment_method: paymentMethod,
-            remarks: remarks
+            remarks: remarks,
         };
         setNewTransfer(newItem);
         resetForm();
@@ -83,12 +96,14 @@ const AddTransfer = () => {
                                             'WesternUnion',
                                             'Remitly',
                                             'Xoom',
-                                            'Others'
+                                            'Others',
                                         ].map((item, index) => {
                                             return (
                                                 <Dropdown.Item
                                                     key={index}
-                                                    onClick={() => setService(item)}
+                                                    onClick={() =>
+                                                        setService(item)
+                                                    }
                                                 >
                                                     {item}
                                                 </Dropdown.Item>
@@ -100,7 +115,9 @@ const AddTransfer = () => {
                                     <InputGroup.Text>{service}</InputGroup.Text>
                                 ) : (
                                     <Form.Text className="ms-2" muted>
-                                        <span className="text-danger">*Must select a service</span>
+                                        <span className="text-danger">
+                                            *Must select a service
+                                        </span>
                                     </Form.Text>
                                 )}
                             </InputGroup>
@@ -108,7 +125,11 @@ const AddTransfer = () => {
                         <Form.Group as={Col} className="mb-3">
                             <InputGroup>
                                 <InputGroup.Text>
-                                    <FontAwesomeIcon icon={faPerson} className="me-2" /> Receiver
+                                    <FontAwesomeIcon
+                                        icon={faPerson}
+                                        className="me-2"
+                                    />{' '}
+                                    Receiver
                                 </InputGroup.Text>
                                 <FormControl
                                     required
@@ -116,20 +137,28 @@ const AddTransfer = () => {
                                     type="text"
                                     name="receiver"
                                     value={receiver}
-                                    onChange={(e) => setReceiver(e.target.value)}
+                                    onChange={(e) =>
+                                        setReceiver(e.target.value)
+                                    }
                                     placeholder="John Doe"
                                 />
                             </InputGroup>
                             {receiver.length === 0 && (
                                 <Form.Text className="ms-2" muted>
-                                    <span className="text-danger">*Must eneter a receiver</span>
+                                    <span className="text-danger">
+                                        *Must eneter a receiver
+                                    </span>
                                 </Form.Text>
                             )}
                         </Form.Group>
                         <Form.Group as={Col} className="mb-3">
                             <InputGroup>
                                 <InputGroup.Text>
-                                    <FontAwesomeIcon icon={faCalendar} className="me-2" /> Date
+                                    <FontAwesomeIcon
+                                        icon={faCalendar}
+                                        className="me-2"
+                                    />{' '}
+                                    Date
                                 </InputGroup.Text>
                                 <FormControl
                                     required
@@ -145,7 +174,11 @@ const AddTransfer = () => {
                         <Form.Group as={Col} className="mb-3">
                             <InputGroup>
                                 <InputGroup.Text>
-                                    <FontAwesomeIcon icon={faDollar} className="me-2" /> USD
+                                    <FontAwesomeIcon
+                                        icon={faDollar}
+                                        className="me-2"
+                                    />{' '}
+                                    USD
                                 </InputGroup.Text>
                                 <FormControl
                                     required
@@ -159,14 +192,20 @@ const AddTransfer = () => {
                             </InputGroup>
                             {usd.length === 0 && (
                                 <Form.Text className="ms-2" muted>
-                                    <span className="text-danger">*Must eneter usd amount</span>
+                                    <span className="text-danger">
+                                        *Must eneter usd amount
+                                    </span>
                                 </Form.Text>
                             )}
                         </Form.Group>
                         <Form.Group as={Col} className="mb-3">
                             <InputGroup>
                                 <InputGroup.Text>
-                                    <FontAwesomeIcon icon={faRupeeSign} className="me-2" /> NRS
+                                    <FontAwesomeIcon
+                                        icon={faRupeeSign}
+                                        className="me-2"
+                                    />{' '}
+                                    NRS
                                 </InputGroup.Text>
                                 <FormControl
                                     required
@@ -180,14 +219,20 @@ const AddTransfer = () => {
                             </InputGroup>
                             {nrs.length === 0 && (
                                 <Form.Text className="ms-2" muted>
-                                    <span className="text-danger">*Must eneter nrs amount</span>
+                                    <span className="text-danger">
+                                        *Must eneter nrs amount
+                                    </span>
                                 </Form.Text>
                             )}
                         </Form.Group>
                         <Form.Group as={Col} className="mb-3">
                             <InputGroup>
                                 <InputGroup.Text>
-                                    <FontAwesomeIcon icon={faBank} className="me-2" /> Paid By
+                                    <FontAwesomeIcon
+                                        icon={faBank}
+                                        className="me-2"
+                                    />{' '}
+                                    Paid By
                                 </InputGroup.Text>
                                 <FormControl
                                     required
@@ -195,7 +240,9 @@ const AddTransfer = () => {
                                     type="text"
                                     name="payment_method"
                                     value={paymentMethod}
-                                    onChange={(e) => setPaymentMethod(e.target.value)}
+                                    onChange={(e) =>
+                                        setPaymentMethod(e.target.value)
+                                    }
                                     placeholder="Debit, Cash, etc."
                                 />
                             </InputGroup>
@@ -203,7 +250,11 @@ const AddTransfer = () => {
                         <Form.Group as={Col} className="mb-3">
                             <InputGroup>
                                 <InputGroup.Text>
-                                    <FontAwesomeIcon icon={faCircleInfo} className="me-2" /> Remarks
+                                    <FontAwesomeIcon
+                                        icon={faCircleInfo}
+                                        className="me-2"
+                                    />{' '}
+                                    Remarks
                                 </InputGroup.Text>
                                 <FormControl
                                     required
@@ -217,11 +268,17 @@ const AddTransfer = () => {
                             </InputGroup>
                         </Form.Group>
 
-                        <input type="submit" style={{ display: 'none' }} disabled />
+                        <input
+                            type="submit"
+                            style={{ display: 'none' }}
+                            disabled
+                        />
                     </Form>
                 </Card.Body>
                 <Card.Footer className="py-3" style={{ textAlign: 'right' }}>
-                    {uploading && <div className="me-3 spinner-border" role="status" />}
+                    {uploading && (
+                        <div className="me-3 spinner-border" role="status" />
+                    )}
                     <Button
                         className="me-3"
                         size="sm"

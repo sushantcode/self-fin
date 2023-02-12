@@ -82,23 +82,29 @@ const BatchProcessor = () => {
         e.preventDefault();
         const dataAttributes = Object.keys(data);
         const errors = [];
-        if (dataAttributes.includes('items') && dataAttributes.includes('table')) {
+        if (
+            dataAttributes.includes('items') &&
+            dataAttributes.includes('table')
+        ) {
             const table = data['table'];
             const items = data['items'];
             const itemKeys = Object.keys(items);
-            const inValidKeys = itemKeys.filter((element) => !itemKeyRegex.test(element));
+            const inValidKeys = itemKeys.filter(
+                (element) => !itemKeyRegex.test(element)
+            );
             if (itemKeys.length === 0) {
-                errors.push("Missing: Data has 0 item");
+                errors.push('Missing: Data has 0 item');
             } else if (inValidKeys.length !== 0) {
-                errors.push("Following items' keys are invalid: " + inValidKeys.join(', '));
+                errors.push(
+                    "Following items' keys are invalid: " +
+                        inValidKeys.join(', ')
+                );
             } else {
                 for (let i = 0; i < itemKeys.length; i++) {
                     const keyedItems = items[itemKeys];
                     for (let j = 0; j < keyedItems.length; j++) {
-                        const schemaValidationResult = DataPublisher.validateSchema(
-                            keyedItems[i],
-                            table
-                        );
+                        const schemaValidationResult =
+                            DataPublisher.validateSchema(keyedItems[i], table);
                         errors.push(...schemaValidationResult);
                         if (schemaValidationResult.length !== 0) {
                             break;
@@ -198,8 +204,10 @@ const BatchProcessor = () => {
                                         variant="contained"
                                         color="primary"
                                         disabled={
-                                            editorValidationErrors.length !== 0 ||
-                                            schemaValidationErrors.length !== 0 ||
+                                            editorValidationErrors.length !==
+                                                0 ||
+                                            schemaValidationErrors.length !==
+                                                0 ||
                                             emptyEditor ||
                                             uploading ||
                                             !isValidSchema
@@ -234,20 +242,25 @@ const BatchProcessor = () => {
                     {editorValidationErrors.map((error, index) => {
                         return (
                             <div key={index}>
-                                <span className="text-danger">*{error}</span> <br />
+                                <span className="text-danger">*{error}</span>{' '}
+                                <br />
                             </div>
                         );
                     })}
                     {schemaValidationErrors.map((error, index) => {
                         return (
                             <div key={index}>
-                                <span className="text-danger">*{error}</span> <br />
+                                <span className="text-danger">*{error}</span>{' '}
+                                <br />
                             </div>
                         );
                     })}
                     {uploadingError.length !== 0 && (
                         <div key={index}>
-                            <span className="text-danger">*{uploadingError}</span> <br />
+                            <span className="text-danger">
+                                *{uploadingError}
+                            </span>{' '}
+                            <br />
                         </div>
                     )}
                 </div>

@@ -9,11 +9,15 @@ import {
     FormControl,
     Button,
     Alert,
-    Container
+    Container,
 } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignInAlt, faLock, faUndo } from '@fortawesome/free-solid-svg-icons';
-import { isAuthenticated, validatePassword, writePassword } from '../../utils/Authentication';
+import {
+    isAuthenticated,
+    validatePassword,
+    writePassword,
+} from '../../utils/Authentication';
 
 const Login = () => {
     let navigate = useNavigate();
@@ -56,12 +60,18 @@ const Login = () => {
             <Row className="justify-content-md-center">
                 <Col md={5}>
                     {show && error && (
-                        <Alert variant="danger" onClose={() => setShow(false)} dismissible>
+                        <Alert
+                            variant="danger"
+                            onClose={() => setShow(false)}
+                            dismissible
+                        >
                             {error}
                         </Alert>
                     )}
                     <Card className={'border border-dark'}>
-                        <Card.Header className="text-center fs-4">Provide credential</Card.Header>
+                        <Card.Header className="text-center fs-4">
+                            Provide credential
+                        </Card.Header>
                         <Card.Body>
                             <Form>
                                 <Form.Group as={Col}>
@@ -75,12 +85,18 @@ const Login = () => {
                                             type="password"
                                             name="password"
                                             value={password}
-                                            onChange={(e) => setPassword(e.target.value)}
+                                            onChange={(e) =>
+                                                setPassword(e.target.value)
+                                            }
                                             placeholder="Enter Password"
                                         />
                                     </InputGroup>
                                 </Form.Group>
-                                <input type="submit" style={{ display: 'none' }} disabled />
+                                <input
+                                    type="submit"
+                                    style={{ display: 'none' }}
+                                    disabled
+                                />
                             </Form>
                         </Card.Body>
                         <Card.Footer style={{ textAlign: 'right' }}>

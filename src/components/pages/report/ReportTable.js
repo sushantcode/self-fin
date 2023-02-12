@@ -46,38 +46,38 @@ const headCells = [
         id: 'subject',
         numeric: false,
         disablePadding: false,
-        label: 'Subject'
+        label: 'Subject',
     },
     {
         id: 'description',
         numeric: false,
         disablePadding: false,
-        label: 'Description'
+        label: 'Description',
     },
     {
         id: 'date',
         numeric: false,
         disablePadding: false,
-        label: 'Date'
+        label: 'Date',
     },
     {
         id: 'incoming',
         numeric: false,
         disablePadding: false,
-        label: 'Incoming ($)'
+        label: 'Incoming ($)',
     },
     {
         id: 'outgoing',
         numeric: false,
         disablePadding: false,
-        label: 'Outgoing ($)'
+        label: 'Outgoing ($)',
     },
     {
         id: 'remarks',
         numeric: false,
         disablePadding: false,
-        label: 'Remarks'
-    }
+        label: 'Remarks',
+    },
 ];
 
 function EnhancedTableHead(props) {
@@ -105,7 +105,9 @@ function EnhancedTableHead(props) {
                             {headCell.label}
                             {orderBy === headCell.id ? (
                                 <Box component="span" sx={visuallyHidden}>
-                                    {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                                    {order === 'desc'
+                                        ? 'sorted descending'
+                                        : 'sorted ascending'}
                                 </Box>
                             ) : null}
                         </TableSortLabel>
@@ -143,14 +145,19 @@ const ReportTable = ({ data }) => {
     };
 
     // Avoid a layout jump when reaching the last page with empty rows.
-    const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    const emptyRows =
+        page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
     return (
         <Box sx={{ width: '100%' }}>
             {rows && rows.length > 0 && (
                 <Paper sx={{ width: '100%', mb: 2 }}>
                     <TableContainer>
-                        <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle" size="medium">
+                        <Table
+                            sx={{ minWidth: 750 }}
+                            aria-labelledby="tableTitle"
+                            size="medium"
+                        >
                             <EnhancedTableHead
                                 order={order}
                                 orderBy={orderBy}
@@ -160,13 +167,22 @@ const ReportTable = ({ data }) => {
                                 {/* if you don't need to support IE11, you can replace the `stableSort` call with:
                  rows.slice().sort(getComparator(order, orderBy)) */}
                                 {stableSort(rows, getComparator(order, orderBy))
-                                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                    .slice(
+                                        page * rowsPerPage,
+                                        page * rowsPerPage + rowsPerPage
+                                    )
                                     .map((row, index) => {
                                         return (
-                                            <TableRow hover tabIndex={-1} key={index}>
+                                            <TableRow
+                                                hover
+                                                tabIndex={-1}
+                                                key={index}
+                                            >
                                                 {headCells.map((item) => {
                                                     return (
-                                                        <TableCell key={item.id}>
+                                                        <TableCell
+                                                            key={item.id}
+                                                        >
                                                             {row[item.id]}
                                                         </TableCell>
                                                     );
@@ -177,20 +193,28 @@ const ReportTable = ({ data }) => {
                                 {emptyRows > 0 && (
                                     <TableRow
                                         style={{
-                                            height: 53 * (emptyRows - 1)
+                                            height: 53 * (emptyRows - 1),
                                         }}
                                     >
                                         <TableCell colSpan={6} />
                                     </TableRow>
                                 )}
                                 <TableRow className="bg-secondary">
-                                    <TableCell colSpan={3} align="center" className="fw-bold">
+                                    <TableCell
+                                        colSpan={3}
+                                        align="center"
+                                        className="fw-bold"
+                                    >
                                         Totals
                                     </TableCell>
                                     <TableCell align="left" className="fw-bold">
                                         {data.total_incoming}
                                     </TableCell>
-                                    <TableCell colSpan={2} align="left" className="fw-bold">
+                                    <TableCell
+                                        colSpan={2}
+                                        align="left"
+                                        className="fw-bold"
+                                    >
                                         {data.total_outgoing}
                                     </TableCell>
                                 </TableRow>

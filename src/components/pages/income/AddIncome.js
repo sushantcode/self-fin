@@ -4,11 +4,19 @@ import {
     faCircleInfo,
     faDollar,
     faUndo,
-    faUpload
+    faUpload,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
-import { Button, Card, Col, Dropdown, Form, FormControl, InputGroup } from 'react-bootstrap';
+import {
+    Button,
+    Card,
+    Col,
+    Dropdown,
+    Form,
+    FormControl,
+    InputGroup,
+} from 'react-bootstrap';
 import { tableNames } from '../../../utils/Constants';
 import { DateUtil } from '../../../utils/DateUtil';
 import useUploadRecord from '../../commons/useUploadRecord';
@@ -23,7 +31,10 @@ const AddIncome = () => {
     const [remarks, setRemarks] = useState('');
     const [newIncome, setNewIncome] = useState(null);
 
-    const [setAddData, error, uploading] = useUploadRecord(tableNames.INCOME, newIncome);
+    const [setAddData, error, uploading] = useUploadRecord(
+        tableNames.INCOME,
+        newIncome
+    );
 
     useEffect(() => {
         if (newIncome !== null) {
@@ -35,7 +46,9 @@ const AddIncome = () => {
 
     const resetForm = () => {
         setSource('');
-        setDate(DateUtil.getLocalDateInISOFormat(new Date().toLocaleDateString()));
+        setDate(
+            DateUtil.getLocalDateInISOFormat(new Date().toLocaleDateString())
+        );
         setAmount('');
         setPaymentMethod('Chase Direct-Deposit');
         setRemarks('');
@@ -48,7 +61,7 @@ const AddIncome = () => {
             date: date,
             amount: amount,
             payment_method: paymentMethod,
-            remarks: remarks
+            remarks: remarks,
         };
         setNewIncome(newItem);
         resetForm();
@@ -56,7 +69,9 @@ const AddIncome = () => {
     return (
         <div>
             <Card>
-                <Card.Header className="text-center fs-4">Enter details of the income?</Card.Header>
+                <Card.Header className="text-center fs-4">
+                    Enter details of the income?
+                </Card.Header>
                 <Card.Body>
                     <Form className="mt-3">
                         <Form.Group as={Col} className="mb-3">
@@ -66,25 +81,33 @@ const AddIncome = () => {
                                         Select Source of Income
                                     </Dropdown.Toggle>
                                     <Dropdown.Menu>
-                                        {['Salary', 'Saving', 'Stock', 'Individual', 'Others'].map(
-                                            (item, index) => {
-                                                return (
-                                                    <Dropdown.Item
-                                                        key={index}
-                                                        onClick={() => setSource(item)}
-                                                    >
-                                                        {item}
-                                                    </Dropdown.Item>
-                                                );
-                                            }
-                                        )}
+                                        {[
+                                            'Salary',
+                                            'Saving',
+                                            'Stock',
+                                            'Individual',
+                                            'Others',
+                                        ].map((item, index) => {
+                                            return (
+                                                <Dropdown.Item
+                                                    key={index}
+                                                    onClick={() =>
+                                                        setSource(item)
+                                                    }
+                                                >
+                                                    {item}
+                                                </Dropdown.Item>
+                                            );
+                                        })}
                                     </Dropdown.Menu>
                                 </Dropdown>
                                 {source.length !== 0 ? (
                                     <InputGroup.Text>{source}</InputGroup.Text>
                                 ) : (
                                     <Form.Text className="ms-2" muted>
-                                        <span className="text-danger">*Must select a source</span>
+                                        <span className="text-danger">
+                                            *Must select a source
+                                        </span>
                                     </Form.Text>
                                 )}
                             </InputGroup>
@@ -92,7 +115,11 @@ const AddIncome = () => {
                         <Form.Group as={Col} className="mb-3">
                             <InputGroup>
                                 <InputGroup.Text>
-                                    <FontAwesomeIcon icon={faCalendar} className="me-2" /> Date
+                                    <FontAwesomeIcon
+                                        icon={faCalendar}
+                                        className="me-2"
+                                    />{' '}
+                                    Date
                                 </InputGroup.Text>
                                 <FormControl
                                     required
@@ -108,7 +135,11 @@ const AddIncome = () => {
                         <Form.Group as={Col} className="mb-3">
                             <InputGroup>
                                 <InputGroup.Text>
-                                    <FontAwesomeIcon icon={faDollar} className="me-2" /> Amount
+                                    <FontAwesomeIcon
+                                        icon={faDollar}
+                                        className="me-2"
+                                    />{' '}
+                                    Amount
                                 </InputGroup.Text>
                                 <FormControl
                                     required
@@ -122,14 +153,20 @@ const AddIncome = () => {
                             </InputGroup>
                             {amount.length === 0 && (
                                 <Form.Text className="ms-2" muted>
-                                    <span className="text-danger">*Must eneter amount</span>
+                                    <span className="text-danger">
+                                        *Must eneter amount
+                                    </span>
                                 </Form.Text>
                             )}
                         </Form.Group>
                         <Form.Group as={Col} className="mb-3">
                             <InputGroup>
                                 <InputGroup.Text>
-                                    <FontAwesomeIcon icon={faBank} className="me-2" /> Paid By
+                                    <FontAwesomeIcon
+                                        icon={faBank}
+                                        className="me-2"
+                                    />{' '}
+                                    Paid By
                                 </InputGroup.Text>
                                 <FormControl
                                     required
@@ -137,7 +174,9 @@ const AddIncome = () => {
                                     type="text"
                                     name="payment_method"
                                     value={paymentMethod}
-                                    onChange={(e) => setPaymentMethod(e.target.value)}
+                                    onChange={(e) =>
+                                        setPaymentMethod(e.target.value)
+                                    }
                                     placeholder="Discover, Amex, etc."
                                 />
                             </InputGroup>
@@ -145,7 +184,11 @@ const AddIncome = () => {
                         <Form.Group as={Col} className="mb-3">
                             <InputGroup>
                                 <InputGroup.Text>
-                                    <FontAwesomeIcon icon={faCircleInfo} className="me-2" /> Remarks
+                                    <FontAwesomeIcon
+                                        icon={faCircleInfo}
+                                        className="me-2"
+                                    />{' '}
+                                    Remarks
                                 </InputGroup.Text>
                                 <FormControl
                                     required
@@ -158,11 +201,17 @@ const AddIncome = () => {
                                 />
                             </InputGroup>
                         </Form.Group>
-                        <input type="submit" style={{ display: 'none' }} disabled />
+                        <input
+                            type="submit"
+                            style={{ display: 'none' }}
+                            disabled
+                        />
                     </Form>
                 </Card.Body>
                 <Card.Footer className="py-3" style={{ textAlign: 'right' }}>
-                    {uploading && <div className="me-3 spinner-border" role="status" />}
+                    {uploading && (
+                        <div className="me-3 spinner-border" role="status" />
+                    )}
                     {error.length !== 0 && (
                         <Form.Text className="me-4" muted>
                             <span className="text-danger">{error}</span>
@@ -174,7 +223,11 @@ const AddIncome = () => {
                         type="button"
                         variant="success"
                         onClick={(e) => onSubmit(e)}
-                        disabled={source.length === 0 || amount.length === 0 || uploading}
+                        disabled={
+                            source.length === 0 ||
+                            amount.length === 0 ||
+                            uploading
+                        }
                     >
                         <FontAwesomeIcon icon={faUpload} /> Submit
                     </Button>
@@ -184,7 +237,9 @@ const AddIncome = () => {
                         variant="info"
                         onClick={() => resetForm()}
                         disabled={
-                            source.length === 0 && amount.length === 0 && remarks.length === 0
+                            source.length === 0 &&
+                            amount.length === 0 &&
+                            remarks.length === 0
                         }
                     >
                         <FontAwesomeIcon icon={faUndo} /> Reset

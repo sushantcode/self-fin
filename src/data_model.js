@@ -7,8 +7,8 @@ export const SCHEMA = {
             location: 'location',
             amount: 'amount',
             payment_method: 'payment_method',
-            remarks: 'remarks'
-        }
+            remarks: 'remarks',
+        },
     },
     income: {
         year_month: 'YYYY-MM',
@@ -17,8 +17,8 @@ export const SCHEMA = {
             date: 'yyyy-mm-dd',
             amount: 'amount',
             payment_method: 'payment_method',
-            remarks: 'remarks'
-        }
+            remarks: 'remarks',
+        },
     },
     loanToFriends: {
         year_month: 'YYYY-MM',
@@ -27,8 +27,8 @@ export const SCHEMA = {
             date: 'yyyy-mm-dd',
             amount: 'amount',
             payment_method: 'payment_method',
-            remarks: 'remarks'
-        }
+            remarks: 'remarks',
+        },
     },
     savings: {
         year_month: 'YYYY-MM',
@@ -37,8 +37,8 @@ export const SCHEMA = {
             date: 'yyyy-mm-dd',
             amount: 'amount',
             interest: 'interest',
-            remarks: 'remarks'
-        }
+            remarks: 'remarks',
+        },
     },
     investments: {
         year_month: 'YYYY-MM',
@@ -50,8 +50,8 @@ export const SCHEMA = {
             amount: 'amount',
             units: 'units',
             vested: 'Yes/No',
-            remarks: 'remarks'
-        }
+            remarks: 'remarks',
+        },
     },
     toHome: {
         year_month: 'YYYY-MM',
@@ -62,7 +62,7 @@ export const SCHEMA = {
             usd: 'amount',
             nrs: 'units',
             payment_method: 'payment_method',
-            remarks: 'remarks'
-        }
-    }
+            remarks: 'remarks',
+        },
+    },
 };

@@ -28,7 +28,9 @@ const useUploadRecord = (table, data) => {
                     })
                     .catch((err) => {
                         console.log(err);
-                        setError('Error occured while polling data. Try again!!!');
+                        setError(
+                            'Error occured while polling data. Try again!!!'
+                        );
                         setUploading(false);
                     });
             } else {
@@ -43,7 +45,10 @@ const useUploadRecord = (table, data) => {
 
     const handleResponse = (response, tableName, yearMonth, newItem) => {
         if (response.Count > 0) {
-            const decryptedData = decrypt(response.Items[0].item, getPassword());
+            const decryptedData = decrypt(
+                response.Items[0].item,
+                getPassword()
+            );
             decryptedData.push(newItem);
             uploadData(tableName, yearMonth, decryptedData);
         } else {
@@ -55,7 +60,11 @@ const useUploadRecord = (table, data) => {
 
     const uploadData = async (tableName, yearMonth, newItemsList) => {
         if (newItemsList !== null) {
-            const putDataDDBClient = putData(tableName, yearMonth, newItemsList);
+            const putDataDDBClient = putData(
+                tableName,
+                yearMonth,
+                newItemsList
+            );
             if (putDataDDBClient !== null) {
                 await putDataDDBClient
                     .then(() => {
@@ -69,7 +78,9 @@ const useUploadRecord = (table, data) => {
                         setUploading(false);
                     });
             } else {
-                setError("Couldn't put DDB client. Make sure you have right credentials.");
+                setError(
+                    "Couldn't put DDB client. Make sure you have right credentials."
+                );
                 setUploading(false);
             }
         } else {

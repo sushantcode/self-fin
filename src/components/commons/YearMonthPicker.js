@@ -18,9 +18,15 @@ const YearMonthPicker = (props) => {
                 maxDate={new Date()}
                 value={new Date(yearMonth)}
                 onChange={(date) =>
-                    setYearMonth(DateUtil.getLocalDateInISOFormat(date.toLocaleDateString()))
+                    setYearMonth(
+                        DateUtil.getLocalDateInISOFormat(
+                            date.toLocaleDateString()
+                        )
+                    )
                 }
-                renderInput={(params) => <TextField {...params} helperText={null} />}
+                renderInput={(params) => (
+                    <TextField {...params} helperText={null} />
+                )}
             />
         </LocalizationProvider>
     );

@@ -5,11 +5,19 @@ import {
     faDollar,
     faPerson,
     faUndo,
-    faUpload
+    faUpload,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
-import { Button, Card, Col, Dropdown, Form, FormControl, InputGroup } from 'react-bootstrap';
+import {
+    Button,
+    Card,
+    Col,
+    Dropdown,
+    Form,
+    FormControl,
+    InputGroup,
+} from 'react-bootstrap';
 import { tableNames } from '../../../utils/Constants';
 import { DateUtil } from '../../../utils/DateUtil';
 import useUploadRecord from '../../commons/useUploadRecord';
@@ -24,7 +32,10 @@ const AddNewLoan = () => {
     const [remarks, setRemarks] = useState('');
     const [newLoanRecord, setNewLoanRecord] = useState(null);
 
-    const [setAddData, error, uploading] = useUploadRecord(tableNames.LOANTOFRIEND, newLoanRecord);
+    const [setAddData, error, uploading] = useUploadRecord(
+        tableNames.LOANTOFRIEND,
+        newLoanRecord
+    );
 
     useEffect(() => {
         if (newLoanRecord !== null) {
@@ -40,7 +51,9 @@ const AddNewLoan = () => {
 
     const resetForm = () => {
         setPerson('');
-        setDate(DateUtil.getLocalDateInISOFormat(new Date().toLocaleDateString()));
+        setDate(
+            DateUtil.getLocalDateInISOFormat(new Date().toLocaleDateString())
+        );
         setAmount('');
         setPaymentMethod('Discover');
         setRemarks('');
@@ -53,7 +66,7 @@ const AddNewLoan = () => {
             date: date,
             amount: amount,
             payment_method: paymentMethod,
-            remarks: remarks
+            remarks: remarks,
         };
         setNewLoanRecord(newItem);
         resetForm();
@@ -61,13 +74,19 @@ const AddNewLoan = () => {
     return (
         <div>
             <Card>
-                <Card.Header className="text-center fs-4">Enter details of the loan?</Card.Header>
+                <Card.Header className="text-center fs-4">
+                    Enter details of the loan?
+                </Card.Header>
                 <Card.Body>
                     <Form className="mt-3">
                         <Form.Group as={Col} className="mb-3">
                             <InputGroup>
                                 <InputGroup.Text>
-                                    <FontAwesomeIcon icon={faPerson} className="me-2" /> Loaned To
+                                    <FontAwesomeIcon
+                                        icon={faPerson}
+                                        className="me-2"
+                                    />{' '}
+                                    Loaned To
                                 </InputGroup.Text>
                                 <FormControl
                                     required
@@ -81,14 +100,20 @@ const AddNewLoan = () => {
                             </InputGroup>
                             {person.length === 0 && (
                                 <Form.Text className="ms-2" muted>
-                                    <span className="text-danger">*Must eneter person name</span>
+                                    <span className="text-danger">
+                                        *Must eneter person name
+                                    </span>
                                 </Form.Text>
                             )}
                         </Form.Group>
                         <Form.Group as={Col} className="mb-3">
                             <InputGroup>
                                 <InputGroup.Text>
-                                    <FontAwesomeIcon icon={faCalendar} className="me-2" /> Date
+                                    <FontAwesomeIcon
+                                        icon={faCalendar}
+                                        className="me-2"
+                                    />{' '}
+                                    Date
                                 </InputGroup.Text>
                                 <FormControl
                                     required
@@ -104,7 +129,11 @@ const AddNewLoan = () => {
                         <Form.Group as={Col} className="mb-3">
                             <InputGroup>
                                 <InputGroup.Text>
-                                    <FontAwesomeIcon icon={faDollar} className="me-2" /> Amount
+                                    <FontAwesomeIcon
+                                        icon={faDollar}
+                                        className="me-2"
+                                    />{' '}
+                                    Amount
                                 </InputGroup.Text>
                                 <FormControl
                                     required
@@ -118,14 +147,20 @@ const AddNewLoan = () => {
                             </InputGroup>
                             {amount.length === 0 && (
                                 <Form.Text className="ms-2" muted>
-                                    <span className="text-danger">*Must eneter amount</span>
+                                    <span className="text-danger">
+                                        *Must eneter amount
+                                    </span>
                                 </Form.Text>
                             )}
                         </Form.Group>
                         <Form.Group as={Col} className="mb-3">
                             <InputGroup>
                                 <InputGroup.Text>
-                                    <FontAwesomeIcon icon={faBank} className="me-2" /> Paid By
+                                    <FontAwesomeIcon
+                                        icon={faBank}
+                                        className="me-2"
+                                    />{' '}
+                                    Paid By
                                 </InputGroup.Text>
                                 <FormControl
                                     required
@@ -133,7 +168,9 @@ const AddNewLoan = () => {
                                     type="text"
                                     name="payment_method"
                                     value={paymentMethod}
-                                    onChange={(e) => setPaymentMethod(e.target.value)}
+                                    onChange={(e) =>
+                                        setPaymentMethod(e.target.value)
+                                    }
                                     placeholder="Cash, Zelle, etc."
                                 />
                             </InputGroup>
@@ -141,7 +178,11 @@ const AddNewLoan = () => {
                         <Form.Group as={Col} className="mb-3">
                             <InputGroup>
                                 <InputGroup.Text>
-                                    <FontAwesomeIcon icon={faCircleInfo} className="me-2" /> Remarks
+                                    <FontAwesomeIcon
+                                        icon={faCircleInfo}
+                                        className="me-2"
+                                    />{' '}
+                                    Remarks
                                 </InputGroup.Text>
                                 <FormControl
                                     required
@@ -154,18 +195,28 @@ const AddNewLoan = () => {
                                 />
                             </InputGroup>
                         </Form.Group>
-                        <input type="submit" style={{ display: 'none' }} disabled />
+                        <input
+                            type="submit"
+                            style={{ display: 'none' }}
+                            disabled
+                        />
                     </Form>
                 </Card.Body>
                 <Card.Footer className="py-3" style={{ textAlign: 'right' }}>
-                    {uploading && <div className="me-3 spinner-border" role="status" />}
+                    {uploading && (
+                        <div className="me-3 spinner-border" role="status" />
+                    )}
                     <Button
                         className="me-3"
                         size="sm"
                         type="button"
                         variant="success"
                         onClick={(e) => onSubmit(e)}
-                        disabled={person.length === 0 || amount.length === 0 || uploading}
+                        disabled={
+                            person.length === 0 ||
+                            amount.length === 0 ||
+                            uploading
+                        }
                     >
                         <FontAwesomeIcon icon={faUpload} /> Submit
                     </Button>
@@ -175,7 +226,9 @@ const AddNewLoan = () => {
                         variant="info"
                         onClick={() => resetForm()}
                         disabled={
-                            person.length === 0 && amount.length === 0 && remarks.length === 0
+                            person.length === 0 &&
+                            amount.length === 0 &&
+                            remarks.length === 0
                         }
                     >
                         <FontAwesomeIcon icon={faUndo} /> Reset

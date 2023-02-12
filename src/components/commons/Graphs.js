@@ -1,8 +1,15 @@
 import { Paper, TableContainer } from '@mui/material';
 import { Box } from '@mui/system';
 import React from 'react';
-import { CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis } from 'recharts';
-import { mock_data } from '../../Mock_data';
+import {
+    CartesianGrid,
+    Legend,
+    Line,
+    LineChart,
+    Tooltip,
+    XAxis,
+    YAxis,
+} from 'recharts';
 
 const Graphs = (props) => {
     const { data } = props;
@@ -10,12 +17,19 @@ const Graphs = (props) => {
     const mapDataByDate = () => {
         let dateMappedData = {};
         data.forEach((element) => {
-            if (dateMappedData.hasOwnProperty(element.date)) {
-                dateMappedData[element.date].amount += parseFloat(element.amount);
+            if (
+                Object.prototype.hasOwnProperty.call(
+                    dateMappedData,
+                    element.date
+                )
+            ) {
+                dateMappedData[element.date].amount += parseFloat(
+                    element.amount
+                );
             } else {
                 dateMappedData[element.date] = {
                     date: element.date,
-                    amount: parseFloat(element.amount)
+                    amount: parseFloat(element.amount),
                 };
             }
         });
@@ -32,7 +46,12 @@ const Graphs = (props) => {
     mappedData.sort(compareFn);
 
     return (
-        <Box sx={{ width: '100%' }} display="flex" alignItems="center" justifyContent="center">
+        <Box
+            sx={{ width: '100%' }}
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+        >
             <Paper sx={{ width: '100%', mb: 2, mt: 1 }}>
                 <TableContainer>
                     <LineChart
@@ -43,7 +62,7 @@ const Graphs = (props) => {
                             top: 5,
                             right: 30,
                             left: 20,
-                            bottom: 5
+                            bottom: 5,
                         }}
                     >
                         <CartesianGrid strokeDasharray="3 3" />

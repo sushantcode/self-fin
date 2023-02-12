@@ -4,5 +4,5 @@ export const tableNames = {
     INVESTMENTS: 'investments',
     LOANTOFRIEND: 'loanToFriends',
     SAVING: 'savings',
-    HOME: 'toHome'
+    HOME: 'toHome',
 };

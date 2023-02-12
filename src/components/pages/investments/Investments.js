@@ -17,44 +17,44 @@ const headCells = [
         id: 'broker',
         numeric: false,
         disablePadding: false,
-        label: 'Broker'
+        label: 'Broker',
     },
     {
         id: 'stock',
         numeric: false,
         disablePadding: false,
-        label: 'Stock'
+        label: 'Stock',
     },
     {
         id: 'amount',
         numeric: false,
         disablePadding: false,
-        label: 'Amount ($)'
+        label: 'Amount ($)',
     },
     {
         id: 'units',
         numeric: false,
         disablePadding: false,
-        label: 'Units'
+        label: 'Units',
     },
     {
         id: 'date',
         numeric: false,
         disablePadding: false,
-        label: 'Date'
+        label: 'Date',
     },
     {
         id: 'vested',
         numeric: false,
         disablePadding: false,
-        label: 'Vested?'
+        label: 'Vested?',
     },
     {
         id: 'remarks',
         numeric: false,
         disablePadding: false,
-        label: 'Remarks'
-    }
+        label: 'Remarks',
+    },
 ];
 
 const Investments = () => {
@@ -97,9 +97,16 @@ const Investments = () => {
                                     onClick={loadinvestments}
                                     disabled={loading}
                                 >
-                                    {tableVisibility ? 'Hide Table' : 'Load Investments'}
+                                    {tableVisibility
+                                        ? 'Hide Table'
+                                        : 'Load Investments'}
                                 </Button>
-                                {loading && <div className="ms-3 spinner-border" role="status" />}
+                                {loading && (
+                                    <div
+                                        className="ms-3 spinner-border"
+                                        role="status"
+                                    />
+                                )}
                             </Col>
                             <Col className="d-flex justify-content-end">
                                 <FormGroup>
@@ -108,9 +115,15 @@ const Investments = () => {
                                             <Switch
                                                 disabled={
                                                     !tableVisibility ||
-                                                    !(data && data.item && data.item.length)
+                                                    !(
+                                                        data &&
+                                                        data.item &&
+                                                        data.item.length
+                                                    )
                                                 }
-                                                onChange={() => setIsGraph(!isGraph)}
+                                                onChange={() =>
+                                                    setIsGraph(!isGraph)
+                                                }
                                             />
                                         }
                                         label="Graph"
@@ -121,10 +134,13 @@ const Investments = () => {
                         <Row>
                             <Col>
                                 {error.length !== 0 && (
-                                    <span className="text-danger ms-2">{error}</span>
+                                    <span className="text-danger ms-2">
+                                        {error}
+                                    </span>
                                 )}
                                 {tableVisibility &&
-                                    ((data && data.item && data.item.length) > 0 ? (
+                                    ((data && data.item && data.item.length) >
+                                    0 ? (
                                         !isGraph ? (
                                             <SmartTable
                                                 tableHeaders={headCells}

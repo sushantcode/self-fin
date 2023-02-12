@@ -36,7 +36,9 @@ const Report = () => {
         let to = new Date(toDate);
         to.setDate(1);
         while (from <= to) {
-            dates.push(DateUtil.getLocalDateInISOFormat(from.toLocaleDateString()));
+            dates.push(
+                DateUtil.getLocalDateInISOFormat(from.toLocaleDateString())
+            );
             from.setMonth(from.getMonth() + 1);
         }
         setSelectedDatesArr(dates);
@@ -56,7 +58,10 @@ const Report = () => {
         let currentSelection = [...selectedSubjects];
         event.target.checked
             ? currentSelection.push(event.target.name)
-            : currentSelection.splice(currentSelection.indexOf(event.target.name), 1);
+            : currentSelection.splice(
+                  currentSelection.indexOf(event.target.name),
+                  1
+              );
         setSelectedSubjects(currentSelection);
     };
 
@@ -83,31 +88,57 @@ const Report = () => {
                         <Row>
                             <Col className="mt-2 mb-2">
                                 <FormControlLabel
-                                    control={<Checkbox name="expense" onChange={handleCheckbox} />}
+                                    control={
+                                        <Checkbox
+                                            name="expense"
+                                            onChange={handleCheckbox}
+                                        />
+                                    }
                                     label="Expense"
                                 />
                                 <FormControlLabel
-                                    control={<Checkbox name="income" onChange={handleCheckbox} />}
+                                    control={
+                                        <Checkbox
+                                            name="income"
+                                            onChange={handleCheckbox}
+                                        />
+                                    }
                                     label="Income"
                                 />
                                 <FormControlLabel
                                     control={
-                                        <Checkbox name="investments" onChange={handleCheckbox} />
+                                        <Checkbox
+                                            name="investments"
+                                            onChange={handleCheckbox}
+                                        />
                                     }
                                     label="Investments"
                                 />
                                 <FormControlLabel
                                     control={
-                                        <Checkbox name="loanToFriends" onChange={handleCheckbox} />
+                                        <Checkbox
+                                            name="loanToFriends"
+                                            onChange={handleCheckbox}
+                                        />
                                     }
                                     label="Loans"
                                 />
                                 <FormControlLabel
-                                    control={<Checkbox name="savings" onChange={handleCheckbox} />}
+                                    control={
+                                        <Checkbox
+                                            name="savings"
+                                            onChange={handleCheckbox}
+                                        />
+                                    }
                                     label="Savings"
                                 />
                                 <FormControlLabel
-                                    control={<Checkbox name="toHome" onChange={handleCheckbox} />}
+                                    control={
+                                        <Checkbox
+                                            name="toHome"
+                                            onChange={handleCheckbox}
+                                        />
+                                    }
                                     label="Transfer-Home"
                                 />
                             </Col>
@@ -117,7 +148,9 @@ const Report = () => {
                                 <Button
                                     className="mt-2"
                                     onClick={generateReportData}
-                                    disabled={loading || selectedSubjects.length === 0}
+                                    disabled={
+                                        loading || selectedSubjects.length === 0
+                                    }
                                 >
                                     Generate reports
                                 </Button>
@@ -126,7 +159,12 @@ const Report = () => {
                                         *Must select subject
                                     </FormHelperText>
                                 )}
-                                {loading && <div className="ms-3 spinner-border" role="status" />}
+                                {loading && (
+                                    <div
+                                        className="ms-3 spinner-border"
+                                        role="status"
+                                    />
+                                )}
                             </Col>
                         </Row>
                     </Col>

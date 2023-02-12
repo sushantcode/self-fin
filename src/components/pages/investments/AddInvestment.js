@@ -7,11 +7,19 @@ import {
     faDollar,
     faHashtag,
     faUndo,
-    faUpload
+    faUpload,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
-import { Button, Card, Col, Dropdown, Form, FormControl, InputGroup } from 'react-bootstrap';
+import {
+    Button,
+    Card,
+    Col,
+    Dropdown,
+    Form,
+    FormControl,
+    InputGroup,
+} from 'react-bootstrap';
 import { tableNames } from '../../../utils/Constants';
 import { DateUtil } from '../../../utils/DateUtil';
 import useUploadRecord from '../../commons/useUploadRecord';
@@ -29,7 +37,10 @@ const AddInvestment = () => {
     const [remarks, setRemarks] = useState('');
     const [newInvestment, setNewInvestment] = useState(null);
 
-    const [setAddData, error, uploading] = useUploadRecord(tableNames.INVESTMENTS, newInvestment);
+    const [setAddData, error, uploading] = useUploadRecord(
+        tableNames.INVESTMENTS,
+        newInvestment
+    );
 
     useEffect(() => {
         if (newInvestment !== null) {
@@ -43,7 +54,9 @@ const AddInvestment = () => {
         setBroker('Webull');
         setStock('');
         setCompany('');
-        setDate(DateUtil.getLocalDateInISOFormat(new Date().toLocaleDateString()));
+        setDate(
+            DateUtil.getLocalDateInISOFormat(new Date().toLocaleDateString())
+        );
         setAmount('');
         setUnits('');
         setVested('Yes');
@@ -60,7 +73,7 @@ const AddInvestment = () => {
             amount: amount,
             units: units,
             vested: vested,
-            remarks: remarks
+            remarks: remarks,
         };
         setNewInvestment(newItem);
         resetForm();
@@ -81,25 +94,32 @@ const AddInvestment = () => {
                                         Select the broker
                                     </Dropdown.Toggle>
                                     <Dropdown.Menu>
-                                        {['Webull', 'Robinhood', 'Fidelity', 'Others'].map(
-                                            (item, index) => {
-                                                return (
-                                                    <Dropdown.Item
-                                                        key={index}
-                                                        onClick={() => setBroker(item)}
-                                                    >
-                                                        {item}
-                                                    </Dropdown.Item>
-                                                );
-                                            }
-                                        )}
+                                        {[
+                                            'Webull',
+                                            'Robinhood',
+                                            'Fidelity',
+                                            'Others',
+                                        ].map((item, index) => {
+                                            return (
+                                                <Dropdown.Item
+                                                    key={index}
+                                                    onClick={() =>
+                                                        setBroker(item)
+                                                    }
+                                                >
+                                                    {item}
+                                                </Dropdown.Item>
+                                            );
+                                        })}
                                     </Dropdown.Menu>
                                 </Dropdown>
                                 {broker.length !== 0 ? (
                                     <InputGroup.Text>{broker}</InputGroup.Text>
                                 ) : (
                                     <Form.Text className="ms-2" muted>
-                                        <span className="text-danger">*Must select a broker</span>
+                                        <span className="text-danger">
+                                            *Must select a broker
+                                        </span>
                                     </Form.Text>
                                 )}
                             </InputGroup>
@@ -107,8 +127,11 @@ const AddInvestment = () => {
                         <Form.Group as={Col} className="mb-3">
                             <InputGroup>
                                 <InputGroup.Text>
-                                    <FontAwesomeIcon icon={faChartLine} className="me-2" /> Stock
-                                    Name
+                                    <FontAwesomeIcon
+                                        icon={faChartLine}
+                                        className="me-2"
+                                    />{' '}
+                                    Stock Name
                                 </InputGroup.Text>
                                 <FormControl
                                     required
@@ -122,14 +145,20 @@ const AddInvestment = () => {
                             </InputGroup>
                             {stock.length === 0 && (
                                 <Form.Text className="ms-2" muted>
-                                    <span className="text-danger">*Must eneter stock name</span>
+                                    <span className="text-danger">
+                                        *Must eneter stock name
+                                    </span>
                                 </Form.Text>
                             )}
                         </Form.Group>
                         <Form.Group as={Col} className="mb-3">
                             <InputGroup>
                                 <InputGroup.Text>
-                                    <FontAwesomeIcon icon={faBuilding} className="me-2" /> Company
+                                    <FontAwesomeIcon
+                                        icon={faBuilding}
+                                        className="me-2"
+                                    />{' '}
+                                    Company
                                 </InputGroup.Text>
                                 <FormControl
                                     required
@@ -145,7 +174,11 @@ const AddInvestment = () => {
                         <Form.Group as={Col} className="mb-3">
                             <InputGroup>
                                 <InputGroup.Text>
-                                    <FontAwesomeIcon icon={faCalendar} className="me-2" /> Date
+                                    <FontAwesomeIcon
+                                        icon={faCalendar}
+                                        className="me-2"
+                                    />{' '}
+                                    Date
                                 </InputGroup.Text>
                                 <FormControl
                                     required
@@ -161,7 +194,11 @@ const AddInvestment = () => {
                         <Form.Group as={Col} className="mb-3">
                             <InputGroup>
                                 <InputGroup.Text>
-                                    <FontAwesomeIcon icon={faDollar} className="me-2" /> Amount
+                                    <FontAwesomeIcon
+                                        icon={faDollar}
+                                        className="me-2"
+                                    />{' '}
+                                    Amount
                                 </InputGroup.Text>
                                 <FormControl
                                     required
@@ -175,14 +212,20 @@ const AddInvestment = () => {
                             </InputGroup>
                             {amount.length === 0 && (
                                 <Form.Text className="ms-2" muted>
-                                    <span className="text-danger">*Must eneter amount</span>
+                                    <span className="text-danger">
+                                        *Must eneter amount
+                                    </span>
                                 </Form.Text>
                             )}
                         </Form.Group>
                         <Form.Group as={Col} className="mb-3">
                             <InputGroup>
                                 <InputGroup.Text>
-                                    <FontAwesomeIcon icon={faHashtag} className="me-2" /> Units
+                                    <FontAwesomeIcon
+                                        icon={faHashtag}
+                                        className="me-2"
+                                    />{' '}
+                                    Units
                                 </InputGroup.Text>
                                 <FormControl
                                     required
@@ -196,7 +239,9 @@ const AddInvestment = () => {
                             </InputGroup>
                             {units.length === 0 && (
                                 <Form.Text className="ms-2" muted>
-                                    <span className="text-danger">*Must eneter units</span>
+                                    <span className="text-danger">
+                                        *Must eneter units
+                                    </span>
                                 </Form.Text>
                             )}
                         </Form.Group>
@@ -209,7 +254,11 @@ const AddInvestment = () => {
                                     type="radio"
                                     id="inline-radio-yes"
                                     checked={vested === 'Yes' ? true : false}
-                                    onChange={(e) => setVested(e.target.checked ? 'Yes' : 'No')}
+                                    onChange={(e) =>
+                                        setVested(
+                                            e.target.checked ? 'Yes' : 'No'
+                                        )
+                                    }
                                 />
                                 <Form.Check
                                     inline
@@ -218,14 +267,22 @@ const AddInvestment = () => {
                                     type="radio"
                                     id="inline-radio-no"
                                     checked={vested === 'No' ? true : false}
-                                    onChange={(e) => setVested(e.target.checked ? 'No' : 'Yes')}
+                                    onChange={(e) =>
+                                        setVested(
+                                            e.target.checked ? 'No' : 'Yes'
+                                        )
+                                    }
                                 />
                             </InputGroup>
                         </Form.Group>
                         <Form.Group as={Col} className="mb-3">
                             <InputGroup>
                                 <InputGroup.Text>
-                                    <FontAwesomeIcon icon={faCircleInfo} className="me-2" /> Remarks
+                                    <FontAwesomeIcon
+                                        icon={faCircleInfo}
+                                        className="me-2"
+                                    />{' '}
+                                    Remarks
                                 </InputGroup.Text>
                                 <FormControl
                                     required
@@ -239,11 +296,17 @@ const AddInvestment = () => {
                             </InputGroup>
                         </Form.Group>
 
-                        <input type="submit" style={{ display: 'none' }} disabled />
+                        <input
+                            type="submit"
+                            style={{ display: 'none' }}
+                            disabled
+                        />
                     </Form>
                 </Card.Body>
                 <Card.Footer className="py-3" style={{ textAlign: 'right' }}>
-                    {uploading && <div className="me-3 spinner-border" role="status" />}
+                    {uploading && (
+                        <div className="me-3 spinner-border" role="status" />
+                    )}
                     <Button
                         className="me-3"
                         size="sm"

@@ -13,7 +13,7 @@ const getDdbClient = () => {
             region: decrypt(awsregion, getPassword()),
             secretAccessKey: decrypt(secretKey, getPassword()),
             accessKeyId: decrypt(accessKey, getPassword()),
-            correctClockSkew: true
+            correctClockSkew: true,
         };
         const docClient = new AWS.DynamoDB.DocumentClient(configuration);
         return docClient;
@@ -25,11 +25,11 @@ export const putData = (tableName, hashKey, data) => {
     const encryptedData = encrypt(data, getPassword());
     const recordToBeAdded = {
         year_month: hashKey,
-        item: encryptedData
+        item: encryptedData,
     };
     var params = {
         TableName: tableName,
-        Item: recordToBeAdded
+        Item: recordToBeAdded,
     };
     const docClient = getDdbClient();
     return docClient ? docClient.put(params).promise() : null;
@@ -41,8 +41,8 @@ export const getData = (tableName, date) => {
         TableName: tableName,
         KeyConditionExpression: 'year_month = :hkey',
         ExpressionAttributeValues: {
-            ':hkey': hashKey
-        }
+            ':hkey': hashKey,
+        },
     };
     const docClient = getDdbClient();
     return docClient ? docClient.query(params).promise() : null;
@@ -53,7 +53,7 @@ export const getBatchData = (tableList, keyList) => {
         keyList && Array.isArray(keyList)
             ? keyList.map((element) => {
                   return {
-                      year_month: element
+                      year_month: element,
                   };
               })
             : null;
@@ -61,12 +61,12 @@ export const getBatchData = (tableList, keyList) => {
     if (keysObject && tableList && Array.isArray(tableList)) {
         tableList.forEach((element) => {
             requestItems[element] = {
-                Keys: keysObject
+                Keys: keysObject,
             };
         });
     }
     const params = {
-        RequestItems: requestItems
+        RequestItems: requestItems,
     };
     const docClient = getDdbClient();
     return docClient ? docClient.batchGet(params).promise() : null;

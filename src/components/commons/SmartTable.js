@@ -72,7 +72,9 @@ function EnhancedTableHead(props) {
                             {headCell.label}
                             {orderBy === headCell.id ? (
                                 <Box component="span" sx={visuallyHidden}>
-                                    {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                                    {order === 'desc'
+                                        ? 'sorted descending'
+                                        : 'sorted ascending'}
                                 </Box>
                             ) : null}
                         </TableSortLabel>
@@ -93,7 +95,7 @@ const EnhancedTableToolbar = (props) => {
         setUpdateData,
         error,
         loading,
-        setSelected
+        setSelected,
     } = props;
 
     return (
@@ -103,8 +105,11 @@ const EnhancedTableToolbar = (props) => {
                 pr: { xs: 1, sm: 1 },
                 ...(numSelected > 0 && {
                     bgcolor: (theme) =>
-                        alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity)
-                })
+                        alpha(
+                            theme.palette.primary.main,
+                            theme.palette.action.activatedOpacity
+                        ),
+                }),
             }}
         >
             <Typography
@@ -135,13 +140,21 @@ const EnhancedTableToolbar = (props) => {
                         Save Changes
                     </Button>
                 )}
-                {loading && <div className="ms-3 spinner-border" role="status" />}
-                {error && error.length === 0 && <span className="ms-2 text-danger">{'error'}</span>}
+                {loading && (
+                    <div className="ms-3 spinner-border" role="status" />
+                )}
+                {error && error.length === 0 && (
+                    <span className="ms-2 text-danger">{'error'}</span>
+                )}
             </Typography>
 
             {numSelected > 0 && (
                 <Tooltip title="Delete">
-                    <Button variant="danger" onClick={onDelete} disabled={loading}>
+                    <Button
+                        variant="danger"
+                        onClick={onDelete}
+                        disabled={loading}
+                    >
                         <FontAwesomeIcon className="py-1" icon={faTrash} />
                     </Button>
                 </Tooltip>
@@ -165,7 +178,11 @@ const SmartTable = (props) => {
         setRows(data);
     }, [data]);
 
-    const [setUpdateData, error, loading] = useDeleteRecord(rows, subject, period);
+    const [setUpdateData, error, loading] = useDeleteRecord(
+        rows,
+        subject,
+        period
+    );
 
     const handleRequestSort = (event, property) => {
         const isAsc = orderBy === property && order === 'asc';
@@ -216,7 +233,8 @@ const SmartTable = (props) => {
     };
 
     // Avoid a layout jump when reaching the last page with empty rows.
-    const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    const emptyRows =
+        page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
     return (
         <Box sx={{ width: '100%' }}>
@@ -234,7 +252,11 @@ const SmartTable = (props) => {
                         setSelected={setSelected}
                     />
                     <TableContainer>
-                        <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle" size="medium">
+                        <Table
+                            sx={{ minWidth: 750 }}
+                            aria-labelledby="tableTitle"
+                            size="medium"
+                        >
                             <EnhancedTableHead
                                 update={activeUpdate}
                                 order={order}
@@ -246,13 +268,19 @@ const SmartTable = (props) => {
                                 {/* if you don't need to support IE11, you can replace the `stableSort` call with:
                  rows.slice().sort(getComparator(order, orderBy)) */}
                                 {stableSort(rows, getComparator(order, orderBy))
-                                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                    .slice(
+                                        page * rowsPerPage,
+                                        page * rowsPerPage + rowsPerPage
+                                    )
                                     .map((row, index) => {
-                                        const isItemSelected = isSelected(index);
+                                        const isItemSelected =
+                                            isSelected(index);
                                         const labelId = `enhanced-table-checkbox-${index}`;
                                         return subject !== 'investments' ? (
                                             <TableRow
-                                                onClick={(event) => handleClick(event, index)}
+                                                onClick={(event) =>
+                                                    handleClick(event, index)
+                                                }
                                                 role="checkbox"
                                                 aria-checked={isItemSelected}
                                                 hover
@@ -263,42 +291,66 @@ const SmartTable = (props) => {
                                                     <TableCell padding="checkbox">
                                                         <Checkbox
                                                             color="primary"
-                                                            checked={isItemSelected}
+                                                            checked={
+                                                                isItemSelected
+                                                            }
                                                             inputProps={{
-                                                                'aria-labelledby': labelId
+                                                                'aria-labelledby':
+                                                                    labelId,
                                                             }}
                                                         />
                                                     </TableCell>
                                                 )}
                                                 {tableHeaders.map((item) => {
                                                     return (
-                                                        <TableCell key={item.id}>
+                                                        <TableCell
+                                                            key={item.id}
+                                                        >
                                                             {row[item.id]}
                                                         </TableCell>
                                                     );
                                                 })}
                                             </TableRow>
                                         ) : (
-                                            <TableRow hover tabIndex={-1} key={index}>
-                                                <TableCell>{row.broker}</TableCell>
+                                            <TableRow
+                                                hover
+                                                tabIndex={-1}
+                                                key={index}
+                                            >
+                                                <TableCell>
+                                                    {row.broker}
+                                                </TableCell>
                                                 <TableCell>
                                                     {row.stock +
-                                                        (row.company.length !== 0
-                                                            ? ' (' + row.company + ')'
+                                                        (row.company.length !==
+                                                        0
+                                                            ? ' (' +
+                                                              row.company +
+                                                              ')'
                                                             : '')}
                                                 </TableCell>
-                                                <TableCell>{row.amount}</TableCell>
-                                                <TableCell>{row.units}</TableCell>
-                                                <TableCell>{row.date}</TableCell>
-                                                <TableCell>{row.vested}</TableCell>
-                                                <TableCell>{row.remarks}</TableCell>
+                                                <TableCell>
+                                                    {row.amount}
+                                                </TableCell>
+                                                <TableCell>
+                                                    {row.units}
+                                                </TableCell>
+                                                <TableCell>
+                                                    {row.date}
+                                                </TableCell>
+                                                <TableCell>
+                                                    {row.vested}
+                                                </TableCell>
+                                                <TableCell>
+                                                    {row.remarks}
+                                                </TableCell>
                                             </TableRow>
                                         );
                                     })}
                                 {emptyRows > 0 && (
                                     <TableRow
                                         style={{
-                                            height: 53 * emptyRows
+                                            height: 53 * emptyRows,
                                         }}
                                     >
                                         <TableCell colSpan={6} />

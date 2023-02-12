@@ -16,44 +16,44 @@ const headCells = [
         id: 'service',
         numeric: false,
         disablePadding: false,
-        label: 'Service'
+        label: 'Service',
     },
     {
         id: 'receiver',
         numeric: false,
         disablePadding: false,
-        label: 'Receiver'
+        label: 'Receiver',
     },
     {
         id: 'date',
         numeric: false,
         disablePadding: false,
-        label: 'Date'
+        label: 'Date',
     },
     {
         id: 'amount',
         numeric: false,
         disablePadding: false,
-        label: 'USD ($)'
+        label: 'USD ($)',
     },
     {
         id: 'nrs',
         numeric: false,
         disablePadding: false,
-        label: 'NRS.'
+        label: 'NRS.',
     },
     {
         id: 'payment_method',
         numeric: false,
         disablePadding: false,
-        label: 'Payment Method'
+        label: 'Payment Method',
     },
     {
         id: 'remarks',
         numeric: false,
         disablePadding: false,
-        label: 'Remarks'
-    }
+        label: 'Remarks',
+    },
 ];
 
 const Home = () => {
@@ -98,9 +98,16 @@ const Home = () => {
                                     onClick={loadTransfers}
                                     disabled={loading}
                                 >
-                                    {tableVisibility ? 'Hide Table' : 'Load Tranfers'}
+                                    {tableVisibility
+                                        ? 'Hide Table'
+                                        : 'Load Tranfers'}
                                 </Button>
-                                {loading && <div className="ms-3 spinner-border" role="status" />}
+                                {loading && (
+                                    <div
+                                        className="ms-3 spinner-border"
+                                        role="status"
+                                    />
+                                )}
                             </Col>
                             <Col className="d-flex justify-content-end">
                                 <FormGroup>
@@ -109,9 +116,15 @@ const Home = () => {
                                             <Switch
                                                 disabled={
                                                     !tableVisibility ||
-                                                    !(data && data.item && data.item.length)
+                                                    !(
+                                                        data &&
+                                                        data.item &&
+                                                        data.item.length
+                                                    )
                                                 }
-                                                onChange={() => setIsGraph(!isGraph)}
+                                                onChange={() =>
+                                                    setIsGraph(!isGraph)
+                                                }
                                             />
                                         }
                                         label="Graph"
@@ -122,10 +135,13 @@ const Home = () => {
                         <Row>
                             <Col>
                                 {error.length !== 0 && (
-                                    <span className="text-danger ms-2">{error}</span>
+                                    <span className="text-danger ms-2">
+                                        {error}
+                                    </span>
                                 )}
                                 {tableVisibility &&
-                                    ((data && data.item && data.item.length) > 0 ? (
+                                    ((data && data.item && data.item.length) >
+                                    0 ? (
                                         !isGraph ? (
                                             <SmartTable
                                                 tableHeaders={headCells}

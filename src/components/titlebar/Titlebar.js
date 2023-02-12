@@ -68,7 +68,11 @@ const Titlebar = () => {
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container">
                 <Link className="navbar-brand" to={'/'}>
-                    <img src="assets/logo.png" alt="logo" style={{ maxHeight: 75 }} />
+                    <img
+                        src="assets/logo.png"
+                        alt="logo"
+                        style={{ maxHeight: 75 }}
+                    />
                 </Link>
                 <div className="row d-flex">
                     <div className="col justify-content-center text-light">

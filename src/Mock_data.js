@@ -8,7 +8,7 @@ export const mock_data = {
                 location: 'Walmart',
                 amount: '75.00',
                 payment_method: 'Discover',
-                remarks: 'weekly grocery'
+                remarks: 'weekly grocery',
             },
             {
                 category: 'Grocery',
@@ -16,7 +16,7 @@ export const mock_data = {
                 location: 'Walmart',
                 amount: '75.00',
                 payment_method: 'Discover',
-                remarks: 'weekly grocery'
+                remarks: 'weekly grocery',
             },
             {
                 category: 'Grocery',
@@ -24,7 +24,7 @@ export const mock_data = {
                 location: 'Walmart',
                 amount: '75.00',
                 payment_method: 'Discover',
-                remarks: 'weekly grocery'
+                remarks: 'weekly grocery',
             },
             {
                 category: 'Grocery',
@@ -32,7 +32,7 @@ export const mock_data = {
                 location: 'Walmart',
                 amount: '15.00',
                 payment_method: 'Discover',
-                remarks: 'monthly grocery'
+                remarks: 'monthly grocery',
             },
             {
                 category: 'Grocery',
@@ -40,9 +40,9 @@ export const mock_data = {
                 location: 'Walmart',
                 amount: '95.00',
                 payment_method: 'Discover',
-                remarks: 'yearly grocery'
-            }
-        ]
+                remarks: 'yearly grocery',
+            },
+        ],
     },
     investments: {
         year_month: '2022-08',
@@ -55,7 +55,7 @@ export const mock_data = {
                 amount: '12.30',
                 units: 'units',
                 vested: 'Yes/No',
-                remarks: 'remarks'
+                remarks: 'remarks',
             },
             {
                 broker: 'Webull',
@@ -65,9 +65,9 @@ export const mock_data = {
                 amount: '45.12',
                 units: 'units',
                 vested: 'Yes/No',
-                remarks: 'remarks'
-            }
-        ]
+                remarks: 'remarks',
+            },
+        ],
     },
     toHome: {
         year_month: 'YYYY-MM',
@@ -79,21 +79,21 @@ export const mock_data = {
                 amount: '$485.03',
                 nrs: 'units',
                 payment_method: 'payment_method',
-                remarks: 'remarks'
-            }
-        ]
-    }
+                remarks: 'remarks',
+            },
+        ],
+    },
 };
 
 export const report = {
     expense: [mock_data.expense],
-    investments: [mock_data.investments]
+    investments: [mock_data.investments],
 };
 
 export const reportData = {
     Responses: {
         expense: [mock_data.expense],
         investments: [mock_data.investments],
-        toHome: [mock_data.toHome]
-    }
+        toHome: [mock_data.toHome],
+    },
 };

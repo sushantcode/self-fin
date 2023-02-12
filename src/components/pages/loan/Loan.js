@@ -16,32 +16,32 @@ const headCells = [
         id: 'person',
         numeric: false,
         disablePadding: false,
-        label: 'Person'
+        label: 'Person',
     },
     {
         id: 'date',
         numeric: false,
         disablePadding: false,
-        label: 'Date'
+        label: 'Date',
     },
     {
         id: 'amount',
         numeric: false,
         disablePadding: false,
-        label: 'Amount ($)'
+        label: 'Amount ($)',
     },
     {
         id: 'payment_method',
         numeric: false,
         disablePadding: false,
-        label: 'Payment Method'
+        label: 'Payment Method',
     },
     {
         id: 'remarks',
         numeric: false,
         disablePadding: false,
-        label: 'Remarks'
-    }
+        label: 'Remarks',
+    },
 ];
 
 const Loan = () => {
@@ -84,9 +84,16 @@ const Loan = () => {
                                     onClick={loadLoanRecords}
                                     disabled={loading}
                                 >
-                                    {tableVisibility ? 'Hide Table' : 'Load Records'}
+                                    {tableVisibility
+                                        ? 'Hide Table'
+                                        : 'Load Records'}
                                 </Button>
-                                {loading && <div className="ms-3 spinner-border" role="status" />}
+                                {loading && (
+                                    <div
+                                        className="ms-3 spinner-border"
+                                        role="status"
+                                    />
+                                )}
                             </Col>
                             <Col className="d-flex justify-content-end">
                                 <FormGroup>
@@ -95,9 +102,15 @@ const Loan = () => {
                                             <Switch
                                                 disabled={
                                                     !tableVisibility ||
-                                                    !(data && data.item && data.item.length)
+                                                    !(
+                                                        data &&
+                                                        data.item &&
+                                                        data.item.length
+                                                    )
                                                 }
-                                                onChange={() => setIsGraph(!isGraph)}
+                                                onChange={() =>
+                                                    setIsGraph(!isGraph)
+                                                }
                                             />
                                         }
                                         label="Graph"
@@ -108,15 +121,20 @@ const Loan = () => {
                         <Row>
                             <Col>
                                 {error.length !== 0 && (
-                                    <span className="text-danger ms-2">{error}</span>
+                                    <span className="text-danger ms-2">
+                                        {error}
+                                    </span>
                                 )}
                                 {tableVisibility &&
-                                    ((data && data.item && data.item.length) > 0 ? (
+                                    ((data && data.item && data.item.length) >
+                                    0 ? (
                                         !isGraph ? (
                                             <SmartTable
                                                 tableHeaders={headCells}
                                                 data={data.item}
-                                                subject={tableNames.LOANTOFRIEND}
+                                                subject={
+                                                    tableNames.LOANTOFRIEND
+                                                }
                                                 period={date}
                                             />
                                         ) : (
