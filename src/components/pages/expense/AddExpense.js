@@ -88,10 +88,12 @@ const AddExpense = () => {
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
                     {[
-                      "Grocery",
+                      "Food",
                       "Rent",
                       "Utility",
                       "Personal",
+                      "Travel",
+                      "Gasoline",
                       "Others"
                     ].map((item, index) => {
                       return (
