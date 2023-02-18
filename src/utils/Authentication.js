@@ -2,12 +2,10 @@ import bcrypt from 'bcryptjs';
 import { decrypt, encrypt } from './Encryption';
 
 const passwordEncrypter = process.env.REACT_APP_PASSWORD_ENCRYPTER;
+const password = process.env.REACT_APP_AUTH_PASSWORD;
 
 export const validatePassword = (inputPassword) => {
-    const hasMatched = bcrypt.compareSync(
-        inputPassword,
-        '$2a$10$qw/ZFYix23ftY9YmYI4Sw.AFvWbrTmMk1y5Rpb97.swJLWJr9r7YW'
-    );
+    const hasMatched = bcrypt.compareSync(inputPassword, password);
     return hasMatched;
 };
 
