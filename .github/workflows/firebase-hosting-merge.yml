@@ -12,10 +12,12 @@ env:
   REACT_APP_AWS_SECRETKEY: ${{ secrets.REACT_APP_AWS_SECRETKEY }}
   REACT_APP_ENCRYPTION_SALT: ${{ secrets.REACT_APP_ENCRYPTION_SALT }}
   REACT_APP_PASSWORD_ENCRYPTER: ${{ secrets.REACT_APP_PASSWORD_ENCRYPTER }}
+  REACT_APP_AUTH_PASSWORD: ${{ secrets.REACT_APP_AUTH_PASSWORD }}
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
+      - run: openssl version
       - uses: actions/checkout@v2
       - run: npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
