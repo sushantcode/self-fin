@@ -28,7 +28,13 @@ const headCells = [
         id: 'amount',
         numeric: false,
         disablePadding: false,
-        label: 'Amount ($)',
+        label: 'Amount',
+    },
+    {
+        id: 'currency',
+        numeric: false,
+        disablePadding: false,
+        label: 'Currency',
     },
     {
         id: 'interest',

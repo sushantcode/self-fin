@@ -4,6 +4,7 @@ import {
     faChartLine,
     faCircleInfo,
     faDollar,
+    faRupeeSign,
     faUndo,
     faUpload,
 } from '@fortawesome/free-solid-svg-icons';
@@ -27,9 +28,10 @@ const AddSavings = () => {
         DateUtil.getLocalDateInISOFormat(new Date().toLocaleDateString())
     );
     const [amount, setAmount] = useState('');
-    const [interest, setInterest] = useState('Chase Direct-Deposit');
+    const [interest, setInterest] = useState(0);
     const [remarks, setRemarks] = useState('');
     const [newSaving, setNewSaving] = useState(null);
+    const [currency, setCurrency] = useState('Rs');
 
     const [setAddData, error, uploading] = useUploadRecord(
         tableNames.SAVING,
@@ -123,13 +125,7 @@ const AddSavings = () => {
                         </Form.Group>
                         <Form.Group as={Col} className="mb-3">
                             <InputGroup>
-                                <InputGroup.Text>
-                                    <FontAwesomeIcon
-                                        icon={faDollar}
-                                        className="me-2"
-                                    />{' '}
-                                    Amount
-                                </InputGroup.Text>
+                                <InputGroup.Text> Amount </InputGroup.Text>
                                 <FormControl
                                     required
                                     autoComplete="off"
@@ -139,6 +135,32 @@ const AddSavings = () => {
                                     onChange={(e) => setAmount(e.target.value)}
                                     placeholder="Amount"
                                 />
+                                <Button
+                                    variant={
+                                        currency === 'Rs'
+                                            ? 'primary'
+                                            : 'secondary'
+                                    }
+                                    onClick={(e) => setCurrency('Rs')}
+                                >
+                                    <FontAwesomeIcon
+                                        icon={faRupeeSign}
+                                        className="px-2"
+                                    />
+                                </Button>
+                                <Button
+                                    variant={
+                                        currency === 'USD'
+                                            ? 'primary'
+                                            : 'secondary'
+                                    }
+                                    onClick={(e) => setCurrency('USD')}
+                                >
+                                    <FontAwesomeIcon
+                                        icon={faDollar}
+                                        className="px-2"
+                                    />
+                                </Button>
                             </InputGroup>
                             {amount.length === 0 && (
                                 <Form.Text className="ms-2" muted>

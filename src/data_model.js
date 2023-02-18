@@ -36,6 +36,7 @@ export const SCHEMA = {
             where: 'Bank/individual',
             date: 'yyyy-mm-dd',
             amount: 'amount',
+            currency: 'Rs or USD',
             interest: 'interest',
             remarks: 'remarks',
         },
