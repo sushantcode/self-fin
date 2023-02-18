@@ -177,7 +177,7 @@ const AddIncome = () => {
                                     onChange={(e) =>
                                         setPaymentMethod(e.target.value)
                                     }
-                                    placeholder="Discover, Amex, etc."
+                                    placeholder="Chase Direct-Deposit, Cheque, etc."
                                 />
                             </InputGroup>
                         </Form.Group>
