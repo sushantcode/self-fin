@@ -8,6 +8,8 @@ export const validatePassword = (inputPassword) => {
         inputPassword,
         '$2a$10$qw/ZFYix23ftY9YmYI4Sw.AFvWbrTmMk1y5Rpb97.swJLWJr9r7YW'
     );
+
+    console.log(process.env.REACT_APP_AUTH_PASSWORD)
     return hasMatched;
 };
 
