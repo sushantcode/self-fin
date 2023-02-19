@@ -86,6 +86,7 @@ const Titlebar = () => {
                         {currPath}
                         {location.pathname !== '/login' && (
                             <Button
+                                data-testid="sign-out-button"
                                 className="ms-3"
                                 variant="contained"
                                 color="error"
