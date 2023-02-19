@@ -63,6 +63,7 @@ const AddSavings = () => {
             date: date,
             amount: amount,
             interest: interest,
+            currency: currency,
             remarks: remarks,
         };
         setNewSaving(newItem);
