@@ -1,5 +1,4 @@
 # Self-fin
-
 A responsive stand-alone web app to track and manage daily financial activities like expenses, income and investments in a highly secured manner.
 
 ## Features
