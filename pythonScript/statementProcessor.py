@@ -10,10 +10,10 @@ class StatementProcessor:
         self.table = "expense"
         self.payment_method = payment_method
         self.output_file = output_file
-        with open(mapper_file) as file:
+        with open(os.path.abspath(mapper_file)) as file:
             self.mapper = json.load(file)
 
-        with open(input_file, newline='') as file:
+        with open(os.path.abspath(input_file), newline='') as file:
             try:
                 csv_reader = csv.reader(file)
                 records = []
@@ -109,7 +109,7 @@ if __name__ == '__main__':
     parser.add_argument("-i", "--input_file", required=True,
                         help="Input csv statement file.")
     parser.add_argument("-m", "--mapper_file",
-                        default="mapper.json",
+                        default="mapper_files/mapper.json",
                         required=False,
                         help="Mapper json file to parse and map description from statement.")
     parser.add_argument("-o", "--output_file", default="../public/statement_output/", required=False,

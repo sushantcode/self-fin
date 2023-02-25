@@ -17,7 +17,7 @@ const BatchProcessor = () => {
         }
     }, [authenticated, navigate]);
 
-    const itemKeyRegex = /([0-9]{4,4}-[0-9]{2,2})/g;
+    const yearMonthRegex = /([0-9]{4,4}-[0-9]{2,2})/;
 
     const [data, setData] = useState({});
     const [editorValidationErrors, setEditorValidationErrors] = useState([]);
@@ -89,9 +89,11 @@ const BatchProcessor = () => {
             const table = data['table'];
             const items = data['items'];
             const itemKeys = Object.keys(items);
-            const inValidKeys = itemKeys.filter(
-                (element) => !itemKeyRegex.test(element)
-            );
+            const inValidKeys = itemKeys.filter((element) => {
+                const r = yearMonthRegex.test(element);
+                console.log('Testing: ', element, 'Result: ', r);
+                return !r;
+            });
             if (itemKeys.length === 0) {
                 errors.push('Missing: Data has 0 item');
             } else if (inValidKeys.length !== 0) {
@@ -101,7 +103,7 @@ const BatchProcessor = () => {
                 );
             } else {
                 for (let i = 0; i < itemKeys.length; i++) {
-                    const keyedItems = items[itemKeys];
+                    const keyedItems = items[itemKeys[i]];
                     for (let j = 0; j < keyedItems.length; j++) {
                         const schemaValidationResult =
                             DataPublisher.validateSchema(keyedItems[i], table);
