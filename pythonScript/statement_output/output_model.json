@@ -1,0 +1,15 @@
+{
+  "table": "TableName",
+  "items": {
+    "YYYY-MM": [
+      {
+        "category": "Category",
+        "date": "YYYY-MM-DD",
+        "location": "Location",
+        "amount": "00.00",
+        "payment_method": "Card/Bank Name",
+        "remarks": "Remarks"
+      }
+    ]
+  }
+}

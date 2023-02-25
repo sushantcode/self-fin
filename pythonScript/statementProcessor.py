@@ -6,9 +6,10 @@ from datetime import date
 
 
 class StatementProcessor:
-    def __init__(self, mapper_file, input_file):
+    def __init__(self, mapper_file, input_file, output_file, payment_method):
         self.table = "expense"
-        self.payment_method = "Discover"
+        self.payment_method = payment_method
+        self.output_file = output_file
         with open(mapper_file) as file:
             self.mapper = json.load(file)
 
@@ -44,9 +45,12 @@ class StatementProcessor:
             return False
         return True
 
-    def map_category(self, category):
+    def map_category(self, category, remarks):
         if category in self.mapper["category"]:
-            return self.mapper["category"][category]
+            intended = self.mapper["category"][category]
+            if intended == "Gasoline" and remarks == "sm":
+                return "Personal"
+            return intended
         else:
             return "Others"
 
@@ -76,10 +80,10 @@ class StatementProcessor:
                 trans_date = self.format_date(record[0])
                 description = record[2]
                 amount = record[3]
-                category = self.map_category(record[4])
 
                 if self.is_valid_record(amount):
                     location, remarks = self.map_description(description)
+                    category = self.map_category(record[4], remarks)
                     formatted_item = self.format_record(
                         category, trans_date, location, amount, remarks)
                     processed_data = self.add_item(
@@ -90,7 +94,7 @@ class StatementProcessor:
         return processed_data
 
     def write_output_to_file(self, data):
-        relative_path = "../public/statement_output/"
+        relative_path = self.output_file
         output_path = os.path.abspath(relative_path)
         curr_date = str(date.today())
         filename = f'{curr_date}.json'
@@ -102,15 +106,22 @@ class StatementProcessor:
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument("-mf", "--mapper_file",
+    parser.add_argument("-i", "--input_file", required=True,
+                        help="Input csv statement file.")
+    parser.add_argument("-m", "--mapper_file",
                         default="mapper.json",
                         required=False,
                         help="Mapper json file to parse and map description from statement.")
-    parser.add_argument("-if", "--input_file", required=True,
-                        help="Input csv statement file.")
+    parser.add_argument("-o", "--output_file", default="../public/statement_output/", required=False,
+                        help="Output file path and name.")
+    parser.add_argument("-b", "--bank", default="Discover", required=False,
+                        help="Bank name whose statement is being processed.")
     args = parser.parse_args()
     mapper_file = args.mapper_file
     input_file = args.input_file
-    statementProcessor = StatementProcessor(mapper_file, input_file)
+    output_file = args.output_file
+    payment_method = args.bank
+    statementProcessor = StatementProcessor(
+        mapper_file, input_file, output_file, payment_method)
     data = statementProcessor.process_records()
     statementProcessor.write_output_to_file(data)

@@ -1,0 +1,12 @@
+{
+  "category": {
+    "CategoryNameOnStatement1": "One of: [Food, Rent, Utility, Personal, Travel, Gasoline, Others]",
+    "CategoryNameOnStatement2": "One of: [Food, Rent, Utility, Personal, Travel, Gasoline, Others]"
+  },
+  "description": {
+    "PrecedingCharactersFromDescription": {
+      "location": "Location",
+      "remarks": "Remarks"
+    }
+  }
+}

@@ -25,5 +25,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-*.csv
-/public/statement_output
+/pythonScript/statement_input/*
+!/pythonScript/statement_input/statement_format.csv
+/pythonScript/mapper_files/*
+!/pythonScript/mapper_files/mapper_model.json
+/pythonScript/statement_output/*
+!/pythonScript/statement_output/output_model.json
