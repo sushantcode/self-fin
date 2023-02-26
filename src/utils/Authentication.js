@@ -26,7 +26,7 @@ export const isAuthenticated = () => {
 
 export const getPassword = () => {
     const authToken = Cookies.get('authToken');
-    if (password) return decrypt(authToken, passwordEncrypter);
+    if (authToken) return decrypt(authToken, passwordEncrypter);
     return null;
 };
 
