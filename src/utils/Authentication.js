@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import bcrypt from 'bcryptjs';
 import { decrypt, encrypt } from './Encryption';
 
@@ -11,7 +12,11 @@ export const validatePassword = (inputPassword) => {
 };
 
 export const writePassword = (password) => {
-    window.sessionStorage.setItem('name', encrypt(password, passwordEncrypter));
+    const authToken = encrypt(password, passwordEncrypter);
+    Cookies.set('authToken', authToken, {
+        expires: 1,
+        path: '/',
+    });
 };
 
 export const isAuthenticated = () => {
@@ -20,11 +25,11 @@ export const isAuthenticated = () => {
 };
 
 export const getPassword = () => {
-    const password = window.sessionStorage.getItem('name');
-    if (password) return decrypt(password, passwordEncrypter);
+    const authToken = Cookies.get('authToken');
+    if (password) return decrypt(authToken, passwordEncrypter);
     return null;
 };
 
 export const logout = () => {
-    window.sessionStorage.clear();
+    Cookies.remove('authToken');
 };
