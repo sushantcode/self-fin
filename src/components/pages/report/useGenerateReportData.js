@@ -151,7 +151,7 @@ const useGenerateReportData = (selectedDatesArr, selectedSubjects) => {
         return rawData && Array.isArray(rawData)
           ? rawData.map((record) => {
               return {
-                subject: 'Transfer-Home',
+                subject: 'TransferHome',
                 description: record.service + ' (To: ' + record.receiver + ')',
                 date: record.date,
                 incoming: '-',

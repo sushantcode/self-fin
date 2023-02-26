@@ -19,11 +19,11 @@ import {
 const Graphs = (props) => {
   const { data } = props;
 
-  const grouppedByDateData = groupByDate(data);
+  const groupedByDateData = groupByDate(data);
 
-  const accumulatedAmountDataByDate = Object.entries(grouppedByDateData).map(
-    ([date, grouppedData]) => {
-      const totalSum = findSumOfAmounts(grouppedData);
+  const accumulatedAmountDataByDate = Object.entries(groupedByDateData).map(
+    ([date, groupedData]) => {
+      const totalSum = findSumOfAmounts(groupedData);
       return {
         date: date,
         amount: totalSum,
@@ -31,7 +31,7 @@ const Graphs = (props) => {
     }
   );
 
-  const grouppedAndSortedData = sortByDate(accumulatedAmountDataByDate);
+  const groupedAndSortedData = sortByDate(accumulatedAmountDataByDate);
 
   return (
     <Box
@@ -45,7 +45,7 @@ const Graphs = (props) => {
           <LineChart
             width={500}
             height={300}
-            data={grouppedAndSortedData}
+            data={groupedAndSortedData}
             margin={{
               top: 5,
               right: 30,
