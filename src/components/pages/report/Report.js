@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { isAuthenticated } from '../../../utils/Authentication';
 import { DateUtil } from '../../../utils/DateUtil';
 import GraphSwitch from '../../commons/GraphSwitch';
+import ReportGraph from './ReportGraph';
 
 const Report = () => {
   let navigate = useNavigate();
@@ -151,7 +152,11 @@ const Report = () => {
           <Col>
             {error.length === 0 &&
               data &&
-              (graphView ? <div>Graph here</div> : <ReportTable data={data} />)}
+              (graphView ? (
+                <ReportGraph data={data} />
+              ) : (
+                <ReportTable data={data} />
+              ))}
             {error.length > 0 && <Alert severity="error">{error}</Alert>}
           </Col>
         </Row>

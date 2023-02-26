@@ -12,8 +12,16 @@ export const sortByDate = (data) => {
 export const findSumOfAmounts = (data) => {
   try {
     const totalSum = data?.reduce((sum, item) => {
-      sum += parseFloat(item.amount);
-      return sum;
+      if (item['amount']) {
+        sum += parseFloat(item['amount']);
+        return sum;
+      } else if (item['incoming'] && item['incoming'] !== '-') {
+        sum += parseFloat(item['incoming']);
+        return sum;
+      } else {
+        sum += parseFloat(item['outgoing']);
+        return sum;
+      }
     }, 0.0);
     return totalSum;
   } catch (exception) {
@@ -32,4 +40,17 @@ export const groupByDate = (data) => {
   }, {});
 
   return grouppedDataByDate;
+};
+
+export const groupBySubject = (data) => {
+  const grouppedDataBySubject = data?.reduce((acc, item) => {
+    const subject = item.subject;
+    if (!acc[subject]) {
+      acc[subject] = [];
+    }
+    acc[subject].push(item);
+    return acc;
+  }, {});
+
+  return grouppedDataBySubject;
 };
