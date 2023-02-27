@@ -7,6 +7,7 @@ import {
   faUpload,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Alert } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import {
   Button,
@@ -30,6 +31,7 @@ const AddIncome = () => {
   const [paymentMethod, setPaymentMethod] = useState('Chase Direct-Deposit');
   const [remarks, setRemarks] = useState('');
   const [newIncome, setNewIncome] = useState(null);
+  const [alert, setAlert] = useState(false);
 
   const [setAddData, error, uploading] = useUploadRecord(
     tableNames.INCOME,
@@ -39,6 +41,7 @@ const AddIncome = () => {
   useEffect(() => {
     if (newIncome !== null) {
       setAddData(true);
+      setAlert(true);
     } else {
       setAddData(false);
     }
@@ -54,6 +57,7 @@ const AddIncome = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    setAlert(false);
     const newItem = {
       source: source,
       date: date,
@@ -205,14 +209,26 @@ const AddIncome = () => {
           </Button>
         </Card.Footer>
       </Card>
-      {error.length !== 0 && (
-        <div className="row text-center">
-          <div className="col">
-            <Form.Text className="mt-4" muted>
-              <span className="text-danger">{error}</span>
-            </Form.Text>
-          </div>
-        </div>
+      {alert && !uploading && (
+        <>
+          {error.length !== 0 ? (
+            <Alert
+              className="mt-2"
+              severity="error"
+              onClose={() => setAlert(false)}
+            >
+              {error}
+            </Alert>
+          ) : (
+            <Alert
+              className="mt-2"
+              severity="success"
+              onClose={() => setAlert(false)}
+            >
+              Data uploaded successfully!!!
+            </Alert>
+          )}
+        </>
       )}
     </div>
   );

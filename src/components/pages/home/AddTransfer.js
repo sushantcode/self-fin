@@ -3,13 +3,13 @@ import {
   faCalendar,
   faCircleInfo,
   faDollar,
-  faLocation,
   faPerson,
   faRupeeSign,
   faUndo,
   faUpload,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Alert } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import {
   Button,
@@ -35,6 +35,7 @@ const AddTransfer = () => {
   const [paymentMethod, setPaymentMethod] = useState('Debit');
   const [remarks, setRemarks] = useState('');
   const [newTransfer, setNewTransfer] = useState(null);
+  const [alert, setAlert] = useState(false);
 
   const [setAddData, error, uploading] = useUploadRecord(
     tableNames.HOME,
@@ -44,6 +45,7 @@ const AddTransfer = () => {
   useEffect(() => {
     if (newTransfer !== null) {
       setAddData(true);
+      setAlert(true);
     } else {
       setAddData(false);
     }
@@ -61,6 +63,7 @@ const AddTransfer = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    setAlert(false);
     const newItem = {
       service: service,
       receiver: receiver,
@@ -266,14 +269,26 @@ const AddTransfer = () => {
           </Button>
         </Card.Footer>
       </Card>
-      {error.length !== 0 && (
-        <div className="row text-center">
-          <div className="col">
-            <Form.Text className="mt-4" muted>
-              <span className="text-danger">{error}</span>
-            </Form.Text>
-          </div>
-        </div>
+      {alert && !uploading && (
+        <>
+          {error.length !== 0 ? (
+            <Alert
+              className="mt-2"
+              severity="error"
+              onClose={() => setAlert(false)}
+            >
+              {error}
+            </Alert>
+          ) : (
+            <Alert
+              className="mt-2"
+              severity="success"
+              onClose={() => setAlert(false)}
+            >
+              Data uploaded successfully!!!
+            </Alert>
+          )}
+        </>
       )}
     </div>
   );

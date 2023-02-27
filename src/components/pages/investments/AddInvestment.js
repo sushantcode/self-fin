@@ -1,5 +1,4 @@
 import {
-  faAward,
   faBuilding,
   faCalendar,
   faChartLine,
@@ -10,6 +9,7 @@ import {
   faUpload,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Alert } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import {
   Button,
@@ -36,6 +36,7 @@ const AddInvestment = () => {
   const [vested, setVested] = useState('Yes');
   const [remarks, setRemarks] = useState('');
   const [newInvestment, setNewInvestment] = useState(null);
+  const [alert, setAlert] = useState(false);
 
   const [setAddData, error, uploading] = useUploadRecord(
     tableNames.INVESTMENTS,
@@ -45,6 +46,7 @@ const AddInvestment = () => {
   useEffect(() => {
     if (newInvestment !== null) {
       setAddData(true);
+      setAlert(true);
     } else {
       setAddData(false);
     }
@@ -63,6 +65,7 @@ const AddInvestment = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    setAlert(false);
     const newItem = {
       broker: broker,
       stock: stock,
@@ -288,14 +291,26 @@ const AddInvestment = () => {
           </Button>
         </Card.Footer>
       </Card>
-      {error.length !== 0 && (
-        <div className="row text-center">
-          <div className="col">
-            <Form.Text className="mt-4" muted>
-              <span className="text-danger">{error}</span>
-            </Form.Text>
-          </div>
-        </div>
+      {alert && !uploading && (
+        <>
+          {error.length !== 0 ? (
+            <Alert
+              className="mt-2"
+              severity="error"
+              onClose={() => setAlert(false)}
+            >
+              {error}
+            </Alert>
+          ) : (
+            <Alert
+              className="mt-2"
+              severity="success"
+              onClose={() => setAlert(false)}
+            >
+              Data uploaded successfully!!!
+            </Alert>
+          )}
+        </>
       )}
     </div>
   );
