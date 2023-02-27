@@ -8,7 +8,6 @@ import useLoadRecords from '../../commons/useLoadRecords';
 import YearMonthPicker from '../../commons/YearMonthPicker';
 import AddIncome from './AddIncome';
 import { useNavigate } from 'react-router-dom';
-import { FormControlLabel, FormGroup, Switch } from '@mui/material';
 import Graphs from '../../commons/Graphs';
 import { DateUtil } from '../../../utils/DateUtil';
 import GraphSwitch from '../../commons/GraphSwitch';
