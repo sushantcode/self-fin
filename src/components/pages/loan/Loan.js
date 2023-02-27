@@ -7,7 +7,6 @@ import useLoadRecords from '../../commons/useLoadRecords';
 import SmartTable from '../../commons/SmartTable';
 import { useNavigate } from 'react-router-dom';
 import { isAuthenticated } from '../../../utils/Authentication';
-import { FormControlLabel, FormGroup, Switch } from '@mui/material';
 import Graphs from '../../commons/Graphs';
 import { DateUtil } from '../../../utils/DateUtil';
 import GraphSwitch from '../../commons/GraphSwitch';
