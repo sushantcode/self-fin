@@ -9,6 +9,7 @@ import {
   faUpload,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Alert } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import {
   Button,
@@ -32,6 +33,7 @@ const AddSavings = () => {
   const [remarks, setRemarks] = useState('');
   const [newSaving, setNewSaving] = useState(null);
   const [currency, setCurrency] = useState('Rs');
+  const [alert, setAlert] = useState(false);
 
   const [setAddData, error, uploading] = useUploadRecord(
     tableNames.SAVING,
@@ -41,6 +43,7 @@ const AddSavings = () => {
   useEffect(() => {
     if (newSaving !== null) {
       setAddData(true);
+      setAlert(true);
     } else {
       setAddData(false);
     }
@@ -56,6 +59,7 @@ const AddSavings = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    setAlert(false);
     const newItem = {
       where: where,
       date: date,
@@ -207,14 +211,26 @@ const AddSavings = () => {
           </Button>
         </Card.Footer>
       </Card>
-      {error.length !== 0 && (
-        <div className="row text-center">
-          <div className="col">
-            <Form.Text className="mt-4" muted>
-              <span className="text-danger">{error}</span>
-            </Form.Text>
-          </div>
-        </div>
+      {alert && !uploading && (
+        <>
+          {error.length !== 0 ? (
+            <Alert
+              className="mt-2"
+              severity="error"
+              onClose={() => setAlert(false)}
+            >
+              {error}
+            </Alert>
+          ) : (
+            <Alert
+              className="mt-2"
+              severity="success"
+              onClose={() => setAlert(false)}
+            >
+              Data uploaded successfully!!!
+            </Alert>
+          )}
+        </>
       )}
     </div>
   );
