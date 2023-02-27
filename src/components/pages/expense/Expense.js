@@ -11,6 +11,7 @@ import { FormControlLabel, FormGroup, Switch } from '@mui/material';
 import Graphs from '../../commons/Graphs';
 import { DateUtil } from '../../../utils/DateUtil';
 import GraphSwitch from '../../commons/GraphSwitch';
+import CategoryGraph from './CategoryGraph';
 
 const headCells = [
   {
@@ -66,6 +67,13 @@ const Expense = () => {
     DateUtil.getLocalDateInISOFormat(new Date().toLocaleDateString())
   );
   const [isGraph, setIsGraph] = useState(false);
+  const [categoryGraph, setCategoryGraph] = useState(false);
+
+  useEffect(() => {
+    if (!isGraph) {
+      setCategoryGraph(false);
+    }
+  }, [isGraph]);
 
   const [setLoadData, error, loading, tableVisibility, data] = useLoadRecords(
     tableNames.EXPENSE,
@@ -118,7 +126,18 @@ const Expense = () => {
                         period={date}
                       />
                     ) : (
-                      <Graphs data={data.item} />
+                      <>
+                        {categoryGraph ? (
+                          <CategoryGraph data={data.item} />
+                        ) : (
+                          <Graphs data={data.item} />
+                        )}
+                        <GraphSwitch
+                          graphView={categoryGraph}
+                          setGraphView={setCategoryGraph}
+                          label="By-Category"
+                        />
+                      </>
                     )
                   ) : (
                     <span className="text-danger ms-2">

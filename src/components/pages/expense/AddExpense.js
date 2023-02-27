@@ -22,6 +22,16 @@ import { tableNames } from '../../../utils/Constants';
 import { DateUtil } from '../../../utils/DateUtil';
 import useUploadRecord from '../../commons/useUploadRecord';
 
+export const categories = [
+  'Food',
+  'Rent',
+  'Utility',
+  'Personal',
+  'Travel',
+  'Gasoline',
+  'Others',
+];
+
 const AddExpense = () => {
   const [category, setCategory] = useState('');
   const [date, setDate] = useState(
@@ -84,15 +94,7 @@ const AddExpense = () => {
                     Select Category of Expense
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
-                    {[
-                      'Food',
-                      'Rent',
-                      'Utility',
-                      'Personal',
-                      'Travel',
-                      'Gasoline',
-                      'Others',
-                    ].map((item, index) => {
+                    {categories.map((item, index) => {
                       return (
                         <Dropdown.Item
                           key={index}

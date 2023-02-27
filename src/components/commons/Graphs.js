@@ -43,8 +43,8 @@ const Graphs = (props) => {
       <Paper sx={{ width: '100%', mb: 2, mt: 1 }}>
         <TableContainer>
           <LineChart
-            width={500}
-            height={300}
+            width={700}
+            height={400}
             data={groupedAndSortedData}
             margin={{
               top: 5,
