@@ -14,7 +14,7 @@ import {
   findSumOfAmounts,
   groupByDate,
   sortByDate,
-  groupBySubject,
+  groupByAttribute,
 } from '../../../utils/DataFormatter';
 
 const stokeColorPerSubject = {
@@ -38,7 +38,7 @@ const ReportGraph = ({ data }) => {
 
   const accumulatedDataByDateAndSubject = Object.entries(groupedByDateData).map(
     ([date, dateGrouped]) => {
-      const subjectGrouped = groupBySubject(dateGrouped);
+      const subjectGrouped = groupByAttribute(dateGrouped, 'subject');
 
       const amountPerSubject = Object.entries(subjectGrouped).map(
         ([subject, subjectGroupedItems]) => {
@@ -92,8 +92,8 @@ const ReportGraph = ({ data }) => {
       <Paper sx={{ width: '100%', mb: 2, mt: 1 }}>
         <TableContainer>
           <LineChart
-            width={500}
-            height={300}
+            width={700}
+            height={400}
             data={grouppedAndSortedData}
             margin={{
               top: 5,

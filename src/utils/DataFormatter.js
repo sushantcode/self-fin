@@ -42,15 +42,15 @@ export const groupByDate = (data) => {
   return grouppedDataByDate;
 };
 
-export const groupBySubject = (data) => {
-  const grouppedDataBySubject = data?.reduce((acc, item) => {
-    const subject = item.subject;
-    if (!acc[subject]) {
-      acc[subject] = [];
+export const groupByAttribute = (data, attribute) => {
+  const groupedDataByAttribute = data?.reduce((acc, item) => {
+    const attributeValue = item[attribute];
+    if (!acc[attributeValue]) {
+      acc[attributeValue] = [];
     }
-    acc[subject].push(item);
+    acc[attributeValue].push(item);
     return acc;
   }, {});
 
-  return grouppedDataBySubject;
+  return groupedDataByAttribute;
 };
