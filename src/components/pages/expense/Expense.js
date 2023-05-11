@@ -11,6 +11,8 @@ import Graphs from '../../commons/Graphs';
 import { DateUtil } from '../../../utils/DateUtil';
 import GraphSwitch from '../../commons/GraphSwitch';
 import CategoryGraph from './CategoryGraph';
+import { Tab, Tabs } from '@mui/material';
+import BatchProcessor from '../batch_processor/BatchProcessor';
 
 const headCells = [
   {
@@ -67,6 +69,11 @@ const Expense = () => {
   );
   const [isGraph, setIsGraph] = useState(false);
   const [categoryGraph, setCategoryGraph] = useState(false);
+  const [addExpenseTab, setAddExpenseTab] = useState(0);
+
+  const handleAddExpenseTabChange = (event, newValue) => {
+    setAddExpenseTab(newValue);
+  };
 
   useEffect(() => {
     if (!isGraph) {
@@ -149,7 +156,28 @@ const Expense = () => {
         </Row>
         <Row>
           <Col>
-            <AddExpense />
+            <Tabs value={addExpenseTab} onChange={handleAddExpenseTabChange} aria-label="expense add tabs">
+                <Tab label="Individual Expense" id="individual-add-expense" aria-controls="individual-add-expense-tab-panel" />
+                <Tab label="Batch Expense" id="batch-add-expense" aria-controls="batch-add-expense-tab-panel" />
+            </Tabs>
+            <div
+                className="mt-3"
+                role="tabpanel"
+                hidden={addExpenseTab !== 0}
+                id="individual-add-expense-tab-panel"
+                aria-labelledby="individual-add-expense"
+            >
+                <AddExpense />
+            </div>
+            <div
+                className="mt-3"
+                role="tabpanel"
+                hidden={addExpenseTab !== 1}
+                id="batch-add-expense-tab-panel"
+                aria-labelledby="batch-add-expense"
+            >
+                <BatchProcessor />
+            </div>
           </Col>
         </Row>
       </Col>

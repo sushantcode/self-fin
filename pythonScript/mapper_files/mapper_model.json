@@ -8,5 +8,13 @@
       "location": "Location",
       "remarks": "Remarks"
     }
+  },
+  "statement_fields_by_bank": {
+    "Bank_Name": {
+      "Date": "int position for Date",
+      "Description": "int position for Description",
+      "Amount": "int position for Amount",
+      "Category": "int position for Category"
+    }
   }
 }

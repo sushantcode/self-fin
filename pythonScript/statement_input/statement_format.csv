@@ -1,2 +1,7 @@
+// Discover
 Trans. Date,Post Date,Description,Amount,Category
 MM/DD/YYYY,MM/DD/YYYY,"Full decription including location",00.00,"Card specified category"
+
+// Chase
+Transaction Date,Post Date,Description,Category,Type,Amount,Memo
+MM/DD/YYYY,MM/DD/YYYY,"Full decription including location","Card specified category",Type,Amount,Memo

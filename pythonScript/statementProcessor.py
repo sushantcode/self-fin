@@ -13,6 +13,10 @@ class StatementProcessor:
         with open(os.path.abspath(mapper_file)) as file:
             self.mapper = json.load(file)
 
+        if payment_method not in self.mapper["statement_fields_by_bank"]:
+            raise Exception(
+                f'No mapping found for provided bank {payment_method}')
+
         with open(os.path.abspath(input_file), newline='') as file:
             try:
                 csv_reader = csv.reader(file)
@@ -41,7 +45,9 @@ class StatementProcessor:
 
     def is_valid_record(self, amount):
         amount = float(amount)
-        if amount < 0:
+        if self.payment_method == "Discover" and amount < 0:
+            return False
+        if self.payment_method == "Chase" and amount > 0:
             return False
         return True
 
@@ -75,15 +81,22 @@ class StatementProcessor:
             "table": self.table,
             "items": {}
         }
+        statement_fields_by_bank = self.mapper["statement_fields_by_bank"][self.payment_method]
+
         for record in self.records:
             try:
-                trans_date = self.format_date(record[0])
-                description = record[2]
-                amount = record[3]
+                trans_date = self.format_date(
+                    record[statement_fields_by_bank["Date"]])
+                description = record[statement_fields_by_bank["Description"]]
+                category_raw = record[statement_fields_by_bank["Category"]]
+                amount = record[statement_fields_by_bank["Amount"]]
 
                 if self.is_valid_record(amount):
+                    amount = amount[1:] if amount[0] == "-" else amount
                     location, remarks = self.map_description(description)
-                    category = self.map_category(record[4], remarks)
+                    if not remarks:
+                        remarks = description
+                    category = self.map_category(category_raw, remarks)
                     formatted_item = self.format_record(
                         category, trans_date, location, amount, remarks)
                     processed_data = self.add_item(
@@ -112,10 +125,10 @@ if __name__ == '__main__':
                         default="mapper_files/mapper.json",
                         required=False,
                         help="Mapper json file to parse and map description from statement.")
-    parser.add_argument("-o", "--output_file", default="../public/statement_output/", required=False,
+    parser.add_argument("-o", "--output_file", default="./statement_output/", required=False,
                         help="Output file path and name.")
-    parser.add_argument("-b", "--bank", default="Discover", required=False,
-                        help="Bank name whose statement is being processed.")
+    parser.add_argument("-b", "--bank", default="Chase", required=False,
+                        help="Bank name whose statement is being processed. One of Chase|Discover|Amex|Citi")
     args = parser.parse_args()
     mapper_file = args.mapper_file
     input_file = args.input_file
